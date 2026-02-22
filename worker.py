@@ -35,7 +35,7 @@ PERSONAL_LINKS_FILE = "my_personal_links.txt"
 ACTIVITY_LOG = "activity_log.txt"
 OUTPUT_FILE = "my_stable_configs.txt"
 BY_FILE = "BY_stable.txt"
-KZ_FILE = "KZ_stable.txt"
+KZ_FILE = "BY_stable.txt"
 CACHE_FILE = "proxy_cache.json"
 STATUS_FILE = "status.json"
 
