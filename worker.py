@@ -13,6 +13,20 @@ import maxminddb
 # --- CONFIGURATION (MEGA SOURCES) ---
 SOURCES = [
     "https://raw.githubusercontent.com/mahdibland/V2RayAggregator/master/sub/sub_merge.txt",
+    "https://raw.githubusercontent.com/freev2rayspeed/v2ray/main/v2ray.txt",
+    "https://raw.githubusercontent.com/aiboboxx/v2rayfree/main/v2ray",
+    "https://raw.githubusercontent.com/vpei/free-v2ray-config/master/v2ray.txt",
+    "https://raw.githubusercontent.com/tbbatbb/Proxy/master/dist/v2ray.config",
+    "https://raw.githubusercontent.com/StayHu/v2ray/master/v2ray.txt",
+    "https://raw.githubusercontent.com/Sincere-Xue/v2ray-worker/main/sub/sub_merge.txt",
+    "https://raw.githubusercontent.com/LoverSe/v2ray/master/v2ray.txt",
+    "https://raw.githubusercontent.com/iwxf/free-v2ray/master/0218/v2ray.txt",
+    "https://raw.githubusercontent.com/erkaipl/v2ray/master/v2ray.txt",
+    "https://raw.githubusercontent.com/Pawel-H-H/v2ray/master/v2ray.txt",
+    "https://raw.githubusercontent.com/mfuu/v2ray/master/v2ray.txt",
+    "https://raw.githubusercontent.com/yebekhe/TV2RAY/main/sub/subscription",
+    "https://raw.githubusercontent.com/freefq/free/master/v2",
+    "https://raw.githubusercontent.com/Paw0015/Free-Vpn-Proxy/main/links/all",
     "https://raw.githubusercontent.com/V2Ray-Flags/V2Ray-Flags/main/V2Ray-Flags.txt"
 ]
 
@@ -177,6 +191,7 @@ def extract_host_port(config):
 def decode_content(content):
     """Декодирование Base64 содержимого подписки."""
     try:
+        # Пытаемся понять, это Base64 или уже открытый текст
         if "://" not in content[:50]:
             return base64.b64decode(content).decode('utf-8')
     except: pass
@@ -305,42 +320,64 @@ def main():
     try:
         all_raw_configs = []
         
-        # Сбор данных
-        print(f"📡 Сбор из {len(SOURCES)} источников...")
-        for url in SOURCES:
+        # Сбор данных из облачных источников
+        print(f"📡 --- ФАЗА СБОРА: {len(SOURCES)} ИСТОЧНИКОВ ---")
+        for idx, url in enumerate(SOURCES, 1):
             try:
+                start_fetch = time.time()
                 r = requests.get(url, timeout=15)
                 decoded = decode_content(r.text)
-                all_raw_configs.extend([l.strip() for l in decoded.splitlines() if l.strip()])
-            except: pass
+                lines = [l.strip() for l in decoded.splitlines() if l.strip()]
+                
+                # Фильтруем только то, что похоже на прокси ссылки
+                valid_links = [l for l in lines if "://" in l]
+                
+                all_raw_configs.extend(valid_links)
+                
+                fetch_time = time.time() - start_fetch
+                print(f"🔗 [{idx:02}] {url[:60]}... | Найдено: {len(valid_links)} (из {len(lines)} строк) | {fetch_time:.1f}s")
+            except Exception as e:
+                print(f"❌ [{idx:02}] Ошибка источника {url[:40]}: {str(e)[:50]}")
 
+        # Сбор из личных ссылок
         if os.path.exists(PERSONAL_LINKS_FILE):
-            print(f"📖 Чтение личных ссылок...")
+            print(f"\n📖 --- ФАЗА СБОРА: ЛИЧНЫЕ ССЫЛКИ ({PERSONAL_LINKS_FILE}) ---")
             with open(PERSONAL_LINKS_FILE, "r", encoding="utf-8") as f:
-                for line in f.read().splitlines():
+                personal_lines = f.read().splitlines()
+                personal_count = 0
+                for line in personal_lines:
                     line = line.strip()
                     if not line or line.startswith("#"): continue
+                    
                     if line.startswith("http"):
                         try:
                             r = requests.get(line, timeout=15)
-                            all_raw_configs.extend([l.strip() for l in decode_content(r.text).splitlines() if "://" in l])
+                            content = decode_content(r.text)
+                            links = [l.strip() for l in content.splitlines() if "://" in l]
+                            all_raw_configs.extend(links)
+                            personal_count += len(links)
+                            print(f"📁 Подписка из файла: {line[:50]}... | Найдено: {len(links)}")
                         except: pass
-                    else: all_raw_configs.append(line)
+                    else: 
+                        all_raw_configs.append(line)
+                        personal_count += 1
+                print(f"✅ Итого из личных источников добавлено: {personal_count}")
 
         raw_count = len(all_raw_configs)
         unique_candidates = list(set(all_raw_configs))
         duplicates_count = raw_count - len(unique_candidates)
         total_configs_to_check = len(unique_candidates)
         
-        print(f"📦 Всего загружено строк: {raw_count}")
-        print(f"👯 Обнаружено дубликатов: {duplicates_count}")
-        print(f"📊 Изначально в кэше было: {initial_cache_size} записей")
-        print(f"🔍 Итого уникальных кандидатов на проверку: {total_configs_to_check}")
+        print(f"\n📦 --- ИТОГИ СБОРА ---")
+        print(f"📦 Всего загружено строк-ссылок: {raw_count}")
+        print(f"👯 Удалено дубликатов: {duplicates_count}")
+        print(f"📊 Изначально в кэше: {initial_cache_size} записей")
+        print(f"🔍 К проверке (уникальных): {total_configs_to_check}")
         
         results_list = []
         seen_ids = set()
         
-        print(f"🛠️  Запуск проверки в {THREADS} потоков...")
+        print(f"\n🛠️  Запуск проверки в {THREADS} потоков...")
         with ThreadPoolExecutor(max_workers=THREADS) as executor:
             future_tasks = [executor.submit(process_config, cfg, reader, cached_data) for cfg in unique_candidates]
             for future in as_completed(future_tasks):
@@ -349,11 +386,12 @@ def main():
                     seen_ids.add(res['id'])
                     results_list.append(res)
 
-        # Фаза сортировки
+        # Фаза сортировки и записи
         results_list.sort(key=lambda x: x['country'])
         
         by_configs = [r['data'] for r in results_list if r['country'] == 'BY']
         kz_configs = [r['data'] for r in results_list if r['country'] == 'KZ']
+        other_configs = [r['data'] for r in results_list if r['country'] not in ['BY', 'KZ']]
         all_configs = [r['data'] for r in results_list]
 
         print("\n🏁 --- ФИНАЛЬНЫЙ ОТЧЕТ ПО ЗАПИСИ ---")
@@ -372,7 +410,7 @@ def main():
         safe_write(BY_FILE, by_configs)
         safe_write(KZ_FILE, kz_configs)
 
-        # Обновление статуса
+        # Обновление статуса для UI/Actions
         status_data = {
             "last_run": datetime.now().isoformat(),
             "total_alive": len(all_configs),
@@ -391,14 +429,18 @@ def main():
         update_activity_log(len(all_configs), skipped_cache, dead_found, dns_fail, wrong_country)
         
         duration = time.time() - start_time
-        print(f"\n📊 СТАТИСТИКА:")
-        print(f"✅ Живых: {alive_found}")
-        print(f"❌ Мертвых: {dead_found}")
+        print(f"\n📊 СУММАРНАЯ СТАТИСТИКА:")
+        print(f"✅ Всего живых: {len(all_configs)}")
+        print(f"🇧🇾 Беларусь (BY): {len(by_configs)}")
+        print(f"🇰🇿 Казахстан (KZ): {len(kz_configs)}")
+        print(f"🌍 Другие страны: {len(other_configs)}")
+        print(f"------------------------------------")
+        print(f"❌ Мертвых (TCP): {dead_found}")
         print(f"💾 Кэш (Скип): {skipped_cache}")
         print(f"🌐 DNS Ошибки: {dns_fail}")
-        print(f"🌍 Другие страны: {wrong_country}")
-        print(f"🔄 Всего обработано: {processed_count} из {total_configs_to_check}")
-        print(f"⏱️  ОБЩЕЕ ВРЕМЯ: {duration:.1f} сек.")
+        print(f"🚫 Нецелевые ГЕО: {wrong_country}")
+        print(f"🔄 Обработано: {processed_count} из {total_configs_to_check}")
+        print(f"⏱️  ВРЕМЯ РАБОТЫ: {duration:.1f} сек.")
 
     except Exception as e:
         print(f"🚨 [FATAL ERROR] {e}")
