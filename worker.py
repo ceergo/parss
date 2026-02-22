@@ -13,20 +13,6 @@ import maxminddb
 # --- CONFIGURATION (MEGA SOURCES) ---
 SOURCES = [
     "https://raw.githubusercontent.com/mahdibland/V2RayAggregator/master/sub/sub_merge.txt",
-    "https://raw.githubusercontent.com/freev2rayspeed/v2ray/main/v2ray.txt",
-    "https://raw.githubusercontent.com/aiboboxx/v2rayfree/main/v2ray",
-    "https://raw.githubusercontent.com/vpei/free-v2ray-config/master/v2ray.txt",
-    "https://raw.githubusercontent.com/tbbatbb/Proxy/master/dist/v2ray.config",
-    "https://raw.githubusercontent.com/StayHu/v2ray/master/v2ray.txt",
-    "https://raw.githubusercontent.com/Sincere-Xue/v2ray-worker/main/sub/sub_merge.txt",
-    "https://raw.githubusercontent.com/LoverSe/v2ray/master/v2ray.txt",
-    "https://raw.githubusercontent.com/iwxf/free-v2ray/master/0218/v2ray.txt",
-    "https://raw.githubusercontent.com/erkaipl/v2ray/master/v2ray.txt",
-    "https://raw.githubusercontent.com/Pawel-H-H/v2ray/master/v2ray.txt",
-    "https://raw.githubusercontent.com/mfuu/v2ray/master/v2ray.txt",
-    "https://raw.githubusercontent.com/yebekhe/TV2RAY/main/sub/subscription",
-    "https://raw.githubusercontent.com/freefq/free/master/v2",
-    "https://raw.githubusercontent.com/Paw0015/Free-Vpn-Proxy/main/links/all",
     "https://raw.githubusercontent.com/V2Ray-Flags/V2Ray-Flags/main/V2Ray-Flags.txt"
 ]
 
