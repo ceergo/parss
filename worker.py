@@ -12,7 +12,22 @@ import maxminddb
 
 # --- CONFIGURATION (MEGA SOURCES) ---
 SOURCES = [
-
+    "https://raw.githubusercontent.com/mahdibland/V2RayAggregator/master/sub/sub_merge.txt",
+    "https://raw.githubusercontent.com/freev2rayspeed/v2ray/main/v2ray.txt",
+    "https://raw.githubusercontent.com/aiboboxx/v2rayfree/main/v2ray",
+    "https://raw.githubusercontent.com/vpei/free-v2ray-config/master/v2ray.txt",
+    "https://raw.githubusercontent.com/tbbatbb/Proxy/master/dist/v2ray.config",
+    "https://raw.githubusercontent.com/StayHu/v2ray/master/v2ray.txt",
+    "https://raw.githubusercontent.com/Sincere-Xue/v2ray-worker/main/sub/sub_merge.txt",
+    "https://raw.githubusercontent.com/LoverSe/v2ray/master/v2ray.txt",
+    "https://raw.githubusercontent.com/iwxf/free-v2ray/master/0218/v2ray.txt",
+    "https://raw.githubusercontent.com/erkaipl/v2ray/master/v2ray.txt",
+    "https://raw.githubusercontent.com/Pawel-H-H/v2ray/master/v2ray.txt",
+    "https://raw.githubusercontent.com/mfuu/v2ray/master/v2ray.txt",
+    "https://raw.githubusercontent.com/yebekhe/TV2RAY/main/sub/subscription",
+    "https://raw.githubusercontent.com/freefq/free/master/v2",
+    "https://raw.githubusercontent.com/Paw0015/Free-Vpn-Proxy/main/links/all",
+    "https://raw.githubusercontent.com/V2Ray-Flags/V2Ray-Flags/main/V2Ray-Flags.txt"
 ]
 
 # File paths
@@ -42,7 +57,7 @@ GEOIP_FILENAME = "GeoLite2-Country.mmdb"
 THREADS = 150 
 TIMEOUT = 2.5 
 
-# Глобальные счетчики для реал-тайм отчета
+# Global counters for real-time reporting
 stats_lock = threading.Lock()
 processed_count = 0
 total_configs_to_check = 0
@@ -54,9 +69,9 @@ wrong_country = 0
 
 # --- SMART CACHE LOGIC ---
 def load_cache():
-    """Загрузка кэша прокси с проверкой 3-дневного цикла."""
+    """Load proxy cache with 3-day cycle check."""
     if not os.path.exists(CACHE_FILE):
-        print(f"[CACHE] 🆕 Файл {CACHE_FILE} не найден. Будет создан новый.")
+        print(f"[CACHE] 🆕 File {CACHE_FILE} not found. Creating new.")
         return {"start_date": datetime.now().isoformat(), "data": {}}
     
     try:
@@ -65,48 +80,49 @@ def load_cache():
         
         start_date = datetime.fromisoformat(cache.get("start_date", datetime.now().isoformat()))
         if datetime.now() - start_date > timedelta(days=3):
-            print("[CACHE] 🔄 Цикл завершен (3 дня). Очистка старой памяти...")
+            print("[CACHE] 🔄 Cycle finished (3 days). Clearing old memory...")
             return {"start_date": datetime.now().isoformat(), "data": {}}
             
         return cache
     except Exception as e:
-        print(f"[CACHE] ⚠️ Ошибка загрузки: {e}")
+        print(f"[CACHE] ⚠️ Load error: {e}")
         return {"start_date": datetime.now().isoformat(), "data": {}}
 
 def save_cache(cache_data):
-    """Сохранение текущих состояний прокси в кэш."""
+    """Atomically save current proxy states to cache."""
     try:
         with open(CACHE_FILE, 'w') as f:
             json.dump(cache_data, f, indent=2)
             f.flush()
-        print(f"✅ [CACHE] Память сохранена in {CACHE_FILE}")
+            os.fsync(f.fileno())
+        print(f"✅ [CACHE] Memory saved in {CACHE_FILE}")
     except Exception as e:
-        print(f"[CACHE] ⚠️ Ошибка сохранения: {e}")
+        print(f"[CACHE] ⚠️ Save error: {e}")
 
 # --- CORE FUNCTIONS ---
 def download_geoip_with_retry(retries=3):
-    """Скачивание базы GeoIP с проверкой существования и повторами."""
+    """Download GeoIP database with existence check and retries."""
     if os.path.exists(GEOIP_FILENAME):
-        print("✅ [GEOIP] База уже на месте.")
+        print("✅ [GEOIP] Database is already present.")
         return True
     
     for i in range(retries):
         try:
-            print(f"🌐 [GEOIP] Загрузка базы (Попытка {i+1})...")
+            print(f"🌐 [GEOIP] Downloading database (Attempt {i+1})...")
             response = requests.get(GEOIP_URL, stream=True, timeout=30)
             response.raise_for_status()
             with open(GEOIP_FILENAME, 'wb') as f:
                 f.write(response.content)
-            print("✅ [GEOIP] База успешно скачана.")
+            print("✅ [GEOIP] Database successfully downloaded.")
             return True
         except Exception as e:
-            print(f"⚠️ [GEOIP] Сбой загрузки: {e}")
+            print(f"⚠️ [GEOIP] Download failed: {e}")
             if i < retries - 1:
                 time.sleep(5)
     return False
 
 def get_ip_from_host(host):
-    """Резолвинг домена в IP адрес."""
+    """Resolve domain to IP address."""
     try:
         clean_host = host.strip()
         if re.match(r"^\d{1,3}(\.\d{1,3}){3}$", clean_host):
@@ -116,7 +132,7 @@ def get_ip_from_host(host):
         return None
 
 def check_tcp_port(ip, port):
-    """Проверка доступности TCP порта."""
+    """Check TCP port availability."""
     try:
         family = socket.AF_INET6 if ":" in ip else socket.AF_INET
         with socket.socket(family, socket.SOCK_STREAM) as s:
@@ -127,7 +143,7 @@ def check_tcp_port(ip, port):
         return False
 
 def extract_host_port(config):
-    """Универсальный экстрактор данных для VLESS, VMess, Trojan, SS."""
+    """Universal data extractor for VLESS, VMess, Trojan, SS."""
     try:
         if config.startswith("vmess://"):
             vmess_data = config.replace("vmess://", "")
@@ -174,81 +190,74 @@ def extract_host_port(config):
     return None, None, "UNKNOWN"
 
 def decode_content(content):
-    """Декодирование Base64 содержимого подписки."""
+    """Decode Base64 content of subscription."""
     try:
-        # Пытаемся понять, это Base64 или уже открытый текст
         if "://" not in content[:50]:
             return base64.b64decode(content).decode('utf-8')
     except: pass
     return content
 
 def process_config(config, reader, cached_data):
-    """Основная логика фильтрации и проверки конфига."""
+    """Core logic for filtering and checking config."""
     global processed_count, alive_found, dead_found, skipped_cache, dns_fail, wrong_country
     
     config = config.strip()
     if not config or "://" not in config: return None
 
-    # Поиск упоминания BY для отладки
-    is_claimed_by = "BY" in config.upper() or "BELARUS" in config.upper()
+    # Search for target countries for deep tracing
+    is_target_trace = any(x in config.upper() for x in ["BY", "BELARUS", "KZ", "KAZAKHSTAN"])
     
     host, port, proto = extract_host_port(config)
     if not host or not port: return None
 
     fingerprint = f"{host}:{port}:{proto}"
     
-    # 1. DNS Резолвинг
+    # 1. DNS Resolving
     ip = get_ip_from_host(host)
     if not ip: 
         with stats_lock: 
             processed_count += 1
             dns_fail += 1
-        progress = (processed_count / total_configs_to_check) * 100
-        if is_claimed_by:
-            print(f"🕵️‍♂️ [TRACE_BY] DNS СБОЙ: Не могу найти IP для {host}")
-        else:
-            print(f"🚫 [{progress:.1f}%] [DNS_FAIL] {host} -> 0")
+        if is_target_trace:
+            print(f"🕵️‍♂️ [TRACE_TARGET] DNS FAIL: {config[:50]}... -> IP not found")
         return None
 
-    # 2. Определение страны СТРОГО по IP
+    # 2. Country detection STRICTLY by IP
     try:
         geo_data = reader.get(ip)
         country_code = str(geo_data.get('country', {}).get('iso_code', 'UN')).upper()
     except:
         country_code = "UN"
 
-    # 3. Проверка кэша
+    # 3. Cache check
     if fingerprint in cached_data:
         if cached_data[fingerprint]["status"] == "dead":
             with stats_lock: 
                 processed_count += 1
                 skipped_cache += 1
-            progress = (processed_count / total_configs_to_check) * 100
-            print(f"💾 [{progress:.1f}%] [CACHE_SKIP] {ip}:{port} -> 0")
             return {"status": "skipped"}
 
-    # 4. Фильтр по странам
+    # 4. Country filter
     if country_code not in TARGET_COUNTRIES:
         with stats_lock: 
             processed_count += 1
             wrong_country += 1
-        progress = (processed_count / total_configs_to_check) * 100
-        
-        if is_claimed_by:
-            print(f"🕵️‍♂️ [TRACE_BY] ГЕО СБОЙ: В конфиге BY, а по базе IP ({ip}) это {country_code}")
-        else:
-            print(f"🌍 [{progress:.1f}%] [WRONG_GEO] {country_code} | {ip}:{port} -> 0")
+        if is_target_trace:
+             print(f"🕵️‍♂️ [TRACE_TARGET] GEO MISMATCH: Goal claimed, but IP ({ip}) is {country_code}")
         return None
     
-    # 5. Проверка TCP порта
+    # 5. TCP Port check
     is_alive = check_tcp_port(ip, port)
     
     with stats_lock:
         processed_count += 1
         if is_alive: alive_found += 1
         else: dead_found += 1
+        
+    if is_target_trace and not is_alive:
+        print(f"🕵️‍♂️ [TRACE_TARGET] TCP DEAD: {country_code} | {ip}:{port} not responding")
     
-    # Обновляем состояние в памяти
+    # Update state in memory
     cached_data[fingerprint] = {
         "status": "alive" if is_alive else "dead",
         "time": datetime.now().isoformat(),
@@ -256,17 +265,10 @@ def process_config(config, reader, cached_data):
         "country": country_code
     }
 
-    # Логирование в реальном времени
-    progress = (processed_count / total_configs_to_check) * 100
-    if is_alive:
-        print(f"✨ [{progress:.1f}%] [FOUND] {country_code} | {proto} | {ip}:{port}")
-    else:
-        print(f"❌ [{progress:.1f}%] [DEAD] {country_code} | {proto} | {ip}:{port} -> 0")
-
     if not is_alive: 
         return None
 
-    # 6. Формирование нового названия
+    # 6. Format new name
     flag = COUNTRY_FLAGS.get(country_code, '🌐')
     base_url = config.split("#")[0]
     final_name = f"{flag} [{country_code}] {proto} | {ip}"
@@ -279,11 +281,11 @@ def process_config(config, reader, cached_data):
     }
 
 def update_activity_log(found, skipped, dead, dns, geo):
-    """Запись расширенной статистики в лог активности."""
+    """Write extended statistics to activity log."""
     now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     try:
         with open(ACTIVITY_LOG, "a", encoding="utf-8") as f:
-            log_line = (f"[{now}] Живых: {found} | Мертвых: {dead} | Кэш: {skipped} | "
+            log_line = (f"[{now}] Alive: {found} | Dead: {dead} | Cache: {skipped} | "
                         f"DNS_Fail: {dns} | Wrong_Geo: {geo}\n")
             f.write(log_line)
     except: pass
@@ -291,10 +293,10 @@ def update_activity_log(found, skipped, dead, dns, geo):
 def main():
     global total_configs_to_check, processed_count, alive_found, dead_found, skipped_cache, dns_fail, wrong_country
     
-    print("🚀 --- MEGA WORKER V4.4 [FULL TRACE MODE] ---")
+    print("🚀 --- MEGA WORKER V4.4 [FILE SYNC STRENGTHENED] ---")
     start_time = time.time()
 
-    # Инициализация ресурсов
+    # Resource init
     if not download_geoip_with_retry(): return
 
     reader = maxminddb.open_database(GEOIP_FILENAME)
@@ -305,64 +307,46 @@ def main():
     try:
         all_raw_configs = []
         
-        # Сбор данных из облачных источников
-        print(f"📡 --- ФАЗА СБОРА: {len(SOURCES)} ИСТОЧНИКОВ ---")
+        # Collect from cloud sources
+        print(f"📡 --- COLLECTION PHASE: {len(SOURCES)} SOURCES ---")
         for idx, url in enumerate(SOURCES, 1):
             try:
-                start_fetch = time.time()
                 r = requests.get(url, timeout=15)
                 decoded = decode_content(r.text)
                 lines = [l.strip() for l in decoded.splitlines() if l.strip()]
-                
-                # Фильтруем только то, что похоже на прокси ссылки
                 valid_links = [l for l in lines if "://" in l]
-                
                 all_raw_configs.extend(valid_links)
-                
-                fetch_time = time.time() - start_fetch
-                print(f"🔗 [{idx:02}] {url[:60]}... | Найдено: {len(valid_links)} (из {len(lines)} строк) | {fetch_time:.1f}s")
+                print(f"🔗 [{idx:02}] {url[:60]}... | Found: {len(valid_links)}")
             except Exception as e:
-                print(f"❌ [{idx:02}] Ошибка источника {url[:40]}: {str(e)[:50]}")
+                print(f"❌ [{idx:02}] Source error {url[:40]}: {str(e)[:50]}")
 
-        # Сбор из личных ссылок
+        # Collect from personal links
         if os.path.exists(PERSONAL_LINKS_FILE):
-            print(f"\n📖 --- ФАЗА СБОРА: ЛИЧНЫЕ ССЫЛКИ ({PERSONAL_LINKS_FILE}) ---")
+            print(f"\n📖 --- COLLECTION PHASE: PERSONAL LINKS ---")
             with open(PERSONAL_LINKS_FILE, "r", encoding="utf-8") as f:
                 personal_lines = f.read().splitlines()
-                personal_count = 0
                 for line in personal_lines:
                     line = line.strip()
                     if not line or line.startswith("#"): continue
-                    
                     if line.startswith("http"):
                         try:
                             r = requests.get(line, timeout=15)
                             content = decode_content(r.text)
                             links = [l.strip() for l in content.splitlines() if "://" in l]
                             all_raw_configs.extend(links)
-                            personal_count += len(links)
-                            print(f"📁 Подписка из файла: {line[:50]}... | Найдено: {len(links)}")
                         except: pass
                     else: 
                         all_raw_configs.append(line)
-                        personal_count += 1
-                print(f"✅ Итого из личных источников добавлено: {personal_count}")
 
-        raw_count = len(all_raw_configs)
         unique_candidates = list(set(all_raw_configs))
-        duplicates_count = raw_count - len(unique_candidates)
         total_configs_to_check = len(unique_candidates)
         
-        print(f"\n📦 --- ИТОГИ СБОРА ---")
-        print(f"📦 Всего загружено строк-ссылок: {raw_count}")
-        print(f"👯 Удалено дубликатов: {duplicates_count}")
-        print(f"📊 Изначально в кэше: {initial_cache_size} записей")
-        print(f"🔍 К проверке (уникальных): {total_configs_to_check}")
+        print(f"\n🔍 Unique candidates to check: {total_configs_to_check}")
         
         results_list = []
         seen_ids = set()
         
-        print(f"\n🛠️  Запуск проверки в {THREADS} потоков...")
+        print(f"🛠️  Starting check with {THREADS} threads...")
         with ThreadPoolExecutor(max_workers=THREADS) as executor:
             future_tasks = [executor.submit(process_config, cfg, reader, cached_data) for cfg in unique_candidates]
             for future in as_completed(future_tasks):
@@ -371,61 +355,53 @@ def main():
                     seen_ids.add(res['id'])
                     results_list.append(res)
 
-        # Фаза сортировки и записи
+        # Sorting and recording phase
         results_list.sort(key=lambda x: x['country'])
         
-        by_configs = [r['data'] for r in results_list if r['country'] == 'BY']
-        kz_configs = [r['data'] for r in results_list if r['country'] == 'KZ']
-        other_configs = [r['data'] for r in results_list if r['country'] not in ['BY', 'KZ']]
+        # STRICT FILTERING BY COUNTRY (Case-insensitive check)
+        by_configs = [r['data'] for r in results_list if r['country'].upper() == 'BY']
+        kz_configs = [r['data'] for r in results_list if r['country'].upper() == 'KZ']
+        other_configs = [r['data'] for r in results_list if r['country'].upper() not in ['BY', 'KZ']]
         all_configs = [r['data'] for r in results_list]
 
-        print("\n🏁 --- ФИНАЛЬНЫЙ ОТЧЕТ ПО ЗАПИСИ ---")
+        print("\n🏁 --- FINAL RECORDING REPORT ---")
         
         def safe_write(filename, data_list):
             try:
+                # DEBUG: Print intention to write
+                print(f"[DEBUG] Preparing to write {filename}. Count: {len(data_list)}")
+                
                 with open(filename, "w", encoding="utf-8") as f:
-                    f.write("\n".join(data_list))
+                    if data_list:
+                        f.write("\n".join(data_list))
+                        f.write("\n") # Ensure trailing newline
                     f.flush()
-                    os.fsync(f.fileno())
-                print(f"💾 [FILE] {filename:18} | Записано: {len(data_list):4} шт.")
+                    os.fsync(f.fileno()) # Force write to physical disk
+                
+                # Verify file size on disk
+                file_size = os.path.getsize(filename)
+                print(f"💾 [FILE] {filename:18} | Saved: {len(data_list):4} pcs | Size: {file_size} bytes")
             except Exception as e:
-                print(f"❌ [ERROR] Ошибка записи {filename}: {e}")
+                print(f"❌ [ERROR] Error writing {filename}: {e}")
 
         safe_write(OUTPUT_FILE, all_configs)
         safe_write(BY_FILE, by_configs)
         safe_write(KZ_FILE, kz_configs)
 
-        # Обновление статуса для UI/Actions
-        status_data = {
-            "last_run": datetime.now().isoformat(),
-            "total_alive": len(all_configs),
-            "by": len(by_configs),
-            "kz": len(kz_configs),
-            "cache_skipped": skipped_cache,
-            "dead_total": dead_found,
-            "dns_fail": dns_fail,
-            "wrong_geo": wrong_country,
-            "initial_cache_size": initial_cache_size,
-            "duplicates_removed": duplicates_count
-        }
-        with open(STATUS_FILE, "w") as f:
-            json.dump(status_data, f)
-
         update_activity_log(len(all_configs), skipped_cache, dead_found, dns_fail, wrong_country)
         
         duration = time.time() - start_time
-        print(f"\n📊 СУММАРНАЯ СТАТИСТИКА:")
-        print(f"✅ Всего живых: {len(all_configs)}")
-        print(f"🇧🇾 Беларусь (BY): {len(by_configs)}")
-        print(f"🇰🇿 Казахстан (KZ): {len(kz_configs)}")
-        print(f"🌍 Другие страны: {len(other_configs)}")
+        print(f"\n📊 SUMMARY STATISTICS:")
+        print(f"✅ Total Alive: {len(all_configs)}")
+        print(f"🇧🇾 Belarus (BY): {len(by_configs)}")
+        print(f"🇰🇿 Kazakhstan (KZ): {len(kz_configs)}")
+        print(f"🌍 Other countries: {len(other_configs)}")
         print(f"------------------------------------")
-        print(f"❌ Мертвых (TCP): {dead_found}")
-        print(f"💾 Кэш (Скип): {skipped_cache}")
-        print(f"🌐 DNS Ошибки: {dns_fail}")
-        print(f"🚫 Нецелевые ГЕО: {wrong_country}")
-        print(f"🔄 Обработано: {processed_count} из {total_configs_to_check}")
-        print(f"⏱️  ВРЕМЯ РАБОТЫ: {duration:.1f} сек.")
+        print(f"❌ Dead (TCP): {dead_found}")
+        print(f"💾 Cache (Skip): {skipped_cache}")
+        print(f"🌐 DNS Errors: {dns_fail}")
+        print(f"🚫 Wrong Geo (By IP base): {wrong_country}")
+        print(f"⏱️  WORK TIME: {duration:.1f} sec.")
 
     except Exception as e:
         print(f"🚨 [FATAL ERROR] {e}")
