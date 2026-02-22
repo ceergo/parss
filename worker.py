@@ -10,7 +10,6 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 import maxminddb
 
 # --- CONFIGURATION (MEGA SOURCES) ---
-# Combined from your old code and new global sources
 SOURCES = [
     "https://raw.githubusercontent.com/mahdibland/V2RayAggregator/master/sub/sub_merge.txt",
     "https://raw.githubusercontent.com/freev2rayspeed/v2ray/main/v2ray.txt",
@@ -35,7 +34,7 @@ PERSONAL_LINKS_FILE = "my_personal_links.txt"
 ACTIVITY_LOG = "activity_log.txt"
 OUTPUT_FILE = "my_stable_configs.txt"
 BY_FILE = "BY_stable.txt"
-KZ_FILE = "BY_stable.txt"
+KZ_FILE = "KZ_stable.txt"
 CACHE_FILE = "proxy_cache.json"
 
 # Target countries (Elite Filter)
@@ -54,7 +53,7 @@ GEOIP_FILENAME = "GeoLite2-Country.mmdb"
 
 # Performance settings
 THREADS = 100
-TIMEOUT = 1.2
+TIMEOUT = 2.5 # Увеличено для стабильной проверки СНГ
 
 # --- SMART CACHE LOGIC ---
 def load_cache():
@@ -66,7 +65,6 @@ def load_cache():
         with open(CACHE_FILE, 'r') as f:
             cache = json.load(f)
         
-        # Check if cache is older than 3 days
         start_date = datetime.fromisoformat(cache.get("start_date", datetime.now().isoformat()))
         if datetime.now() - start_date > timedelta(days=3):
             print("[CACHE] Цикл завершен (3 дня). Сброс кэша для свежей проверки...")
@@ -123,7 +121,7 @@ def check_tcp_port(ip, port):
         return False
 
 def extract_host_port(config):
-    """Advanced extractor from your V3.8 code."""
+    """Advanced extractor for VLESS, VMess, Trojan, SS."""
     try:
         if config.startswith("vmess://"):
             vmess_data = config.replace("vmess://", "")
@@ -152,6 +150,10 @@ def extract_host_port(config):
 
         elif config.startswith("ss://"):
             encoded_part = config.replace("ss://", "").split("#")[0]
+            if ":" in encoded_part and "@" not in encoded_part: # non-base64 simple format
+                 parts = encoded_part.split(":")
+                 return parts[0].strip(), parts[1].strip(), "SS"
+            
             padding = len(encoded_part) % 4
             if padding: encoded_part += "=" * (4 - padding)
             try:
@@ -166,15 +168,16 @@ def extract_host_port(config):
     return None, None, "UNKNOWN"
 
 def decode_content(content):
+    """Decodes base64 subscriptions if necessary."""
     try:
-        if "://" not in content[:20]:
+        if "://" not in content[:50]:
             return base64.b64decode(content).decode('utf-8')
     except: pass
     return content
 
 def process_config(config, reader, cached_data):
     config = config.strip()
-    if not config or len(config) < 10: return None
+    if not config or len(config) < 10 or "://" not in config: return None
     
     host, port, proto = extract_host_port(config)
     if not host or not port: return None
@@ -231,7 +234,7 @@ def update_activity_log(count, skipped):
     except: pass
 
 def main():
-    print("🚀 --- MEGA WORKER V4.1 [Smart Cache & Multi-Country] ---")
+    print("🚀 --- MEGA WORKER V4.3 [Deep Link Support] ---")
     start_time = time.time()
 
     if not download_geoip_with_retry(): return
@@ -250,22 +253,31 @@ def main():
             all_raw_configs.extend([l.strip() for l in decoded.splitlines() if l.strip()])
         except: pass
 
-    # Phase 2: Personal Links
+    # Phase 2: Personal Links (Fixed for external URL reading)
     if os.path.exists(PERSONAL_LINKS_FILE):
+        print(f"📖 Чтение {PERSONAL_LINKS_FILE}...")
         with open(PERSONAL_LINKS_FILE, "r", encoding="utf-8") as f:
             for line in f.read().splitlines():
                 line = line.strip()
                 if not line or line.startswith("#"): continue
+                
                 if line.startswith("http"):
+                    print(f"🔗 Переход по ссылке из персонального списка: {line[:60]}...")
                     try:
-                        r = requests.get(line, timeout=10)
-                        all_raw_configs.extend([l.strip() for l in decode_content(r.text).splitlines() if l.strip()])
-                    except: pass
-                else: all_raw_configs.append(line)
+                        r = requests.get(line, timeout=15)
+                        content = decode_content(r.text)
+                        # Извлекаем все строки, похожие на конфиги
+                        configs_from_url = [l.strip() for l in content.splitlines() if "://" in l]
+                        all_raw_configs.extend(configs_from_url)
+                        print(f"✅ Найдено {len(configs_from_url)} конфигов по ссылке.")
+                    except Exception as e:
+                        print(f"⚠️ Ошибка при чтении внешней ссылки {line}: {e}")
+                else:
+                    all_raw_configs.append(line)
 
     # Phase 3: Processing
     total_raw = len(set(all_raw_configs))
-    print(f"📊 Уникальных ссылок: {total_raw}")
+    print(f"📊 Уникальных кандидатов для проверки: {total_raw}")
 
     results_list = []
     skipped = 0
