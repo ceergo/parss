@@ -200,6 +200,7 @@ def process_config(config, reader, cached_data):
     # --- DNS RESOLVING ---
     ip = get_ip_from_host(host)
     if not ip: 
+        print(f"❌ [NO IP] {host}:{port} | Не удалось получить IP")
         cached_data[fingerprint] = {"status": "dead", "time": datetime.now().isoformat()}
         return None
 
@@ -210,6 +211,8 @@ def process_config(config, reader, cached_data):
     except: country_code = "UN"
 
     if country_code not in TARGET_COUNTRIES:
+        # Теперь выводим причину отбраковки по стране
+        print(f"🚩 [BAD GEO] {country_code} | {ip}:{port} | Пропуск (Не в списке)")
         return None
     
     # TCP Check
@@ -224,6 +227,7 @@ def process_config(config, reader, cached_data):
     }
 
     if not is_alive: 
+        print(f"💀 [OFFLINE] {country_code} | {proto} | {ip}:{port} | Порт закрыт")
         return None
 
     # Success!
