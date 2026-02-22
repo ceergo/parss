@@ -381,6 +381,10 @@ def main():
                 # Verify file size on disk
                 file_size = os.path.getsize(filename)
                 print(f"💾 [FILE] {filename:18} | Saved: {len(data_list):4} pcs | Size: {file_size} bytes")
+                
+                # FINAL VALIDATION: Read back and check
+                if len(data_list) > 0 and file_size == 0:
+                     print(f"🚨 [CRITICAL] Data mismatch in {filename}! List has items but file is 0 bytes.")
             except Exception as e:
                 print(f"❌ [ERROR] Error writing {filename}: {e}")
 
