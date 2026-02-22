@@ -14,3 +14,4 @@ Status: Active (Mega Pulse)[2026-02-22 17:51:59] Found: 3563 | Skipped: 6013 | C
 [2026-02-22 19:14:51] Живых: 3423 | Мертвых: 5294 | Кэш: 3110 | DNS_Fail: 3341 | Wrong_Geo: 20728
 [2026-02-22 19:18:44] Живых: 3411 | Мертвых: 5327 | Кэш: 3090 | DNS_Fail: 3350 | Wrong_Geo: 20717
 [2026-02-22 19:22:12] Alive: 605 | Dead: 1961 | Cache: 68 | DNS_Fail: 8 | Wrong_Geo: 2918
+[2026-02-22 19:26:17] Alive: 3561 | Dead: 5806 | Cache: 4577 | DNS_Fail: 3370 | Wrong_Geo: 22961
