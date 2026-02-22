@@ -2,8 +2,10 @@ name: Extreme Proxy Update
 
 on:
   schedule:
+    # Runs at 27th minute of every 3rd hour
     - cron: '27 */3 * * *'
   push:
+    # Trigger immediately when you save personal links
     paths:
       - 'my_personal_links.txt'
   workflow_dispatch:
@@ -35,6 +37,12 @@ jobs:
         run: |
           git config --global user.name "ExtremeProxyBot"
           git config --global user.email "bot@github.com"
+          
+          # Add all critical files
           git add my_stable_configs.txt my_personal_links.txt activity_log.txt
-          git commit -m "Auto-Pulse & Trigger: $(date +'%Y-%m-%d %H:%M')" --allow-empty
+          
+          # Force commit even if proxy list hasn't changed (pulse always changes)
+          git commit -m "Auto-Pulse: $(date +'%Y-%m-%d %H:%M') [Extreme Mode]" --allow-empty
+          
+          # Push to the main branch
           git push origin main
