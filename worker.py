@@ -64,6 +64,8 @@ total_configs_to_check = 0
 alive_found = 0
 dead_found = 0
 skipped_cache = 0
+dns_fail = 0
+wrong_country = 0
 
 # --- SMART CACHE LOGIC ---
 def load_cache():
@@ -196,7 +198,7 @@ def decode_content(content):
 
 def process_config(config, reader, cached_data):
     """Основная логика фильтрации и проверки конфига."""
-    global processed_count, alive_found, dead_found, skipped_cache
+    global processed_count, alive_found, dead_found, skipped_cache, dns_fail, wrong_country
     
     config = config.strip()
     if not config or "://" not in config: return None
@@ -209,7 +211,11 @@ def process_config(config, reader, cached_data):
     # 1. DNS Резолвинг
     ip = get_ip_from_host(host)
     if not ip: 
-        with stats_lock: processed_count += 1
+        with stats_lock: 
+            processed_count += 1
+            dns_fail += 1
+        progress = (processed_count / total_configs_to_check) * 100
+        print(f"🚫 [{progress:.1f}%] [DNS_FAIL] {host} -> 0")
         return None
 
     # 2. Определение страны СТРОГО по IP
@@ -225,11 +231,17 @@ def process_config(config, reader, cached_data):
             with stats_lock: 
                 processed_count += 1
                 skipped_cache += 1
+            progress = (processed_count / total_configs_to_check) * 100
+            print(f"💾 [{progress:.1f}%] [CACHE_SKIP] {ip}:{port} -> 0")
             return {"status": "skipped"}
 
     # 4. Фильтр по странам
     if country_code not in TARGET_COUNTRIES:
-        with stats_lock: processed_count += 1
+        with stats_lock: 
+            processed_count += 1
+            wrong_country += 1
+        progress = (processed_count / total_configs_to_check) * 100
+        print(f"🌍 [{progress:.1f}%] [WRONG_GEO] {country_code} | {ip}:{port} -> 0")
         return None
     
     # 5. Проверка TCP порта
@@ -253,7 +265,6 @@ def process_config(config, reader, cached_data):
     if is_alive:
         print(f"✨ [{progress:.1f}%] [FOUND] {country_code} | {proto} | {ip}:{port}")
     else:
-        # Пишем "0" или "прочерк" для мертвых, как просил Босс
         print(f"❌ [{progress:.1f}%] [DEAD] {country_code} | {proto} | {ip}:{port} -> 0")
 
     if not is_alive: 
@@ -271,18 +282,20 @@ def process_config(config, reader, cached_data):
         "status": "success"
     }
 
-def update_activity_log(found, skipped, dead):
+def update_activity_log(found, skipped, dead, dns, geo):
     """Запись расширенной статистики в лог активности."""
     now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     try:
         with open(ACTIVITY_LOG, "a", encoding="utf-8") as f:
-            f.write(f"[{now}] Живых: {found} | Мертвых: {dead} | Скипнуто кэшем: {skipped}\n")
+            log_line = (f"[{now}] Живых: {found} | Мертвых: {dead} | Кэш: {skipped} | "
+                        f"DNS_Fail: {dns} | Wrong_Geo: {geo}\n")
+            f.write(log_line)
     except: pass
 
 def main():
-    global total_configs_to_check, processed_count, alive_found, dead_found, skipped_cache
+    global total_configs_to_check, processed_count, alive_found, dead_found, skipped_cache, dns_fail, wrong_country
     
-    print("🚀 --- MEGA WORKER V4.4 [REAL-TIME LOGGING] ---")
+    print("🚀 --- MEGA WORKER V4.4 [FULL TRACE MODE] ---")
     start_time = time.time()
 
     # Инициализация ресурсов
@@ -291,6 +304,7 @@ def main():
     reader = maxminddb.open_database(GEOIP_FILENAME)
     cache = load_cache()
     cached_data = cache["data"]
+    initial_cache_size = len(cached_data)
     
     try:
         all_raw_configs = []
@@ -317,9 +331,15 @@ def main():
                         except: pass
                     else: all_raw_configs.append(line)
 
+        raw_count = len(all_raw_configs)
         unique_candidates = list(set(all_raw_configs))
+        duplicates_count = raw_count - len(unique_candidates)
         total_configs_to_check = len(unique_candidates)
-        print(f"📊 Итого уникальных кандидатов: {total_configs_to_check}")
+        
+        print(f"📦 Всего загружено строк: {raw_count}")
+        print(f"👯 Обнаружено дубликатов: {duplicates_count}")
+        print(f"📊 Изначально в кэше было: {initial_cache_size} записей")
+        print(f"🔍 Итого уникальных кандидатов на проверку: {total_configs_to_check}")
         
         results_list = []
         seen_ids = set()
@@ -363,15 +383,25 @@ def main():
             "by": len(by_configs),
             "kz": len(kz_configs),
             "cache_skipped": skipped_cache,
-            "dead_total": dead_found
+            "dead_total": dead_found,
+            "dns_fail": dns_fail,
+            "wrong_geo": wrong_country,
+            "initial_cache_size": initial_cache_size,
+            "duplicates_removed": duplicates_count
         }
         with open(STATUS_FILE, "w") as f:
             json.dump(status_data, f)
 
-        update_activity_log(len(all_configs), skipped_cache, dead_found)
+        update_activity_log(len(all_configs), skipped_cache, dead_found, dns_fail, wrong_country)
         
         duration = time.time() - start_time
-        print(f"\n📊 СТАТИСТИКА: Проверено: {processed_count} | Живых: {alive_found} | Мертвых: {dead_found} | Скип (Кэш): {skipped_cache}")
+        print(f"\n📊 СТАТИСТИКА:")
+        print(f"✅ Живых: {alive_found}")
+        print(f"❌ Мертвых: {dead_found}")
+        print(f"💾 Кэш (Скип): {skipped_cache}")
+        print(f"🌐 DNS Ошибки: {dns_fail}")
+        print(f"🌍 Другие страны: {wrong_country}")
+        print(f"🔄 Всего обработано: {processed_count} из {total_configs_to_check}")
         print(f"⏱️  ОБЩЕЕ ВРЕМЯ: {duration:.1f} сек.")
 
     except Exception as e:
