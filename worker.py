@@ -12,7 +12,22 @@ import maxminddb
 
 # --- CONFIGURATION (MEGA SOURCES) ---
 SOURCES = [
-
+    "https://raw.githubusercontent.com/mahdibland/V2RayAggregator/master/sub/sub_merge.txt",
+    "https://raw.githubusercontent.com/freev2rayspeed/v2ray/main/v2ray.txt",
+    "https://raw.githubusercontent.com/aiboboxx/v2rayfree/main/v2ray",
+    "https://raw.githubusercontent.com/vpei/free-v2ray-config/master/v2ray.txt",
+    "https://raw.githubusercontent.com/tbbatbb/Proxy/master/dist/v2ray.config",
+    "https://raw.githubusercontent.com/StayHu/v2ray/master/v2ray.txt",
+    "https://raw.githubusercontent.com/Sincere-Xue/v2ray-worker/main/sub/sub_merge.txt",
+    "https://raw.githubusercontent.com/LoverSe/v2ray/master/v2ray.txt",
+    "https://raw.githubusercontent.com/iwxf/free-v2ray/master/0218/v2ray.txt",
+    "https://raw.githubusercontent.com/erkaipl/v2ray/master/v2ray.txt",
+    "https://raw.githubusercontent.com/Pawel-H-H/v2ray/master/v2ray.txt",
+    "https://raw.githubusercontent.com/mfuu/v2ray/master/v2ray.txt",
+    "https://raw.githubusercontent.com/yebekhe/TV2RAY/main/sub/subscription",
+    "https://raw.githubusercontent.com/freefq/free/master/v2",
+    "https://raw.githubusercontent.com/Paw0015/Free-Vpn-Proxy/main/links/all",
+    "https://raw.githubusercontent.com/V2Ray-Flags/V2Ray-Flags/main/V2Ray-Flags.txt"
 ]
 
 # File paths
@@ -110,7 +125,7 @@ def get_ip_from_host(host):
     """Resolve domain to IP address."""
     try:
         clean_host = host.strip()
-        if re.match(r"^\d{1,3}(\.\d{1,3}){3}$", clean_host):
+        if re.match(r"^\d{1,3}(\.\d{1,3}){3}$}$", clean_host):
             return clean_host
         return socket.gethostbyname(clean_host)
     except:
@@ -183,7 +198,7 @@ def decode_content(content):
     return content
 
 def process_config(config, reader, cached_data):
-    """Core logic for filtering and checking config."""
+    """Core logic for filtering and checking config with Total Caching."""
     global processed_count, alive_found, dead_found, skipped_cache, dns_fail, wrong_country
     
     config = config.strip()
@@ -197,30 +212,53 @@ def process_config(config, reader, cached_data):
 
     fingerprint = f"{host}:{port}:{proto}"
     
-    # 1. DNS Resolving
+    # 1. Total Cache Check (SKIP or AUTO-ALIVE)
+    if fingerprint in cached_data:
+        entry = cached_data[fingerprint]
+        
+        # If dead in cache -> SKIP
+        if entry["status"] == "dead":
+            with stats_lock: 
+                processed_count += 1
+                skipped_cache += 1
+            return {"status": "skipped"}
+        
+        # If alive in cache -> INSTANT RETURN (No network check!)
+        if entry["status"] == "alive":
+            country_code = entry.get("country", "UN")
+            ip = entry.get("ip", host)
+            
+            with stats_lock:
+                processed_count += 1
+                alive_found += 1
+                skipped_cache += 1 # Tag as cache-hit for logic
+            
+            # Re-format name from cache
+            flag = COUNTRY_FLAGS.get(country_code, '🌐')
+            base_url = config.split("#")[0]
+            final_name = f"{flag} [{country_code}] {proto} | {ip}"
+            
+            return {
+                "id": fingerprint, 
+                "country": country_code, 
+                "data": f"{base_url}#{final_name}",
+                "status": "success"
+            }
+
+    # 2. DNS Resolving (Only for new or non-cached)
     ip = get_ip_from_host(host)
     if not ip: 
         with stats_lock: 
             processed_count += 1
             dns_fail += 1
-        if is_target_trace:
-            print(f"🕵️‍♂️ [TRACE_TARGET] DNS FAIL: {config[:50]}... -> IP not found")
         return None
 
-    # 2. Country detection STRICTLY by IP
+    # 3. Country detection STRICTLY by IP
     try:
         geo_data = reader.get(ip)
         country_code = str(geo_data.get('country', {}).get('iso_code', 'UN')).upper()
     except:
         country_code = "UN"
-
-    # 3. Cache check
-    if fingerprint in cached_data:
-        if cached_data[fingerprint]["status"] == "dead":
-            with stats_lock: 
-                processed_count += 1
-                skipped_cache += 1
-            return {"status": "skipped"}
 
     # 4. Country filter
     if country_code not in TARGET_COUNTRIES:
@@ -228,7 +266,7 @@ def process_config(config, reader, cached_data):
             processed_count += 1
             wrong_country += 1
         if is_target_trace:
-             print(f"🕵️‍♂️ [TRACE_TARGET] GEO MISMATCH: Goal claimed, but IP ({ip}) is {country_code}")
+             print(f"🕵️‍♂️ [TRACE_TARGET] GEO MISMATCH: Claimed BY/KZ, but IP ({ip}) is {country_code}")
         return None
     
     # 5. TCP Port check
@@ -242,7 +280,7 @@ def process_config(config, reader, cached_data):
     if is_target_trace and not is_alive:
         print(f"🕵️‍♂️ [TRACE_TARGET] TCP DEAD: {country_code} | {ip}:{port} not responding")
     
-    # Update state in memory
+    # Update state in memory for next runs
     cached_data[fingerprint] = {
         "status": "alive" if is_alive else "dead",
         "time": datetime.now().isoformat(),
@@ -270,7 +308,7 @@ def update_activity_log(found, skipped, dead, dns, geo):
     now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     try:
         with open(ACTIVITY_LOG, "a", encoding="utf-8") as f:
-            log_line = (f"[{now}] Alive: {found} | Dead: {dead} | Cache: {skipped} | "
+            log_line = (f"[{now}] Alive: {found} | Dead: {dead} | Cache_Hit: {skipped} | "
                         f"DNS_Fail: {dns} | Wrong_Geo: {geo}\n")
             f.write(log_line)
     except: pass
@@ -278,7 +316,7 @@ def update_activity_log(found, skipped, dead, dns, geo):
 def main():
     global total_configs_to_check, processed_count, alive_found, dead_found, skipped_cache, dns_fail, wrong_country
     
-    print("🚀 --- MEGA WORKER V4.4 [FILE SYNC STRENGTHENED] ---")
+    print("🚀 --- MEGA WORKER V4.4 [TOTAL CACHING ENABLED] ---")
     start_time = time.time()
 
     # Resource init
@@ -287,7 +325,6 @@ def main():
     reader = maxminddb.open_database(GEOIP_FILENAME)
     cache = load_cache()
     cached_data = cache["data"]
-    initial_cache_size = len(cached_data)
     
     try:
         all_raw_configs = []
@@ -305,7 +342,7 @@ def main():
             except Exception as e:
                 print(f"❌ [{idx:02}] Source error {url[:40]}: {str(e)[:50]}")
 
-        # Collect from personal links
+        # Collect from personal links (Caching applies here too!)
         if os.path.exists(PERSONAL_LINKS_FILE):
             print(f"\n📖 --- COLLECTION PHASE: PERSONAL LINKS ---")
             with open(PERSONAL_LINKS_FILE, "r", encoding="utf-8") as f:
@@ -343,7 +380,7 @@ def main():
         # Sorting and recording phase
         results_list.sort(key=lambda x: x['country'])
         
-        # STRICT FILTERING BY COUNTRY (Case-insensitive check)
+        # STRICT FILTERING BY COUNTRY
         by_configs = [r['data'] for r in results_list if r['country'].upper() == 'BY']
         kz_configs = [r['data'] for r in results_list if r['country'].upper() == 'KZ']
         other_configs = [r['data'] for r in results_list if r['country'].upper() not in ['BY', 'KZ']]
@@ -353,23 +390,18 @@ def main():
         
         def safe_write(filename, data_list):
             try:
-                # DEBUG: Print intention to write
-                print(f"[DEBUG] Preparing to write {filename}. Count: {len(data_list)}")
-                
                 with open(filename, "w", encoding="utf-8") as f:
                     if data_list:
                         f.write("\n".join(data_list))
-                        f.write("\n") # Ensure trailing newline
+                        f.write("\n")
                     f.flush()
-                    os.fsync(f.fileno()) # Force write to physical disk
+                    os.fsync(f.fileno())
                 
-                # Verify file size on disk
                 file_size = os.path.getsize(filename)
                 print(f"💾 [FILE] {filename:18} | Saved: {len(data_list):4} pcs | Size: {file_size} bytes")
                 
-                # FINAL VALIDATION: Read back and check
                 if len(data_list) > 0 and file_size == 0:
-                     print(f"🚨 [CRITICAL] Data mismatch in {filename}! List has items but file is 0 bytes.")
+                     print(f"🚨 [CRITICAL] Data mismatch in {filename}!")
             except Exception as e:
                 print(f"❌ [ERROR] Error writing {filename}: {e}")
 
@@ -387,7 +419,7 @@ def main():
         print(f"🌍 Other countries: {len(other_configs)}")
         print(f"------------------------------------")
         print(f"❌ Dead (TCP): {dead_found}")
-        print(f"💾 Cache (Skip): {skipped_cache}")
+        print(f"💾 Cache Hits (Skip/Auto): {skipped_cache}")
         print(f"🌐 DNS Errors: {dns_fail}")
         print(f"🚫 Wrong Geo (By IP base): {wrong_country}")
         print(f"⏱️  WORK TIME: {duration:.1f} sec.")
