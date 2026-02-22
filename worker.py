@@ -31,8 +31,9 @@ PERSONAL_LINKS_FILE = "my_personal_links.txt"
 ACTIVITY_LOG = "activity_log.txt"
 OUTPUT_FILE = "my_stable_configs.txt"
 
-# Target countries (Elite Filter)
-TARGET_COUNTRIES = ['BY', 'KZ', 'PL', 'CH', 'SE', 'DE', 'US']
+# Target countries (Elite Filter + Bypass Expansion)
+# Added: GB, FI, TR, NL, FR for better YouTube/Gemini performance
+TARGET_COUNTRIES = ['BY', 'KZ', 'PL', 'CH', 'SE', 'DE', 'US', 'GB', 'FI', 'TR', 'NL', 'FR']
 
 # GeoIP settings
 GEOIP_URL = "https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-Country.mmdb"
@@ -156,7 +157,7 @@ def update_activity_log(count):
         print(f"⚠️ Не удалось обновить лог активности: {e}")
 
 def main():
-    print("🚀 --- MEGA WORKER v3.4 [Extreme Mode] ---")
+    print("🚀 --- MEGA WORKER v3.5 [Global Bypass Mode] ---")
     start_time = time.time()
 
     if not download_geoip_with_retry():
