@@ -34,7 +34,7 @@ PERSONAL_LINKS_FILE = "my_personal_links.txt"
 ACTIVITY_LOG = "activity_log.txt"
 OUTPUT_FILE = "my_stable_configs.txt"
 BY_FILE = "BY_stable.txt"
-KZ_FILE = "KZ_stable.txt"
+KZ_FILE = "BY_stable.txt"
 CACHE_FILE = "proxy_cache.json"
 
 # Target countries (Elite Filter)
@@ -52,8 +52,8 @@ GEOIP_URL = "https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-Countr
 GEOIP_FILENAME = "GeoLite2-Country.mmdb"
 
 # Performance settings
-THREADS = 100
-TIMEOUT = 2.5 # Увеличено для стабильной проверки СНГ
+THREADS = 150 # Немного увеличили для скорости
+TIMEOUT = 2.5 # Оптимально для СНГ
 
 # --- SMART CACHE LOGIC ---
 def load_cache():
@@ -105,8 +105,15 @@ def download_geoip_with_retry(retries=3):
     return False
 
 def get_ip_from_host(host):
+    """Принудительный резолвинг домена в IP адрес."""
     try:
-        return socket.gethostbyname(host)
+        # Убираем возможные пробелы и мусор
+        clean_host = host.strip()
+        # Если это уже IPv4, возвращаем как есть
+        if re.match(r"^\d{1,3}(\.\d{1,3}){3}$", clean_host):
+            return clean_host
+        # Иначе пытаемся разрешить DNS
+        return socket.gethostbyname(clean_host)
     except:
         return None
 
@@ -189,27 +196,32 @@ def process_config(config, reader, cached_data):
         if cached_data[fingerprint]["status"] == "dead":
             return {"status": "skipped"}
 
-    ip = host if (":" in host or re.match(r"^\d{1,3}(\.\d{1,3}){3}$", host)) else get_ip_from_host(host)
+    # --- DNS RESOLVING (КЛЮЧЕВОЙ ЭТАП) ---
+    # Мы превращаем домен в IP, чтобы GeoIP точно его увидел
+    ip = get_ip_from_host(host)
     if not ip: 
         cached_data[fingerprint] = {"status": "dead", "time": datetime.now().isoformat()}
         return None
 
-    # GeoIP Filter
+    # GeoIP Filter (Проверка страны по реальному IP)
     try:
         geo_data = reader.get(ip)
         country_code = geo_data.get('country', {}).get('iso_code', 'UN')
     except: country_code = "UN"
 
+    # Если страна не в списке — пропускаем (но в кэш не пишем как 'dead', вдруг страна сменится)
     if country_code not in TARGET_COUNTRIES:
         return None
     
-    # TCP Check
+    # TCP Check (Проверка связи)
     is_alive = check_tcp_port(ip, port)
     
     # Update Cache
     cached_data[fingerprint] = {
         "status": "alive" if is_alive else "dead",
-        "time": datetime.now().isoformat()
+        "time": datetime.now().isoformat(),
+        "ip": ip,
+        "country": country_code
     }
 
     if not is_alive: return None
@@ -217,7 +229,9 @@ def process_config(config, reader, cached_data):
     # Success!
     flag = COUNTRY_FLAGS.get(country_code, '🌐')
     base_url = config.split("#")[0]
+    # Название теперь содержит чистый IP для удобства
     final_name = f"{flag} [{country_code}] {proto} | {ip}"
+    
     return {
         "id": fingerprint, 
         "country": country_code, 
@@ -234,7 +248,7 @@ def update_activity_log(count, skipped):
     except: pass
 
 def main():
-    print("🚀 --- MEGA WORKER V4.3 [Deep Link Support] ---")
+    print("🚀 --- MEGA WORKER V4.4 [DNS & Deep IP Filter] ---")
     start_time = time.time()
 
     if not download_geoip_with_retry(): return
@@ -253,7 +267,7 @@ def main():
             all_raw_configs.extend([l.strip() for l in decoded.splitlines() if l.strip()])
         except: pass
 
-    # Phase 2: Personal Links (Fixed for external URL reading)
+    # Phase 2: Personal Links
     if os.path.exists(PERSONAL_LINKS_FILE):
         print(f"📖 Чтение {PERSONAL_LINKS_FILE}...")
         with open(PERSONAL_LINKS_FILE, "r", encoding="utf-8") as f:
@@ -266,7 +280,6 @@ def main():
                     try:
                         r = requests.get(line, timeout=15)
                         content = decode_content(r.text)
-                        # Извлекаем все строки, похожие на конфиги
                         configs_from_url = [l.strip() for l in content.splitlines() if "://" in l]
                         all_raw_configs.extend(configs_from_url)
                         print(f"✅ Найдено {len(configs_from_url)} конфигов по ссылке.")
@@ -275,8 +288,9 @@ def main():
                 else:
                     all_raw_configs.append(line)
 
-    # Phase 3: Processing
-    total_raw = len(set(all_raw_configs))
+    # Phase 3: Processing (Удаление дубликатов перед запуском)
+    unique_candidates = list(set(all_raw_configs))
+    total_raw = len(unique_candidates)
     print(f"📊 Уникальных кандидатов для проверки: {total_raw}")
 
     results_list = []
@@ -284,7 +298,7 @@ def main():
     seen_ids = set()
     
     with ThreadPoolExecutor(max_workers=THREADS) as executor:
-        future_tasks = [executor.submit(process_config, cfg, reader, cached_data) for cfg in list(set(all_raw_configs))]
+        future_tasks = [executor.submit(process_config, cfg, reader, cached_data) for cfg in unique_candidates]
         for future in as_completed(future_tasks):
             res = future.result()
             if res:
@@ -301,10 +315,12 @@ def main():
     kz_configs = [r['data'] for r in results_list if r['country'] == 'KZ']
     all_configs = [r['data'] for r in results_list]
 
+    # Запись результатов в файлы
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f: f.write("\n".join(all_configs))
     with open(BY_FILE, "w", encoding="utf-8") as f: f.write("\n".join(by_configs))
     with open(KZ_FILE, "w", encoding="utf-8") as f: f.write("\n".join(kz_configs))
 
+    # Сохранение кэша и логов
     save_cache(cache)
     update_activity_log(len(all_configs), skipped)
     reader.close()
