@@ -1,3 +1,2 @@
 # Boss, throw your links or raw vless/trojan configs here!
-https://raw.githubusercontent.com/ebrasha/free-v2ray-public-list/main/all_extracted_configs.txt
-
+https://raw.githubusercontent.com/igareck/vpn-configs-for-russia/refs/heads/main/BLACK_VLESS_RUS.txt
