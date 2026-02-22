@@ -2,7 +2,7 @@ name: Extreme Proxy Update
 
 on:
   schedule:
-    - cron: '42 * * * *'
+    - cron: '58 * * * *'
   push:
     paths:
       - 'my_personal_links.txt'
