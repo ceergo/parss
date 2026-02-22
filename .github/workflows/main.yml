@@ -2,8 +2,10 @@ name: Extreme Proxy Update
 
 on:
   schedule:
-    # Запуск каждые 3 часа на 27-й минуте (меньше конкуренция на серверах GitHub)
     - cron: '27 */3 * * *'
+  push:
+    paths:
+      - 'my_personal_links.txt'
   workflow_dispatch:
 
 jobs:
@@ -33,13 +35,6 @@ jobs:
         run: |
           git config --global user.name "ExtremeProxyBot"
           git config --global user.email "bot@github.com"
-          
-          # Добавляем все важные файлы
           git add my_stable_configs.txt my_personal_links.txt activity_log.txt
-          
-          # Делаем коммит. Если изменений нет, --allow-empty создаст пустой коммит,
-          # который все равно обновит дату активности репозитория для GitHub.
-          git commit -m "Auto-Pulse: $(date +'%Y-%m-%d %H:%M') [Extreme Mode]" --allow-empty
-          
-          # Принудительно пушим изменения
+          git commit -m "Auto-Pulse & Trigger: $(date +'%Y-%m-%d %H:%M')" --allow-empty
           git push origin main
