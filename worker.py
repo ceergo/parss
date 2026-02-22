@@ -125,7 +125,7 @@ def get_ip_from_host(host):
     """Resolve domain to IP address."""
     try:
         clean_host = host.strip()
-        if re.match(r"^\d{1,3}(\.\d{1,3}){3}$}$", clean_host):
+        if re.match(r"^\d{1,3}(\.\d{1,3}){3}$", clean_host):
             return clean_host
         return socket.gethostbyname(clean_host)
     except:
@@ -204,7 +204,7 @@ def process_config(config, reader, cached_data):
     config = config.strip()
     if not config or "://" not in config: return None
 
-    # Search for target countries for deep tracing
+    # TRACE LOGIC: Check if this config is a suspected target
     is_target_trace = any(x in config.upper() for x in ["BY", "BELARUS", "KZ", "KAZAKHSTAN"])
     
     host, port, proto = extract_host_port(config)
@@ -212,31 +212,32 @@ def process_config(config, reader, cached_data):
 
     fingerprint = f"{host}:{port}:{proto}"
     
-    # 1. Total Cache Check (SKIP or AUTO-ALIVE)
+    # 1. Total Cache Check
     if fingerprint in cached_data:
         entry = cached_data[fingerprint]
         
-        # If dead in cache -> SKIP
         if entry["status"] == "dead":
             with stats_lock: 
                 processed_count += 1
                 skipped_cache += 1
             return {"status": "skipped"}
         
-        # If alive in cache -> INSTANT RETURN (No network check!)
         if entry["status"] == "alive":
-            country_code = entry.get("country", "UN")
+            country_code = str(entry.get("country", "UN")).strip().upper()
             ip = entry.get("ip", host)
             
             with stats_lock:
                 processed_count += 1
                 alive_found += 1
-                skipped_cache += 1 # Tag as cache-hit for logic
+                skipped_cache += 1 
             
-            # Re-format name from cache
             flag = COUNTRY_FLAGS.get(country_code, '🌐')
             base_url = config.split("#")[0]
             final_name = f"{flag} [{country_code}] {proto} | {ip}"
+            
+            # TRACE: Log cached hits for BY/KZ
+            if is_target_trace or country_code in ['BY', 'KZ']:
+                print(f"🕵️‍♂️ [TRACE_CACHE] {country_code} | {ip} found in memory. Returning to list.")
             
             return {
                 "id": fingerprint, 
@@ -245,7 +246,7 @@ def process_config(config, reader, cached_data):
                 "status": "success"
             }
 
-    # 2. DNS Resolving (Only for new or non-cached)
+    # 2. DNS Resolving
     ip = get_ip_from_host(host)
     if not ip: 
         with stats_lock: 
@@ -256,7 +257,7 @@ def process_config(config, reader, cached_data):
     # 3. Country detection STRICTLY by IP
     try:
         geo_data = reader.get(ip)
-        country_code = str(geo_data.get('country', {}).get('iso_code', 'UN')).upper()
+        country_code = str(geo_data.get('country', {}).get('iso_code', 'UN')).strip().upper()
     except:
         country_code = "UN"
 
@@ -265,8 +266,9 @@ def process_config(config, reader, cached_data):
         with stats_lock: 
             processed_count += 1
             wrong_country += 1
+        
         if is_target_trace:
-             print(f"🕵️‍♂️ [TRACE_TARGET] GEO MISMATCH: Claimed BY/KZ, but IP ({ip}) is {country_code}")
+             print(f"🕵️‍♂️ [TRACE_REJECT] Config mentioned target, but IP ({ip}) is in {country_code}")
         return None
     
     # 5. TCP Port check
@@ -277,10 +279,11 @@ def process_config(config, reader, cached_data):
         if is_alive: alive_found += 1
         else: dead_found += 1
         
-    if is_target_trace and not is_alive:
-        print(f"🕵️‍♂️ [TRACE_TARGET] TCP DEAD: {country_code} | {ip}:{port} not responding")
+    if is_target_trace:
+        status_str = "ALIVE" if is_alive else "DEAD"
+        print(f"🕵️‍♂️ [TRACE_CHECK] {country_code} | {ip}:{port} | Result: {status_str}")
     
-    # Update state in memory for next runs
+    # Update state in memory
     cached_data[fingerprint] = {
         "status": "alive" if is_alive else "dead",
         "time": datetime.now().isoformat(),
@@ -316,10 +319,9 @@ def update_activity_log(found, skipped, dead, dns, geo):
 def main():
     global total_configs_to_check, processed_count, alive_found, dead_found, skipped_cache, dns_fail, wrong_country
     
-    print("🚀 --- MEGA WORKER V4.4 [TOTAL CACHING ENABLED] ---")
+    print("🚀 --- MEGA WORKER V4.4 [DEBUG TRACE ENABLED] ---")
     start_time = time.time()
 
-    # Resource init
     if not download_geoip_with_retry(): return
 
     reader = maxminddb.open_database(GEOIP_FILENAME)
@@ -329,8 +331,8 @@ def main():
     try:
         all_raw_configs = []
         
-        # Collect from cloud sources
-        print(f"📡 --- COLLECTION PHASE: {len(SOURCES)} SOURCES ---")
+        # 1. Cloud sources
+        print(f"📡 --- COLLECTION PHASE ---")
         for idx, url in enumerate(SOURCES, 1):
             try:
                 r = requests.get(url, timeout=15)
@@ -338,13 +340,10 @@ def main():
                 lines = [l.strip() for l in decoded.splitlines() if l.strip()]
                 valid_links = [l for l in lines if "://" in l]
                 all_raw_configs.extend(valid_links)
-                print(f"🔗 [{idx:02}] {url[:60]}... | Found: {len(valid_links)}")
-            except Exception as e:
-                print(f"❌ [{idx:02}] Source error {url[:40]}: {str(e)[:50]}")
+            except: pass
 
-        # Collect from personal links (Caching applies here too!)
+        # 2. Personal links
         if os.path.exists(PERSONAL_LINKS_FILE):
-            print(f"\n📖 --- COLLECTION PHASE: PERSONAL LINKS ---")
             with open(PERSONAL_LINKS_FILE, "r", encoding="utf-8") as f:
                 personal_lines = f.read().splitlines()
                 for line in personal_lines:
@@ -363,12 +362,11 @@ def main():
         unique_candidates = list(set(all_raw_configs))
         total_configs_to_check = len(unique_candidates)
         
-        print(f"\n🔍 Unique candidates to check: {total_configs_to_check}")
+        print(f"🔍 Candidates: {total_configs_to_check}")
         
         results_list = []
         seen_ids = set()
         
-        print(f"🛠️  Starting check with {THREADS} threads...")
         with ThreadPoolExecutor(max_workers=THREADS) as executor:
             future_tasks = [executor.submit(process_config, cfg, reader, cached_data) for cfg in unique_candidates]
             for future in as_completed(future_tasks):
@@ -377,33 +375,37 @@ def main():
                     seen_ids.add(res['id'])
                     results_list.append(res)
 
-        # Sorting and recording phase
-        results_list.sort(key=lambda x: x['country'])
+        # 3. SPLIT LOGIC & DEBUG
+        print("\n📂 --- FINAL DISTRIBUTION AUDIT ---")
+        by_configs = [r['data'] for r in results_list if r['country'] == 'BY']
+        kz_configs = [r['data'] for r in results_list if r['country'] == 'KZ']
         
-        # STRICT FILTERING BY COUNTRY
-        by_configs = [r['data'] for r in results_list if r['country'].upper() == 'BY']
-        kz_configs = [r['data'] for r in results_list if r['country'].upper() == 'KZ']
-        other_configs = [r['data'] for r in results_list if r['country'].upper() not in ['BY', 'KZ']]
+        # Explicit trace of found targets
+        if by_configs:
+            print("🇧🇾 [BY] Found IPs:")
+            for b in by_configs: print(f"  -> {b.split('| ')[-1]}")
+        else:
+            print("🇧🇾 [BY] No configs passed all filters.")
+
+        if kz_configs:
+            print("🇰🇿 [KZ] Found IPs:")
+            for k in kz_configs: print(f"  -> {k.split('| ')[-1]}")
+        else:
+            print("🇰🇿 [KZ] No configs passed all filters.")
+        
+        results_list.sort(key=lambda x: x['country'])
         all_configs = [r['data'] for r in results_list]
 
-        print("\n🏁 --- FINAL RECORDING REPORT ---")
-        
         def safe_write(filename, data_list):
             try:
                 with open(filename, "w", encoding="utf-8") as f:
                     if data_list:
-                        f.write("\n".join(data_list))
-                        f.write("\n")
+                        f.write("\n".join(data_list) + "\n")
                     f.flush()
                     os.fsync(f.fileno())
-                
-                file_size = os.path.getsize(filename)
-                print(f"💾 [FILE] {filename:18} | Saved: {len(data_list):4} pcs | Size: {file_size} bytes")
-                
-                if len(data_list) > 0 and file_size == 0:
-                     print(f"🚨 [CRITICAL] Data mismatch in {filename}!")
+                print(f"💾 [FILE] {filename:18} | Count: {len(data_list):4}")
             except Exception as e:
-                print(f"❌ [ERROR] Error writing {filename}: {e}")
+                print(f"❌ [ERROR] Write {filename}: {e}")
 
         safe_write(OUTPUT_FILE, all_configs)
         safe_write(BY_FILE, by_configs)
@@ -412,17 +414,7 @@ def main():
         update_activity_log(len(all_configs), skipped_cache, dead_found, dns_fail, wrong_country)
         
         duration = time.time() - start_time
-        print(f"\n📊 SUMMARY STATISTICS:")
-        print(f"✅ Total Alive: {len(all_configs)}")
-        print(f"🇧🇾 Belarus (BY): {len(by_configs)}")
-        print(f"🇰🇿 Kazakhstan (KZ): {len(kz_configs)}")
-        print(f"🌍 Other countries: {len(other_configs)}")
-        print(f"------------------------------------")
-        print(f"❌ Dead (TCP): {dead_found}")
-        print(f"💾 Cache Hits (Skip/Auto): {skipped_cache}")
-        print(f"🌐 DNS Errors: {dns_fail}")
-        print(f"🚫 Wrong Geo (By IP base): {wrong_country}")
-        print(f"⏱️  WORK TIME: {duration:.1f} sec.")
+        print(f"\n✅ Total Alive: {len(all_configs)} | Time: {duration:.1f}s")
 
     except Exception as e:
         print(f"🚨 [FATAL ERROR] {e}")
