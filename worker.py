@@ -60,6 +60,7 @@ TIMEOUT = 2.5
 def load_cache():
     """Load proxy cache from JSON file with 3-day cycle check."""
     if not os.path.exists(CACHE_FILE):
+        print(f"[CACHE] 🆕 Файл {CACHE_FILE} не найден. Будет создан новый.")
         return {"start_date": datetime.now().isoformat(), "data": {}}
     
     try:
@@ -81,6 +82,8 @@ def save_cache(cache_data):
     try:
         with open(CACHE_FILE, 'w') as f:
             json.dump(cache_data, f, indent=2)
+            f.flush()
+        print(f"✅ [CACHE] Память сохранена в {CACHE_FILE} ({len(cache_data.get('data', {}))} записей)")
     except Exception as e:
         print(f"[CACHE] ⚠️ Ошибка сохранения: {e}")
 
@@ -255,116 +258,124 @@ def main():
     cache = load_cache()
     cached_data = cache["data"]
     
-    all_raw_configs = []
-    broken_sources = 0
+    try:
+        all_raw_configs = []
+        broken_sources = 0
 
-    # Phase 1: Global Sources
-    print(f"📡 Сбор данных из {len(SOURCES)} глобальных источников...")
-    for url in SOURCES:
-        try:
-            r = requests.get(url, timeout=15)
-            decoded = decode_content(r.text)
-            lines = [l.strip() for l in decoded.splitlines() if l.strip()]
-            all_raw_configs.extend(lines)
-        except:
-            broken_sources += 1
-            print(f"⚠️ [SOURCE ERROR] Не удалось прочитать: {url[:50]}...")
+        # Phase 1: Global Sources
+        print(f"📡 Сбор данных из {len(SOURCES)} глобальных источников...")
+        for url in SOURCES:
+            try:
+                r = requests.get(url, timeout=15)
+                decoded = decode_content(r.text)
+                lines = [l.strip() for l in decoded.splitlines() if l.strip()]
+                all_raw_configs.extend(lines)
+            except:
+                broken_sources += 1
+                print(f"⚠️ [SOURCE ERROR] Не удалось прочитать: {url[:50]}...")
 
-    # Phase 2: Personal Links
-    if os.path.exists(PERSONAL_LINKS_FILE):
-        print(f"📖 Анализ персонального списка {PERSONAL_LINKS_FILE}...")
-        with open(PERSONAL_LINKS_FILE, "r", encoding="utf-8") as f:
-            for line in f.read().splitlines():
-                line = line.strip()
-                if not line or line.startswith("#"): continue
-                
-                if line.startswith("http"):
-                    print(f"🔗 Глубокий парсинг ссылки: {line[:50]}...")
-                    try:
-                        r = requests.get(line, timeout=15)
-                        content = decode_content(r.text)
-                        configs_from_url = [l.strip() for l in content.splitlines() if "://" in l]
-                        all_raw_configs.extend(configs_from_url)
-                        print(f"📥 Извлечено: {len(configs_from_url)} конфигов.")
-                    except:
-                        print(f"❌ [LINK ERROR] Ошибка доступа к: {line[:50]}")
-                else:
-                    all_raw_configs.append(line)
+        # Phase 2: Personal Links
+        if os.path.exists(PERSONAL_LINKS_FILE):
+            print(f"📖 Анализ персонального списка {PERSONAL_LINKS_FILE}...")
+            with open(PERSONAL_LINKS_FILE, "r", encoding="utf-8") as f:
+                for line in f.read().splitlines():
+                    line = line.strip()
+                    if not line or line.startswith("#"): continue
+                    
+                    if line.startswith("http"):
+                        print(f"🔗 Глубокий парсинг ссылки: {line[:50]}...")
+                        try:
+                            r = requests.get(line, timeout=15)
+                            content = decode_content(r.text)
+                            configs_from_url = [l.strip() for l in content.splitlines() if "://" in l]
+                            all_raw_configs.extend(configs_from_url)
+                            print(f"📥 Извлечено: {len(configs_from_url)} конфигов.")
+                        except:
+                            print(f"❌ [LINK ERROR] Ошибка доступа к: {line[:50]}")
+                    else:
+                        all_raw_configs.append(line)
 
-    # Phase 3: Processing
-    unique_candidates = list(set(all_raw_configs))
-    total_raw = len(unique_candidates)
-    print(f"📊 Итого уникальных строк для проверки: {total_raw}")
-    print(f"🛠️  Запуск {THREADS} потоков проверки...")
-    print("-" * 30)
+        # Phase 3: Processing
+        unique_candidates = list(set(all_raw_configs))
+        total_raw = len(unique_candidates)
+        print(f"📊 Итого уникальных строк для проверки: {total_raw}")
+        print(f"🛠️  Запуск {THREADS} потоков проверки...")
+        print("-" * 30)
 
-    results_list = []
-    skipped_by_cache = 0
-    seen_ids = set()
+        results_list = []
+        skipped_by_cache = 0
+        seen_ids = set()
+        
+        with ThreadPoolExecutor(max_workers=THREADS) as executor:
+            future_tasks = [executor.submit(process_config, cfg, reader, cached_data) for cfg in unique_candidates]
+            for future in as_completed(future_tasks):
+                res = future.result()
+                if res:
+                    if res.get("status") == "skipped":
+                        skipped_by_cache += 1
+                    elif res.get("status") == "success" and res['id'] not in seen_ids:
+                        seen_ids.add(res['id'])
+                        results_list.append(res)
+
+        # Phase 4: Sorting & Saving
+        results_list.sort(key=lambda x: x['country'])
+        
+        by_configs = [r['data'] for r in results_list if r['country'] == 'BY']
+        kz_configs = [r['data'] for r in results_list if r['country'] == 'KZ']
+        all_configs = [r['data'] for r in results_list]
+
+        # --- DIAGNOSTIC WRITE ---
+        print(f"💾 Подготовка к записи файлов...")
+        
+        def safe_write(filename, data_list):
+            if not data_list:
+                print(f"⚠️ [FILE] {filename} пропущен: список пуст.")
+                return
+            try:
+                content = "\n".join(data_list)
+                with open(filename, "w", encoding="utf-8") as f:
+                    f.write(content)
+                    f.flush()
+                    os.fsync(f.fileno()) # Принудительный сброс на диск
+                print(f"✅ [FILE] {filename} сохранен ({len(data_list)} строк, {len(content)} байт)")
+            except Exception as e:
+                print(f"❌ [FILE ERROR] Ошибка при записи {filename}: {e}")
+
+        safe_write(OUTPUT_FILE, all_configs)
+        safe_write(BY_FILE, by_configs)
+        safe_write(KZ_FILE, kz_configs)
+
+        # Create status trigger for Git
+        status_data = {
+            "last_run": datetime.now().isoformat(),
+            "total_alive": len(all_configs),
+            "by_count": len(by_configs),
+            "kz_count": len(kz_configs)
+        }
+        with open(STATUS_FILE, "w") as f:
+            json.dump(status_data, f)
+
+        # Статистика отбраковки
+        total_found = len(all_configs)
+        rejected = total_raw - total_found - skipped_by_cache
+
+        update_activity_log(total_found, skipped_by_cache)
+        
+        duration = time.time() - start_time
+        print("-" * 40)
+        print(f"✅ ПРОВЕРКА ЗАВЕРШЕНА!")
+        print(f"📦 Итоги: {total_found} живых | {skipped_by_cache} кэш | {rejected} брак")
+        print(f"⏱️  Время: {duration:.1f} сек")
+        print("-" * 40)
+
+    except Exception as global_error:
+        print(f"🚨 [FATAL ERROR] Произошел критический сбой: {global_error}")
     
-    with ThreadPoolExecutor(max_workers=THREADS) as executor:
-        future_tasks = [executor.submit(process_config, cfg, reader, cached_data) for cfg in unique_candidates]
-        for future in as_completed(future_tasks):
-            res = future.result()
-            if res:
-                if res.get("status") == "skipped":
-                    skipped_by_cache += 1
-                elif res.get("status") == "success" and res['id'] not in seen_ids:
-                    seen_ids.add(res['id'])
-                    results_list.append(res)
-
-    # Phase 4: Sorting & Saving
-    results_list.sort(key=lambda x: x['country'])
-    
-    by_configs = [r['data'] for r in results_list if r['country'] == 'BY']
-    kz_configs = [r['data'] for r in results_list if r['country'] == 'KZ']
-    all_configs = [r['data'] for r in results_list]
-
-    # --- DIAGNOSTIC WRITE ---
-    print(f"💾 Подготовка к записи файлов...")
-    
-    def safe_write(filename, data_list):
-        if not data_list:
-            print(f"⚠️ [FILE] {filename} пропущен: список пуст.")
-            return
-        try:
-            content = "\n".join(data_list)
-            with open(filename, "w", encoding="utf-8") as f:
-                f.write(content)
-                f.flush()
-                os.fsync(f.fileno()) # Принудительный сброс на диск
-            print(f"✅ [FILE] {filename} сохранен ({len(data_list)} строк, {len(content)} байт)")
-        except Exception as e:
-            print(f"❌ [FILE ERROR] Ошибка при записи {filename}: {e}")
-
-    safe_write(OUTPUT_FILE, all_configs)
-    safe_write(BY_FILE, by_configs)
-    safe_write(KZ_FILE, kz_configs)
-
-    # Create status trigger for Git
-    status_data = {
-        "last_run": datetime.now().isoformat(),
-        "total_alive": len(all_configs),
-        "by_count": len(by_configs),
-        "kz_count": len(kz_configs)
-    }
-    with open(STATUS_FILE, "w") as f:
-        json.dump(status_data, f)
-
-    # Статистика отбраковки
-    total_found = len(all_configs)
-    rejected = total_raw - total_found - skipped_by_cache
-
-    save_cache(cache)
-    update_activity_log(total_found, skipped_by_cache)
-    reader.close()
-    
-    duration = time.time() - start_time
-    print("-" * 40)
-    print(f"✅ ПРОВЕРКА ЗАВЕРШЕНА!")
-    print(f"📦 Итоги: {total_found} живых | {skipped_by_cache} кэш | {rejected} брак")
-    print(f"⏱️  Время: {duration:.1f} сек")
-    print("-" * 40)
+    finally:
+        # ПРИНУДИТЕЛЬНОЕ СОХРАНЕНИЕ КЭША ПРИ ЛЮБОМ ИСХОДЕ
+        save_cache(cache)
+        if 'reader' in locals():
+            reader.close()
 
 if __name__ == "__main__":
     main()
