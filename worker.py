@@ -5,6 +5,7 @@ import socket
 import os
 import time
 import json
+import threading
 from datetime import datetime, timedelta
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import maxminddb
@@ -55,6 +56,14 @@ GEOIP_FILENAME = "GeoLite2-Country.mmdb"
 # Performance settings
 THREADS = 150 
 TIMEOUT = 2.5 
+
+# Глобальные счетчики для реал-тайм отчета
+stats_lock = threading.Lock()
+processed_count = 0
+total_configs_to_check = 0
+alive_found = 0
+dead_found = 0
+skipped_cache = 0
 
 # --- SMART CACHE LOGIC ---
 def load_cache():
@@ -187,6 +196,8 @@ def decode_content(content):
 
 def process_config(config, reader, cached_data):
     """Основная логика фильтрации и проверки конфига."""
+    global processed_count, alive_found, dead_found, skipped_cache
+    
     config = config.strip()
     if not config or "://" not in config: return None
     
@@ -195,29 +206,39 @@ def process_config(config, reader, cached_data):
 
     fingerprint = f"{host}:{port}:{proto}"
     
-    # 1. DNS Резолвинг (Нужен IP для GeoIP)
+    # 1. DNS Резолвинг
     ip = get_ip_from_host(host)
     if not ip: 
+        with stats_lock: processed_count += 1
         return None
 
-    # 2. Определение страны СТРОГО по IP через GeoLite2
+    # 2. Определение страны СТРОГО по IP
     try:
         geo_data = reader.get(ip)
         country_code = str(geo_data.get('country', {}).get('iso_code', 'UN')).upper()
     except:
         country_code = "UN"
 
-    # 3. Проверка кэша (если в этом цикле уже признан мертвым - скип)
+    # 3. Проверка кэша
     if fingerprint in cached_data:
         if cached_data[fingerprint]["status"] == "dead":
+            with stats_lock: 
+                processed_count += 1
+                skipped_cache += 1
             return {"status": "skipped"}
 
-    # 4. Фильтр по разрешенным странам
+    # 4. Фильтр по странам
     if country_code not in TARGET_COUNTRIES:
+        with stats_lock: processed_count += 1
         return None
     
     # 5. Проверка TCP порта
     is_alive = check_tcp_port(ip, port)
+    
+    with stats_lock:
+        processed_count += 1
+        if is_alive: alive_found += 1
+        else: dead_found += 1
     
     # Обновляем состояние в памяти
     cached_data[fingerprint] = {
@@ -227,15 +248,21 @@ def process_config(config, reader, cached_data):
         "country": country_code
     }
 
+    # Логирование в реальном времени
+    progress = (processed_count / total_configs_to_check) * 100
+    if is_alive:
+        print(f"✨ [{progress:.1f}%] [FOUND] {country_code} | {proto} | {ip}:{port}")
+    else:
+        # Пишем "0" или "прочерк" для мертвых, как просил Босс
+        print(f"❌ [{progress:.1f}%] [DEAD] {country_code} | {proto} | {ip}:{port} -> 0")
+
     if not is_alive: 
         return None
 
-    # 6. Формирование нового названия (игнорируем оригинальное имя из ссылки)
+    # 6. Формирование нового названия
     flag = COUNTRY_FLAGS.get(country_code, '🌐')
     base_url = config.split("#")[0]
     final_name = f"{flag} [{country_code}] {proto} | {ip}"
-    
-    print(f"✨ [FOUND] {country_code} | {proto} | {ip}:{port}")
     
     return {
         "id": fingerprint, 
@@ -244,16 +271,18 @@ def process_config(config, reader, cached_data):
         "status": "success"
     }
 
-def update_activity_log(found, skipped):
-    """Запись статистики в лог активности."""
+def update_activity_log(found, skipped, dead):
+    """Запись расширенной статистики в лог активности."""
     now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     try:
         with open(ACTIVITY_LOG, "a", encoding="utf-8") as f:
-            f.write(f"[{now}] Найдено: {found} | Пропущено кэшем: {skipped}\n")
+            f.write(f"[{now}] Живых: {found} | Мертвых: {dead} | Скипнуто кэшем: {skipped}\n")
     except: pass
 
 def main():
-    print("🚀 --- MEGA WORKER V4.4 [DIAGNOSTIC MODE] ---")
+    global total_configs_to_check, processed_count, alive_found, dead_found, skipped_cache
+    
+    print("🚀 --- MEGA WORKER V4.4 [REAL-TIME LOGGING] ---")
     start_time = time.time()
 
     # Инициализация ресурсов
@@ -266,7 +295,7 @@ def main():
     try:
         all_raw_configs = []
         
-        # Фаза 1: Сбор из глобальных источников
+        # Сбор данных
         print(f"📡 Сбор из {len(SOURCES)} источников...")
         for url in SOURCES:
             try:
@@ -275,9 +304,8 @@ def main():
                 all_raw_configs.extend([l.strip() for l in decoded.splitlines() if l.strip()])
             except: pass
 
-        # Фаза 2: Сбор из персональных ссылок
         if os.path.exists(PERSONAL_LINKS_FILE):
-            print(f"📖 Чтение {PERSONAL_LINKS_FILE}...")
+            print(f"📖 Чтение личных ссылок...")
             with open(PERSONAL_LINKS_FILE, "r", encoding="utf-8") as f:
                 for line in f.read().splitlines():
                     line = line.strip()
@@ -289,44 +317,38 @@ def main():
                         except: pass
                     else: all_raw_configs.append(line)
 
-        # Фаза 3: Дедупликация и многопоточная проверка
         unique_candidates = list(set(all_raw_configs))
-        print(f"📊 Уникальных строк: {len(unique_candidates)}")
+        total_configs_to_check = len(unique_candidates)
+        print(f"📊 Итого уникальных кандидатов: {total_configs_to_check}")
         
         results_list = []
-        skipped_by_cache = 0
         seen_ids = set()
         
-        print(f"🛠️  Запуск {THREADS} потоков...")
+        print(f"🛠️  Запуск проверки в {THREADS} потоков...")
         with ThreadPoolExecutor(max_workers=THREADS) as executor:
             future_tasks = [executor.submit(process_config, cfg, reader, cached_data) for cfg in unique_candidates]
             for future in as_completed(future_tasks):
                 res = future.result()
-                if res:
-                    if res.get("status") == "skipped":
-                        skipped_by_cache += 1
-                    elif res.get("status") == "success" and res['id'] not in seen_ids:
-                        seen_ids.add(res['id'])
-                        results_list.append(res)
+                if res and res.get("status") == "success" and res['id'] not in seen_ids:
+                    seen_ids.add(res['id'])
+                    results_list.append(res)
 
-        # Фаза 4: Сортировка и распределение по файлам
+        # Фаза сортировки
         results_list.sort(key=lambda x: x['country'])
         
-        # Фильтруем СТРОГО по коду страны, полученному от GeoIP
         by_configs = [r['data'] for r in results_list if r['country'] == 'BY']
         kz_configs = [r['data'] for r in results_list if r['country'] == 'KZ']
         all_configs = [r['data'] for r in results_list]
 
-        print(f"💾 Сохранение результатов (BY: {len(by_configs)}, KZ: {len(kz_configs)})")
+        print("\n🏁 --- ФИНАЛЬНЫЙ ОТЧЕТ ПО ЗАПИСИ ---")
         
         def safe_write(filename, data_list):
-            """Надежная запись файла с принудительным сбросом буфера."""
             try:
                 with open(filename, "w", encoding="utf-8") as f:
                     f.write("\n".join(data_list))
                     f.flush()
                     os.fsync(f.fileno())
-                print(f"✅ [FILE] {filename} сохранен ({len(data_list)} строк)")
+                print(f"💾 [FILE] {filename:18} | Записано: {len(data_list):4} шт.")
             except Exception as e:
                 print(f"❌ [ERROR] Ошибка записи {filename}: {e}")
 
@@ -334,18 +356,23 @@ def main():
         safe_write(BY_FILE, by_configs)
         safe_write(KZ_FILE, kz_configs)
 
-        # Создание статуса для GitHub Actions
+        # Обновление статуса
         status_data = {
             "last_run": datetime.now().isoformat(),
-            "total": len(all_configs),
+            "total_alive": len(all_configs),
             "by": len(by_configs),
-            "kz": len(kz_configs)
+            "kz": len(kz_configs),
+            "cache_skipped": skipped_cache,
+            "dead_total": dead_found
         }
         with open(STATUS_FILE, "w") as f:
             json.dump(status_data, f)
 
-        update_activity_log(len(all_configs), skipped_by_cache)
-        print(f"✅ ЗАВЕРШЕНО! Живых: {len(all_configs)} | Время: {time.time()-start_time:.1f}с")
+        update_activity_log(len(all_configs), skipped_cache, dead_found)
+        
+        duration = time.time() - start_time
+        print(f"\n📊 СТАТИСТИКА: Проверено: {processed_count} | Живых: {alive_found} | Мертвых: {dead_found} | Скип (Кэш): {skipped_cache}")
+        print(f"⏱️  ОБЩЕЕ ВРЕМЯ: {duration:.1f} сек.")
 
     except Exception as e:
         print(f"🚨 [FATAL ERROR] {e}")
