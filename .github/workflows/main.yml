@@ -1,43 +1,60 @@
-name: Extreme Proxy Update
+name: Proxy Multi-Sieve Inspector (Triggered)
 
 on:
-  schedule:
-    - cron: '27 */3 * * *'
-  push:
-    paths:
-      - 'my_personal_links.txt'
+  repository_dispatch:
+    types: [proxy_updated]
   workflow_dispatch:
 
 jobs:
-  update-proxies:
+  sieve_process:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
-      - name: Checkout Repository
+      - name: Checkout Code
         uses: actions/checkout@v4
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v4
         with:
-          python-version: '3.9'
+          python-version: '3.10'
 
-      - name: Install dependencies
+      - name: Install Dependencies
         run: |
-          pip install requests maxminddb
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-      - name: Execute Worker
-        run: python worker.py
-
-      - name: Commit and Force Push
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Download LiteSpeedTest Core (Robust Method)
         run: |
-          git config --global user.name "ExtremeProxyBot"
-          git config --global user.email "bot@github.com"
+          # Используем прямую ссылку на стабильный релиз одного из самых надежных форков
+          # Версия 0.15.5 - проверена временем
+          URL="https://github.com/Yidadaa/v2ray-speedtest/releases/download/v0.15.5/lite-speedtest-linux-amd64.gz"
           
-          # КРИТИЧЕСКОЕ ИСПРАВЛЕНИЕ: Добавляем все выходные файлы, чтобы они не были пустыми в репозитории
-          git add my_stable_configs.txt BY_stable.txt KZ_stable.txt my_personal_links.txt activity_log.txt proxy_cache.json
+          echo "Downloading core..."
+          curl -L -o core.gz "$URL"
           
-          git commit -m "Auto-Pulse: $(date +'%Y-%m-%d %H:%M') [Extreme Mode]" --allow-empty
-          git push origin main
+          # Проверяем формат. Если это не GZIP (например 404), пробуем другое зеркало
+          if ! gzip -t core.gz 2>/dev/null; then
+            echo "Primary link failed (404 or corrupted). Trying fallback mirror..."
+            curl -L -o core.gz "https://github.com/v2ray-speedtest/v2ray-speedtest/releases/download/v0.15.5/lite-speedtest-linux-amd64.gz"
+          fi
+          
+          # Распаковка
+          gunzip -c core.gz > lite-speedtest
+          chmod +x lite-speedtest
+          
+          # Проверка работоспособности
+          if [ ! -s "lite-speedtest" ]; then
+            echo "Critical Error: Binary file is empty or not found!"
+            exit 1
+          fi
+          echo "Success: Binary is ready. Size: $(stat -c%s lite-speedtest) bytes."
+
+      - name: Run Sieve Orchestrator
+        run: python main.py
+
+      - name: Commit and Push Results
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "Elite-Inspector-Bot"
+          git add .
+          git commit -m "Deep Audit Complete: $(date)" || exit 0
+          git push
