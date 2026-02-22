@@ -87,15 +87,31 @@ def check_tcp_port(ip, port):
 
 def extract_host_port(config):
     """
-    Extracts host and port from VLESS/Trojan/VMess links.
+    Improved extraction for VLESS, Trojan, VMess, Hysteria2, and Shadowsocks.
+    Handles standard URI formats and SS-Base64.
     """
     try:
+        # Standard format: proto://user:pass@host:port
         if "@" in config:
-            # Format: proto://uuid@host:port?params#name
-            address_part = config.split("@")[1].split("?")[0].split("#")[0]
+            # Separating the part after '@' and removing everything after '?', '#' or '/'
+            address_part = config.split("@")[1].split("?")[0].split("#")[0].split("/")[0]
             if ":" in address_part:
                 host, port = address_part.split(":")[:2]
                 return host.strip(), port.strip()
+        
+        # Shadowsocks Legacy (ss://base64_blob#name)
+        elif config.startswith("ss://") and "@" not in config:
+            encoded_part = config.replace("ss://", "").split("#")[0]
+            # Add padding if needed for base64
+            padding = len(encoded_part) % 4
+            if padding: encoded_part += "=" * (4 - padding)
+            
+            decoded = base64.b64decode(encoded_part).decode('utf-8', errors='ignore')
+            if "@" in decoded:
+                address_part = decoded.split("@")[1]
+                if ":" in address_part:
+                    host, port = address_part.split(":")[:2]
+                    return host.strip(), port.strip()
     except:
         pass
     return None, None
