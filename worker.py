@@ -13,20 +13,6 @@ import maxminddb
 # --- CONFIGURATION (MEGA SOURCES) ---
 SOURCES = [
     "https://raw.githubusercontent.com/mahdibland/V2RayAggregator/master/sub/sub_merge.txt",
-    "https://raw.githubusercontent.com/freev2rayspeed/v2ray/main/v2ray.txt",
-    "https://raw.githubusercontent.com/aiboboxx/v2rayfree/main/v2ray",
-    "https://raw.githubusercontent.com/vpei/free-v2ray-config/master/v2ray.txt",
-    "https://raw.githubusercontent.com/tbbatbb/Proxy/master/dist/v2ray.config",
-    "https://raw.githubusercontent.com/StayHu/v2ray/master/v2ray.txt",
-    "https://raw.githubusercontent.com/Sincere-Xue/v2ray-worker/main/sub/sub_merge.txt",
-    "https://raw.githubusercontent.com/LoverSe/v2ray/master/v2ray.txt",
-    "https://raw.githubusercontent.com/iwxf/free-v2ray/master/0218/v2ray.txt",
-    "https://raw.githubusercontent.com/erkaipl/v2ray/master/v2ray.txt",
-    "https://raw.githubusercontent.com/Pawel-H-H/v2ray/master/v2ray.txt",
-    "https://raw.githubusercontent.com/mfuu/v2ray/master/v2ray.txt",
-    "https://raw.githubusercontent.com/yebekhe/TV2RAY/main/sub/subscription",
-    "https://raw.githubusercontent.com/freefq/free/master/v2",
-    "https://raw.githubusercontent.com/Paw0015/Free-Vpn-Proxy/main/links/all",
     "https://raw.githubusercontent.com/V2Ray-Flags/V2Ray-Flags/main/V2Ray-Flags.txt"
 ]
 
@@ -94,7 +80,7 @@ def save_cache(cache_data):
         with open(CACHE_FILE, 'w') as f:
             json.dump(cache_data, f, indent=2)
             f.flush()
-        print(f"✅ [CACHE] Память сохранена в {CACHE_FILE}")
+        print(f"✅ [CACHE] Память сохранена in {CACHE_FILE}")
     except Exception as e:
         print(f"[CACHE] ⚠️ Ошибка сохранения: {e}")
 
@@ -202,6 +188,9 @@ def process_config(config, reader, cached_data):
     
     config = config.strip()
     if not config or "://" not in config: return None
+
+    # Поиск упоминания BY для отладки
+    is_claimed_by = "BY" in config.upper() or "BELARUS" in config.upper()
     
     host, port, proto = extract_host_port(config)
     if not host or not port: return None
@@ -215,7 +204,10 @@ def process_config(config, reader, cached_data):
             processed_count += 1
             dns_fail += 1
         progress = (processed_count / total_configs_to_check) * 100
-        print(f"🚫 [{progress:.1f}%] [DNS_FAIL] {host} -> 0")
+        if is_claimed_by:
+            print(f"🕵️‍♂️ [TRACE_BY] DNS СБОЙ: Не могу найти IP для {host}")
+        else:
+            print(f"🚫 [{progress:.1f}%] [DNS_FAIL] {host} -> 0")
         return None
 
     # 2. Определение страны СТРОГО по IP
@@ -241,7 +233,11 @@ def process_config(config, reader, cached_data):
             processed_count += 1
             wrong_country += 1
         progress = (processed_count / total_configs_to_check) * 100
-        print(f"🌍 [{progress:.1f}%] [WRONG_GEO] {country_code} | {ip}:{port} -> 0")
+        
+        if is_claimed_by:
+            print(f"🕵️‍♂️ [TRACE_BY] ГЕО СБОЙ: В конфиге BY, а по базе IP ({ip}) это {country_code}")
+        else:
+            print(f"🌍 [{progress:.1f}%] [WRONG_GEO] {country_code} | {ip}:{port} -> 0")
         return None
     
     # 5. Проверка TCP порта
