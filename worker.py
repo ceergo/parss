@@ -5,11 +5,12 @@ import socket
 import os
 import time
 import json
-from datetime import datetime
+from datetime import datetime, timedelta
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import maxminddb
 
 # --- CONFIGURATION (MEGA SOURCES) ---
+# Combined from your old code and new global sources
 SOURCES = [
     "https://raw.githubusercontent.com/mahdibland/V2RayAggregator/master/sub/sub_merge.txt",
     "https://raw.githubusercontent.com/freev2rayspeed/v2ray/main/v2ray.txt",
@@ -23,18 +24,24 @@ SOURCES = [
     "https://raw.githubusercontent.com/erkaipl/v2ray/master/v2ray.txt",
     "https://raw.githubusercontent.com/Pawel-H-H/v2ray/master/v2ray.txt",
     "https://raw.githubusercontent.com/mfuu/v2ray/master/v2ray.txt",
-    "https://raw.githubusercontent.com/yebekhe/TV2RAY/main/sub/subscription"
+    "https://raw.githubusercontent.com/yebekhe/TV2RAY/main/sub/subscription",
+    "https://raw.githubusercontent.com/freefq/free/master/v2",
+    "https://raw.githubusercontent.com/Paw0015/Free-Vpn-Proxy/main/links/all",
+    "https://raw.githubusercontent.com/V2Ray-Flags/V2Ray-Flags/main/V2Ray-Flags.txt"
 ]
 
 # File paths
 PERSONAL_LINKS_FILE = "my_personal_links.txt"
 ACTIVITY_LOG = "activity_log.txt"
 OUTPUT_FILE = "my_stable_configs.txt"
+BY_FILE = "BY_stable.txt"
+KZ_FILE = "BY_stable.txt"
+CACHE_FILE = "proxy_cache.json"
 
-# Target countries (Elite Filter + Bypass Expansion)
+# Target countries (Elite Filter)
 TARGET_COUNTRIES = ['BY', 'KZ', 'PL', 'CH', 'SE', 'DE', 'US', 'GB', 'FI', 'TR', 'NL', 'FR']
 
-# Emoji Flags Dictionary for Visual Identification (Local Only)
+# Emoji Flags Dictionary
 COUNTRY_FLAGS = {
     'BY': '🇧🇾', 'KZ': '🇰🇿', 'PL': '🇵🇱', 'CH': '🇨🇭', 'SE': '🇸🇪', 
     'DE': '🇩🇪', 'US': '🇺🇸', 'GB': '🇬🇧', 'FI': '🇫🇮', 'TR': '🇹🇷', 
@@ -49,10 +56,37 @@ GEOIP_FILENAME = "GeoLite2-Country.mmdb"
 THREADS = 100
 TIMEOUT = 1.2
 
+# --- SMART CACHE LOGIC ---
+def load_cache():
+    """Load proxy cache from JSON file with 3-day cycle check."""
+    if not os.path.exists(CACHE_FILE):
+        return {"start_date": datetime.now().isoformat(), "data": {}}
+    
+    try:
+        with open(CACHE_FILE, 'r') as f:
+            cache = json.load(f)
+        
+        # Check if cache is older than 3 days
+        start_date = datetime.fromisoformat(cache.get("start_date", datetime.now().isoformat()))
+        if datetime.now() - start_date > timedelta(days=3):
+            print("[CACHE] Цикл завершен (3 дня). Сброс кэша для свежей проверки...")
+            return {"start_date": datetime.now().isoformat(), "data": {}}
+            
+        return cache
+    except Exception as e:
+        print(f"[CACHE] Ошибка загрузки: {e}")
+        return {"start_date": datetime.now().isoformat(), "data": {}}
+
+def save_cache(cache_data):
+    """Save current proxy states to cache."""
+    try:
+        with open(CACHE_FILE, 'w') as f:
+            json.dump(cache_data, f, indent=2)
+    except Exception as e:
+        print(f"[CACHE] Ошибка сохранения: {e}")
+
+# --- CORE FUNCTIONS ---
 def download_geoip_with_retry(retries=3):
-    """
-    Downloads GeoIP database if missing. Uses retries for stability.
-    """
     if os.path.exists(GEOIP_FILENAME):
         print("✅ База GeoIP найдена.")
         return True
@@ -73,21 +107,13 @@ def download_geoip_with_retry(retries=3):
     return False
 
 def get_ip_from_host(host):
-    """
-    Resolves hostname to IP. Handles IPv6 correctly.
-    """
     try:
-        # Check if already IP (v4 or v6)
         return socket.gethostbyname(host)
     except:
         return None
 
 def check_tcp_port(ip, port):
-    """
-    Low-level TCP check to verify if the server is reachable.
-    """
     try:
-        # Handle potential IPv6 in connection
         family = socket.AF_INET6 if ":" in ip else socket.AF_INET
         with socket.socket(family, socket.SOCK_STREAM) as s:
             s.settimeout(TIMEOUT)
@@ -97,45 +123,33 @@ def check_tcp_port(ip, port):
         return False
 
 def extract_host_port(config):
-    """
-    Advanced extractor: Handles IPv6 [bracketed:addr]:port, VMess JSON-Base64,
-    Hysteria2, Trojan, VLESS and Shadowsocks.
-    """
+    """Advanced extractor from your V3.8 code."""
     try:
-        # --- CASE 1: VMess (JSON inside Base64) ---
         if config.startswith("vmess://"):
             vmess_data = config.replace("vmess://", "")
             padding = len(vmess_data) % 4
             if padding: vmess_data += "=" * (4 - padding)
-            
             try:
                 decoded_js = json.loads(base64.b64decode(vmess_data).decode('utf-8'))
                 host = decoded_js.get('add')
                 port = decoded_js.get('port')
                 if host and port:
-                    return str(host).strip(), str(port).strip()
-            except:
-                pass # Fallback
+                    return str(host).strip(), str(port).strip(), "VMESS"
+            except: pass
 
-        # --- CASE 2: Standard URI (vless, trojan, hysteria2, etc.) ---
         if "@" in config:
-            # Extract everything between '@' and first '/', '?', '#'
+            protocol = config.split("://")[0].upper()
             address_part = config.split("@")[1].split("?")[0].split("#")[0].split("/")[0]
             
-            # Handle IPv6 [2001:db8::1]:443
             if address_part.startswith("["):
                 match = re.search(r"\[(.+)\]:(\d+)", address_part)
                 if match:
-                    return match.group(1), match.group(2)
+                    return match.group(1), match.group(2), protocol
             
-            # Standard host:port
             if ":" in address_part:
                 parts = address_part.split(":")
-                host = parts[0]
-                port = parts[-1]
-                return host.strip(), port.strip()
+                return parts[0].strip(), parts[-1].strip(), protocol
 
-        # --- CASE 3: Shadowsocks Legacy (ss://base64) ---
         elif config.startswith("ss://"):
             encoded_part = config.replace("ss://", "").split("#")[0]
             padding = len(encoded_part) % 4
@@ -146,155 +160,147 @@ def extract_host_port(config):
                     address_part = decoded.split("@")[1].split("/")[0]
                     if ":" in address_part:
                         host, port = address_part.split(":")[:2]
-                        return host.strip(), port.strip()
+                        return host.strip(), port.strip(), "SS"
             except: pass
-    except:
-        pass
-    return None, None
+    except: pass
+    return None, None, "UNKNOWN"
 
 def decode_content(content):
-    """
-    Handles Base64 subscription formats.
-    """
     try:
         if "://" not in content[:20]:
             return base64.b64decode(content).decode('utf-8')
-    except:
-        pass
+    except: pass
     return content
 
-def process_config(config, reader):
-    """
-    Core logic: Host resolution -> Geo Filter -> TCP Check -> Formatting with Flags.
-    """
+def process_config(config, reader, cached_data):
     config = config.strip()
     if not config or len(config) < 10: return None
     
-    host, port = extract_host_port(config)
+    host, port, proto = extract_host_port(config)
     if not host or not port: return None
 
-    # Resolve IP
-    ip = host if (":" in host or re.match(r"^\d{1,3}(\.\d{1,3}){3}$", host)) else get_ip_from_host(host)
-    if not ip: return None
+    fingerprint = f"{host}:{port}:{proto}"
+    
+    # --- CACHE CHECK ---
+    if fingerprint in cached_data:
+        if cached_data[fingerprint]["status"] == "dead":
+            return {"status": "skipped"}
 
-    # 1. GeoIP Filter (Local Database)
+    ip = host if (":" in host or re.match(r"^\d{1,3}(\.\d{1,3}){3}$", host)) else get_ip_from_host(host)
+    if not ip: 
+        cached_data[fingerprint] = {"status": "dead", "time": datetime.now().isoformat()}
+        return None
+
+    # GeoIP Filter
     try:
         geo_data = reader.get(ip)
         country_code = geo_data.get('country', {}).get('iso_code', 'UN')
-    except:
-        country_code = "UN"
+    except: country_code = "UN"
 
     if country_code not in TARGET_COUNTRIES:
         return None
     
-    # 2. Survival Check (TCP)
-    if not check_tcp_port(ip, port):
-        return None
-
-    # 3. Success! Identification with Flags
-    flag = COUNTRY_FLAGS.get(country_code, '🌐')
-    protocol = config.split("://")[0].upper()
+    # TCP Check
+    is_alive = check_tcp_port(ip, port)
     
-    base_url = config.split("#")[0]
-    final_name = f"{flag} [{country_code}] {protocol} | {ip}"
-    return {"id": f"{ip}:{port}", "country": country_code, "data": f"{base_url}#{final_name}"}
+    # Update Cache
+    cached_data[fingerprint] = {
+        "status": "alive" if is_alive else "dead",
+        "time": datetime.now().isoformat()
+    }
 
-def update_activity_log(count):
-    """
-    Updates the log file to trigger activity on GitHub.
-    """
+    if not is_alive: return None
+
+    # Success!
+    flag = COUNTRY_FLAGS.get(country_code, '🌐')
+    base_url = config.split("#")[0]
+    final_name = f"{flag} [{country_code}] {proto} | {ip}"
+    return {
+        "id": fingerprint, 
+        "country": country_code, 
+        "data": f"{base_url}#{final_name}",
+        "status": "success"
+    }
+
+def update_activity_log(count, skipped):
     now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     try:
-        with open(ACTIVITY_LOG, "w", encoding="utf-8") as f:
-            f.write(f"Last Check: {now}\nFound Alive: {count}\nStatus: Active (Mega Pulse)")
-        print(f"💓 Пульс обновлен: {now}")
-    except Exception as e:
-        print(f"⚠️ Не удалось обновить лог активности: {e}")
+        with open(ACTIVITY_LOG, "a", encoding="utf-8") as f:
+            f.write(f"[{now}] Found: {count} | Skipped: {skipped} | Cycle: Active\n")
+        print(f"💓 Лог обновлен: {now}")
+    except: pass
 
 def main():
-    print("🚀 --- MEGA WORKER v3.8 [Visual & Protocol Mastery] ---")
+    print("🚀 --- MEGA WORKER V4.1 [Smart Cache & Multi-Country] ---")
     start_time = time.time()
 
-    if not download_geoip_with_retry():
-        print("🛑 Критическая ошибка: База GeoIP не найдена.")
-        return
+    if not download_geoip_with_retry(): return
 
     reader = maxminddb.open_database(GEOIP_FILENAME)
+    cache = load_cache()
+    cached_data = cache["data"]
+    
     all_raw_configs = []
 
-    # --- PHASE 1: Global Sources ---
-    print(f"📡 Сбор данных из {len(SOURCES)} глобальных источников...")
+    # Phase 1: Global Sources
     for url in SOURCES:
         try:
             r = requests.get(url, timeout=15)
             decoded = decode_content(r.text)
-            lines = [l.strip() for l in decoded.splitlines() if l.strip()]
-            all_raw_configs.extend(lines)
-            print(f"✅ Успешно: {url[:50]}... ({len(lines)} строк)")
-        except:
-            print(f"⚠️ Ошибка источника: {url[:40]}")
-
-    # --- PHASE 2: Personal Links ---
-    if not os.path.exists(PERSONAL_LINKS_FILE):
-        with open(PERSONAL_LINKS_FILE, "w", encoding="utf-8") as f:
-            f.write("# Босс, кидай сюда свои ссылки!\n")
-        print(f"📝 Создан файл: {PERSONAL_LINKS_FILE}")
-    else:
-        print(f"📂 Обработка {PERSONAL_LINKS_FILE}...")
-        try:
-            with open(PERSONAL_LINKS_FILE, "r", encoding="utf-8") as f:
-                for line in f.read().splitlines():
-                    line = line.strip()
-                    if not line or line.startswith("#"): continue
-                    if line.startswith("http"):
-                        try:
-                            r = requests.get(line, timeout=10)
-                            all_raw_configs.extend([l.strip() for l in decode_content(r.text).splitlines() if l.strip()])
-                        except: pass
-                    else:
-                        all_raw_configs.append(line)
+            all_raw_configs.extend([l.strip() for l in decoded.splitlines() if l.strip()])
         except: pass
 
-    # --- PHASE 3: Multithreaded Processing ---
-    total_raw = len(all_raw_configs)
-    print(f"📊 Всего на входе: {total_raw}")
-    print(f"⚙️ Запуск фильтрации (Потоков: {THREADS})...")
+    # Phase 2: Personal Links
+    if os.path.exists(PERSONAL_LINKS_FILE):
+        with open(PERSONAL_LINKS_FILE, "r", encoding="utf-8") as f:
+            for line in f.read().splitlines():
+                line = line.strip()
+                if not line or line.startswith("#"): continue
+                if line.startswith("http"):
+                    try:
+                        r = requests.get(line, timeout=10)
+                        all_raw_configs.extend([l.strip() for l in decode_content(r.text).splitlines() if l.strip()])
+                    except: pass
+                else: all_raw_configs.append(line)
+
+    # Phase 3: Processing
+    total_raw = len(set(all_raw_configs))
+    print(f"📊 Уникальных ссылок: {total_raw}")
 
     results_list = []
-    processed = 0
+    skipped = 0
     seen_ids = set()
     
     with ThreadPoolExecutor(max_workers=THREADS) as executor:
-        future_tasks = [executor.submit(process_config, cfg, reader) for cfg in all_raw_configs]
+        future_tasks = [executor.submit(process_config, cfg, reader, cached_data) for cfg in list(set(all_raw_configs))]
         for future in as_completed(future_tasks):
-            processed += 1
-            if processed % 500 == 0 or processed == total_raw:
-                print(f"📦 Прогресс: {processed}/{total_raw} ({(processed/total_raw)*100:.1f}%)")
-            
             res = future.result()
-            if res and res['id'] not in seen_ids:
-                seen_ids.add(res['id'])
-                results_list.append(res)
+            if res:
+                if res.get("status") == "skipped":
+                    skipped += 1
+                elif res.get("status") == "success" and res['id'] not in seen_ids:
+                    seen_ids.add(res['id'])
+                    results_list.append(res)
 
-    # --- PHASE 4: Sorting & Saving ---
-    # Sort by Country Code for a clean list
+    # Phase 4: Sorting & Saving
     results_list.sort(key=lambda x: x['country'])
-    final_configs = [item['data'] for item in results_list]
     
-    try:
-        with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
-            f.write("\n".join(final_configs))
-        print(f"💾 Результат сохранен в {OUTPUT_FILE}")
-    except Exception as e:
-        print(f"❌ Ошибка сохранения: {e}")
+    by_configs = [r['data'] for r in results_list if r['country'] == 'BY']
+    kz_configs = [r['data'] for r in results_list if r['country'] == 'KZ']
+    all_configs = [r['data'] for r in results_list]
 
-    update_activity_log(len(final_configs))
+    with open(OUTPUT_FILE, "w", encoding="utf-8") as f: f.write("\n".join(all_configs))
+    with open(BY_FILE, "w", encoding="utf-8") as f: f.write("\n".join(by_configs))
+    with open(KZ_FILE, "w", encoding="utf-8") as f: f.write("\n".join(kz_configs))
+
+    save_cache(cache)
+    update_activity_log(len(all_configs), skipped)
     reader.close()
     
     duration = time.time() - start_time
     print("-" * 40)
-    print(f"🏁 ФИНИШ! Найдено уникальных: {len(final_configs)}")
-    print(f"🔹 Время: {duration:.1f} сек | КПД: {(len(final_configs)/total_raw)*100:.2f}%")
+    print(f"🏁 ФИНИШ! Найдено: {len(all_configs)} (BY: {len(by_configs)}, KZ: {len(kz_configs)})")
+    print(f"🔹 Пропущено (кэш): {skipped} | Время: {duration:.1f} сек")
     print("-" * 40)
 
 if __name__ == "__main__":
