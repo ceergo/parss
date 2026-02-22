@@ -84,34 +84,62 @@ def check_tcp_port(ip, port):
             return True
     except:
         return False
-
+        
 def extract_host_port(config):
     """
-    Improved extraction for VLESS, Trojan, VMess, Hysteria2, and Shadowsocks.
-    Handles standard URI formats and SS-Base64.
+    Advanced extractor: Handles IPv6 [bracketed:addr]:port, VMess JSON-Base64,
+    Hysteria2, Trojan, VLESS and Shadowsocks.
     """
     try:
-        # Standard format: proto://user:pass@host:port
+        # --- CASE 1: VMess (often JSON inside Base64) ---
+        if config.startswith("vmess://"):
+            vmess_data = config.replace("vmess://", "")
+            # Fix padding
+            padding = len(vmess_data) % 4
+            if padding: vmess_data += "=" * (4 - padding)
+            
+            import json
+            try:
+                decoded_js = json.loads(base64.b64decode(vmess_data).decode('utf-8'))
+                host = decoded_js.get('add')
+                port = decoded_js.get('port')
+                if host and port:
+                    return str(host).strip(), str(port).strip()
+            except:
+                pass # Fallback to standard parsing if not JSON
+
+        # --- CASE 2: Standard URI (vless, trojan, hysteria2, etc.) ---
         if "@" in config:
-            # Separating the part after '@' and removing everything after '?', '#' or '/'
+            # Extract everything between '@' and first '/', '?', '#'
             address_part = config.split("@")[1].split("?")[0].split("#")[0].split("/")[0]
+            
+            # Handle IPv6 [2001:db8::1]:443
+            if address_part.startswith("["):
+                match = re.search(r"\[(.+)\]:(\d+)", address_part)
+                if match:
+                    return match.group(1), match.group(2)
+            
+            # Standard host:port
             if ":" in address_part:
-                host, port = address_part.split(":")[:2]
+                parts = address_part.split(":")
+                host = parts[0]
+                port = parts[-1] # Port is always the last part
                 return host.strip(), port.strip()
-        
-        # Shadowsocks Legacy (ss://base64_blob#name)
-        elif config.startswith("ss://") and "@" not in config:
+
+        # --- CASE 3: Shadowsocks Legacy (ss://base64) ---
+        elif config.startswith("ss://"):
+            # Logic for ss://... as provided before
             encoded_part = config.replace("ss://", "").split("#")[0]
-            # Add padding if needed for base64
             padding = len(encoded_part) % 4
             if padding: encoded_part += "=" * (4 - padding)
-            
-            decoded = base64.b64decode(encoded_part).decode('utf-8', errors='ignore')
-            if "@" in decoded:
-                address_part = decoded.split("@")[1]
-                if ":" in address_part:
-                    host, port = address_part.split(":")[:2]
-                    return host.strip(), port.strip()
+            try:
+                decoded = base64.b64decode(encoded_part).decode('utf-8', errors='ignore')
+                if "@" in decoded:
+                    address_part = decoded.split("@")[1].split("/")[0]
+                    if ":" in address_part:
+                        host, port = address_part.split(":")[:2]
+                        return host.strip(), port.strip()
+            except: pass
     except:
         pass
     return None, None
