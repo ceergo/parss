@@ -2,35 +2,34 @@ name: Extreme Proxy Update
 
 on:
   schedule:
-    - cron: '0 */3 * * *' # Auto-update every 3 hours
-  workflow_dispatch: # Allow manual launch
+    - cron: '0 */3 * * *'
+  workflow_dispatch:
 
 jobs:
   update-proxies:
     runs-on: ubuntu-latest
     permissions:
-      contents: write # CRITICAL: Allows the bot to save the file
+      contents: write
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Setup Python environment
-        uses: actions/setup-python@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
           python-version: '3.9'
 
-      - name: Install System dependencies
+      - name: Install dependencies
         run: |
           pip install requests maxminddb
 
       - name: Execute Worker
         run: python worker.py
 
-      - name: Commit and Sync results
+      - name: Commit and Push
         run: |
           git config --global user.name "ExtremeProxyBot"
           git config --global user.email "bot@github.com"
-          git add my_stable_configs.txt
-          # Commit only if there are changes, otherwise exit gracefully
-          git commit -m "Auto-update: $(date +'%Y-%m-%d %H:%M') [Live Check]" || exit 0
+          git add my_stable_configs.txt my_personal_links.txt
+          git commit -m "Auto-update: $(date +'%Y-%m-%d %H:%M')" || exit 0
           git push
