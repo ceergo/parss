@@ -12,7 +12,7 @@ import maxminddb
 
 # --- CONFIGURATION (MEGA SOURCES) ---
 SOURCES = [
-    "https://raw.githubusercontent.com/mahdibland/V2RayAggregator/master/sub/sub_merge.txt",
+
     "https://raw.githubusercontent.com/V2Ray-Flags/V2Ray-Flags/main/V2Ray-Flags.txt"
 ]
 
