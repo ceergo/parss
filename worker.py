@@ -36,6 +36,7 @@ OUTPUT_FILE = "my_stable_configs.txt"
 BY_FILE = "BY_stable.txt"
 KZ_FILE = "KZ_stable.txt"
 CACHE_FILE = "proxy_cache.json"
+STATUS_FILE = "status.json"
 
 # Target countries (Elite Filter)
 TARGET_COUNTRIES = ['BY', 'KZ', 'PL', 'CH', 'SE', 'DE', 'US', 'GB', 'FI', 'TR', 'NL', 'FR']
@@ -196,8 +197,6 @@ def process_config(config, reader, cached_data):
     # --- DNS RESOLVING ---
     ip = get_ip_from_host(host)
     if not ip: 
-        # Добавляем в лог причину отбраковки
-        # print(f"❌ [DNS FAIL] Не удалось найти IP для: {host}")
         cached_data[fingerprint] = {"status": "dead", "time": datetime.now().isoformat()}
         return None
 
@@ -208,7 +207,6 @@ def process_config(config, reader, cached_data):
     except: country_code = "UN"
 
     if country_code not in TARGET_COUNTRIES:
-        # print(f"🌍 [SKIP] {ip} относится к {country_code} (не в списке)")
         return None
     
     # TCP Check
@@ -223,7 +221,6 @@ def process_config(config, reader, cached_data):
     }
 
     if not is_alive: 
-        # print(f"🔌 [OFFLINE] {ip}:{port} не отвечает")
         return None
 
     # Success!
@@ -231,7 +228,6 @@ def process_config(config, reader, cached_data):
     base_url = config.split("#")[0]
     final_name = f"{flag} [{country_code}] {proto} | {ip}"
     
-    # Лог успеха в реальном времени (в консоль пойдут только успешные находки)
     print(f"✨ [FOUND] {country_code} | {proto} | {ip}:{port}")
     
     return {
@@ -250,7 +246,7 @@ def update_activity_log(count, skipped):
     except: pass
 
 def main():
-    print("🚀 --- MEGA WORKER V4.4 [REAL-TIME LOGGING] ---")
+    print("🚀 --- MEGA WORKER V4.4 [DIAGNOSTIC MODE] ---")
     start_time = time.time()
 
     if not download_geoip_with_retry(): return
@@ -324,10 +320,36 @@ def main():
     kz_configs = [r['data'] for r in results_list if r['country'] == 'KZ']
     all_configs = [r['data'] for r in results_list]
 
-    # Запись результатов
-    with open(OUTPUT_FILE, "w", encoding="utf-8") as f: f.write("\n".join(all_configs))
-    with open(BY_FILE, "w", encoding="utf-8") as f: f.write("\n".join(by_configs))
-    with open(KZ_FILE, "w", encoding="utf-8") as f: f.write("\n".join(kz_configs))
+    # --- DIAGNOSTIC WRITE ---
+    print(f"💾 Подготовка к записи файлов...")
+    
+    def safe_write(filename, data_list):
+        if not data_list:
+            print(f"⚠️ [FILE] {filename} пропущен: список пуст.")
+            return
+        try:
+            content = "\n".join(data_list)
+            with open(filename, "w", encoding="utf-8") as f:
+                f.write(content)
+                f.flush()
+                os.fsync(f.fileno()) # Принудительный сброс на диск
+            print(f"✅ [FILE] {filename} сохранен ({len(data_list)} строк, {len(content)} байт)")
+        except Exception as e:
+            print(f"❌ [FILE ERROR] Ошибка при записи {filename}: {e}")
+
+    safe_write(OUTPUT_FILE, all_configs)
+    safe_write(BY_FILE, by_configs)
+    safe_write(KZ_FILE, kz_configs)
+
+    # Create status trigger for Git
+    status_data = {
+        "last_run": datetime.now().isoformat(),
+        "total_alive": len(all_configs),
+        "by_count": len(by_configs),
+        "kz_count": len(kz_configs)
+    }
+    with open(STATUS_FILE, "w") as f:
+        json.dump(status_data, f)
 
     # Статистика отбраковки
     total_found = len(all_configs)
@@ -340,13 +362,8 @@ def main():
     duration = time.time() - start_time
     print("-" * 40)
     print(f"✅ ПРОВЕРКА ЗАВЕРШЕНА!")
-    print(f"📦 Всего найдено живых: {total_found}")
-    print(f"   ∟ 🇧🇾 Беларусь: {len(by_configs)}")
-    print(f"   ∟ 🇰🇿 Казахстан: {len(kz_configs)}")
-    print(f"⏩ Пропущено кэшем: {skipped_by_cache}")
-    print(f"🗑️  Отбраковано (Dead/DNS/WrongGeo): {rejected}")
-    print(f"⚠️  Недоступных источников: {broken_sources}")
-    print(f"⏱️  Общее время: {duration:.1f} сек")
+    print(f"📦 Итоги: {total_found} живых | {skipped_by_cache} кэш | {rejected} брак")
+    print(f"⏱️  Время: {duration:.1f} сек")
     print("-" * 40)
 
 if __name__ == "__main__":
