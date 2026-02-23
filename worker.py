@@ -163,12 +163,45 @@ def check_tcp_port(ip, port):
     except:
         return False
 
+def clean_config_name(raw_name):
+    """
+    ФУНКЦИЯ ОЧИСТКИ: Удаляет рекламу, ссылки t.me, каналы и мусорные символы.
+    """
+    if not raw_name:
+        return ""
+    
+    # Декодируем URL-encoded символы (например %20 -> пробел)
+    name = requests.utils.unquote(raw_name)
+    
+    # 1. Удаляем ссылки (http, https, t.me)
+    name = re.sub(r'(?i)(https?://|www\.|t\.me/)[^\s]+', '', name)
+    
+    # 2. Удаляем упоминания каналов через @
+    name = re.sub(r'@[^\s]+', '', name)
+    
+    # 3. Удаляем технические даты и сроки годности (202X-XX-XX)
+    name = re.sub(r'\d{4}[-/]\d{2}[-/]\d{2}', '', name)
+    
+    # 4. Удаляем мусорные символы, оставляя только буквы, цифры и базовые знаки
+    name = re.sub(r'[^\w\s\.\-\|\(\)\[\]]', ' ', name)
+    
+    # 5. Убираем лишние пробелы
+    name = " ".join(name.split())
+    
+    return name.strip()
+
 def extract_host_port(config):
     """
     Универсальный экстрактор данных для VLESS, VMess, Trojan, ShadowSocks.
     Декодирует VMess JSON и обрабатывает различные форматы ссылок.
+    Возвращает: host, port, proto, raw_name
     """
     try:
+        raw_name = ""
+        # Пытаемся вытащить имя из якоря #
+        if "#" in config:
+            raw_name = config.split("#")[1]
+
         if config.startswith("vmess://"):
             vmess_data = config.replace("vmess://", "")
             padding = len(vmess_data) % 4
@@ -177,8 +210,11 @@ def extract_host_port(config):
                 decoded_js = json.loads(base64.b64decode(vmess_data).decode('utf-8'))
                 host = decoded_js.get('add')
                 port = decoded_js.get('port')
+                # В VMess имя часто сидит в поле 'ps'
+                if not raw_name:
+                    raw_name = decoded_js.get('ps', '')
                 if host and port:
-                    return str(host).strip(), str(port).strip(), "VMESS"
+                    return str(host).strip(), str(port).strip(), "VMESS", raw_name
             except: pass
 
         if "@" in config:
@@ -187,22 +223,24 @@ def extract_host_port(config):
             address_part = config.split("@")[1].split("?")[0].split("#")[0].split("/")[0]
             
             # Обработка IPv6 в квадратных скобках [2001:db8::1]:443
+            host, port = "", ""
             if address_part.startswith("["):
                 match = re.search(r"\[(.+)\]:(\d+)", address_part)
                 if match:
-                    return match.group(1), match.group(2), protocol
-            
-            # Стандартный формат host:port
-            if ":" in address_part:
+                    host, port = match.group(1), match.group(2)
+            elif ":" in address_part:
                 parts = address_part.split(":")
-                return parts[0].strip(), parts[-1].strip(), protocol
+                host, port = parts[0].strip(), parts[-1].strip()
+            
+            if host and port:
+                return host, port, protocol, raw_name
 
         elif config.startswith("ss://"):
             encoded_part = config.replace("ss://", "").split("#")[0]
             # SS может быть не закодирован в base64 в некоторых форматах
             if ":" in encoded_part and "@" not in encoded_part: 
                  parts = encoded_part.split(":")
-                 return parts[0].strip(), parts[1].strip(), "SS"
+                 return parts[0].strip(), parts[1].strip(), "SS", raw_name
             
             padding = len(encoded_part) % 4
             if padding: encoded_part += "=" * (4 - padding)
@@ -212,10 +250,10 @@ def extract_host_port(config):
                     address_part = decoded.split("@")[1].split("/")[0]
                     if ":" in address_part:
                         host, port = address_part.split(":")[:2]
-                        return host.strip(), port.strip(), "SS"
+                        return host.strip(), port.strip(), "SS", raw_name
             except: pass
     except: pass
-    return None, None, "UNKNOWN"
+    return None, None, "UNKNOWN", ""
 
 def decode_content(content):
     """
@@ -229,23 +267,20 @@ def decode_content(content):
 
 def process_config(config, reader, cached_data):
     """
-    Основная логика: Кэш -> DNS -> GeoIP -> TCP Check.
-    Включает Trace-логирование для подозрительных BY/KZ узлов.
+    Основная логика: Кэш -> DNS -> GeoIP -> Clean Name -> TCP Check.
     """
     global processed_count, alive_found, dead_found, skipped_cache, dns_fail, wrong_country
     
     config = config.strip()
     if not config or "://" not in config: return None
 
-    # TRACE LOGIC: Проверка, является ли конфиг потенциальной целью для BY/KZ
-    is_target_trace = any(x in config.upper() for x in ["BY", "BELARUS", "KZ", "KAZAKHSTAN"])
-    
-    host, port, proto = extract_host_port(config)
+    # Извлекаем данные и ИМЯ
+    host, port, proto, raw_name = extract_host_port(config)
     if not host or not port: return None
 
     fingerprint = f"{host}:{port}:{proto}"
     
-    # 1. Проверка Кэша (Total Caching)
+    # 1. Проверка Кэша
     if fingerprint in cached_data:
         entry = cached_data[fingerprint]
         
@@ -265,16 +300,15 @@ def process_config(config, reader, cached_data):
                 skipped_cache += 1 
             
             flag = COUNTRY_FLAGS.get(country_code, '🌐')
-            base_url = config.split("#")[0]
-            final_name = f"{flag} [{country_code}] {proto} | {ip}"
-            
-            if is_target_trace or country_code in ['BY', 'KZ']:
-                print(f"🕵️‍♂️ [TRACE_CACHE] {country_code} | {ip} найден в памяти.")
+            # Применяем очистку имени
+            clean_name = clean_config_name(raw_name)
+            display_info = f"{clean_name} | {ip}" if clean_name else ip
+            final_name = f"{flag} [{country_code}] {proto} | {display_info}"
             
             return {
                 "id": fingerprint, 
                 "country": country_code, 
-                "data": f"{base_url}#{final_name}",
+                "data": f"{config.split('#')[0]}#{final_name}",
                 "status": "success"
             }
 
@@ -286,7 +320,7 @@ def process_config(config, reader, cached_data):
             dns_fail += 1
         return None
 
-    # 3. GeoIP Определение (Строго по IP)
+    # 3. GeoIP Определение
     try:
         geo_data = reader.get(ip)
         country_code = str(geo_data.get('country', {}).get('iso_code', 'UN')).strip().upper()
@@ -308,10 +342,6 @@ def process_config(config, reader, cached_data):
         if is_alive: alive_found += 1
         else: dead_found += 1
         
-    if is_target_trace:
-        status_str = "ALIVE" if is_alive else "DEAD"
-        print(f"🕵️‍♂️ [TRACE_CHECK] {country_code} | {ip}:{port} | Результат: {status_str}")
-    
     # Обновление состояния в кэше
     cached_data[fingerprint] = {
         "status": "alive" if is_alive else "dead",
@@ -323,15 +353,16 @@ def process_config(config, reader, cached_data):
     if not is_alive: 
         return None
 
-    # 6. Форматирование финального имени
+    # 6. Форматирование финального имени с ОЧИСТКОЙ
     flag = COUNTRY_FLAGS.get(country_code, '🌐')
-    base_url = config.split("#")[0]
-    final_name = f"{flag} [{country_code}] {proto} | {ip}"
+    clean_name = clean_config_name(raw_name)
+    display_info = f"{clean_name} | {ip}" if clean_name else ip
+    final_name = f"{flag} [{country_code}] {proto} | {display_info}"
     
     return {
         "id": fingerprint, 
         "country": country_code, 
-        "data": f"{base_url}#{final_name}",
+        "data": f"{config.split('#')[0]}#{final_name}",
         "status": "success"
     }
 
@@ -364,7 +395,6 @@ def safe_write(filename, data_list):
 def trigger_second_repo():
     """
     Отправка сигнала (Dispatch) второму боту в репозиторий ceergo/proverf.
-    Требуется секрет SECOND_REPO_PAT.
     """
     token = os.getenv("SECOND_REPO_PAT")
     if not token:
@@ -390,7 +420,7 @@ def trigger_second_repo():
 def main():
     global total_configs_to_check, processed_count, alive_found, dead_found, skipped_cache, dns_fail, wrong_country
     
-    print("🚀 --- MEGA WORKER V4.5 [FINAL TRACE & TRIGGER] ---")
+    print("🚀 --- MEGA WORKER V5.0 [CLEAN NAME LOGIC] ---")
     start_time = time.time()
 
     # Инициализация ресурсов
@@ -443,13 +473,10 @@ def main():
                 seen_ids.add(res['id'])
                 results_list.append(res)
 
-    # 3. Распределение и аудит
-    print("\n📂 --- ФИНАЛЬНЫЙ АУДИТ РАСПРЕДЕЛЕНИЯ ---")
+    # 3. Распределение
+    print("\n📂 --- РАСПРЕДЕЛЕНИЕ РЕЗУЛЬТАТОВ ---")
     by_configs = [r['data'] for r in results_list if r['country'] == 'BY']
     kz_configs = [r['data'] for r in results_list if r['country'] == 'KZ']
-    
-    if by_configs: print(f"🇧🇾 [BY] Найдено узлов: {len(by_configs)}")
-    if kz_configs: print(f"🇰🇿 [KZ] Найдено узлов: {len(kz_configs)}")
     
     results_list.sort(key=lambda x: x['country'])
     all_configs = [r['data'] for r in results_list]
