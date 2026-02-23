@@ -166,6 +166,7 @@ def check_tcp_port(ip, port):
 def clean_config_name(raw_name):
     """
     ФУНКЦИЯ ОЧИСТКИ: Удаляет рекламу, ссылки t.me, каналы и мусорные символы.
+    Оставлена для сохранения структуры, но больше не применяется к ссылкам.
     """
     if not raw_name:
         return ""
@@ -267,14 +268,15 @@ def decode_content(content):
 
 def process_config(config, reader, cached_data):
     """
-    Основная логика: Кэш -> DNS -> GeoIP -> Clean Name -> TCP Check.
+    Основная логика: Кэш -> DNS -> GeoIP -> TCP Check.
+    ВОЗВРАЩАЕТ ССЫЛКУ БЕЗ КАКИХ-ЛИБО ИЗМЕНЕНИЙ (КАК ЗАШЛА, ТАК И ВЫШЛА).
     """
     global processed_count, alive_found, dead_found, skipped_cache, dns_fail, wrong_country
     
     config = config.strip()
     if not config or "://" not in config: return None
 
-    # Извлекаем данные и ИМЯ
+    # Извлекаем данные для проверок (саму ссылку мы не трогаем)
     host, port, proto, raw_name = extract_host_port(config)
     if not host or not port: return None
 
@@ -292,23 +294,17 @@ def process_config(config, reader, cached_data):
         
         if entry["status"] == "alive":
             country_code = str(entry.get("country", "UN")).strip().upper()
-            ip = entry.get("ip", host)
             
             with stats_lock:
                 processed_count += 1
                 alive_found += 1
                 skipped_cache += 1 
             
-            flag = COUNTRY_FLAGS.get(country_code, '🌐')
-            # Применяем очистку имени
-            clean_name = clean_config_name(raw_name)
-            display_info = f"{clean_name} | {ip}" if clean_name else ip
-            final_name = f"{flag} [{country_code}] {proto} | {display_info}"
-            
+            # Ссылка возвращается 100% оригинальной
             return {
                 "id": fingerprint, 
                 "country": country_code, 
-                "data": f"{config.split('#')[0]}#{final_name}",
+                "data": config,
                 "status": "success"
             }
 
@@ -353,16 +349,11 @@ def process_config(config, reader, cached_data):
     if not is_alive: 
         return None
 
-    # 6. Форматирование финального имени с ОЧИСТКОЙ
-    flag = COUNTRY_FLAGS.get(country_code, '🌐')
-    clean_name = clean_config_name(raw_name)
-    display_info = f"{clean_name} | {ip}" if clean_name else ip
-    final_name = f"{flag} [{country_code}] {proto} | {display_info}"
-    
+    # 6. Ссылка возвращается 100% оригинальной
     return {
         "id": fingerprint, 
         "country": country_code, 
-        "data": f"{config.split('#')[0]}#{final_name}",
+        "data": config,
         "status": "success"
     }
 
