@@ -15000,6 +15000,18 @@
       "time": "2026-03-03T05:42:38.773236",
       "ip": "109.172.55.79",
       "country": "FR"
+    },
+    "twb-zf.jiashumao.net:25888:TROJAN": {
+      "status": "dead",
+      "time": "2026-03-03T07:37:03.750180",
+      "ip": "103.224.182.189",
+      "country": "US"
+    },
+    "yn-zf.jiashumao.net:40375:TROJAN": {
+      "status": "dead",
+      "time": "2026-03-03T07:37:03.753841",
+      "ip": "103.224.182.189",
+      "country": "US"
     }
   }
 }
