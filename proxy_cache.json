@@ -14166,6 +14166,18 @@
       "time": "2026-03-04T06:36:47.408227",
       "ip": "3.210.192.5",
       "country": "US"
+    },
+    "twb-zf.jiashumao.net:25888:TROJAN": {
+      "status": "dead",
+      "time": "2026-03-04T12:36:39.321006",
+      "ip": "103.224.182.189",
+      "country": "US"
+    },
+    "yn-zf.jiashumao.net:40375:TROJAN": {
+      "status": "dead",
+      "time": "2026-03-04T12:36:39.528345",
+      "ip": "103.224.182.189",
+      "country": "US"
     }
   }
 }
