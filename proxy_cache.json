@@ -13758,6 +13758,18 @@
       "time": "2026-03-07T06:29:29.174879",
       "ip": "130.162.230.82",
       "country": "DE"
+    },
+    "xr-1.herokuapp.com:443:VMESS": {
+      "status": "alive",
+      "time": "2026-03-07T07:22:45.783979",
+      "ip": "54.205.8.205",
+      "country": "US"
+    },
+    "ac2088.herokuapp.com:443:VMESS": {
+      "status": "alive",
+      "time": "2026-03-07T07:22:45.953174",
+      "ip": "54.243.129.215",
+      "country": "US"
     }
   }
 }
