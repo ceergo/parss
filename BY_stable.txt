@@ -1,1 +1,0 @@
-vless://c67f81df-34e8-4cb3-ab43-599585775fa9@fby.subv.ru:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=fby.subv.ru&fp=qq&pbk=ca5sfJNcjkh3oNt51hRexXbGWgITAqCprGSU-YKCJBA&sid=8dc4fccb2bcfc99d&spx=%2F&type=tcp&headerType=none#%F0%9F%8C%90%20Anycast-IP%20%7C%20%5BIPv6%5D%20%7C%20%5BBL%5D
