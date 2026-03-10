@@ -15642,6 +15642,18 @@
       "time": "2026-03-10T01:13:19.032963",
       "ip": "81.17.23.87",
       "country": "CH"
+    },
+    "azgp03.bestdong.xyz:8002:TROJAN": {
+      "status": "dead",
+      "time": "2026-03-10T04:01:37.425550",
+      "ip": "172.233.221.214",
+      "country": "US"
+    },
+    "azgp03.bestdong.xyz:8004:TROJAN": {
+      "status": "dead",
+      "time": "2026-03-10T04:01:37.474180",
+      "ip": "172.237.145.27",
+      "country": "US"
     }
   }
 }
