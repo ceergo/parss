@@ -1,0 +1,1 @@
+vless://1f80b24e-bbdf-4959-abca-3808377a37c3@by2.nerpvpn.net:443?type=tcp&security=reality&flow=xtls-rprx-vision&sni=store.steampowered.com&pbk=DrWq_ysFaGPGgRFcHevMPoruwYMRXryW6i_cwE7CuCM&fp=randomized&bx=%2F&sid=dde66ef1#%F0%9F%87%A7%F0%9F%87%BE%20Belarus%2C%20Minsk%20%28Pier%C5%A1amajski%20rajon%29%20%7C%20%5BBL%5D
