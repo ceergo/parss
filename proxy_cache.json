@@ -14904,6 +14904,108 @@
       "time": "2026-03-14T13:39:34.068878",
       "ip": "31.59.114.136",
       "country": "NL"
+    },
+    "closing-crow.rooster465.autos:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-03-14T14:20:36.850103",
+      "ip": "54.202.143.199",
+      "country": "US"
+    },
+    "217.30.10.70:9093:SS": {
+      "status": "alive",
+      "time": "2026-03-14T14:20:36.894198",
+      "ip": "217.30.10.70",
+      "country": "PL"
+    },
+    "217.30.10.70:9024:SS": {
+      "status": "alive",
+      "time": "2026-03-14T14:20:36.921127",
+      "ip": "217.30.10.70",
+      "country": "PL"
+    },
+    "kampong.org:443:VMESS": {
+      "status": "alive",
+      "time": "2026-03-14T14:20:36.924321",
+      "ip": "15.197.225.128",
+      "country": "US"
+    },
+    "gs09.guoshi1520.com:443:VMESS": {
+      "status": "dead",
+      "time": "2026-03-14T14:20:37.021716",
+      "ip": "45.89.104.203",
+      "country": "US"
+    },
+    "217.30.10.70:9097:SS": {
+      "status": "alive",
+      "time": "2026-03-14T14:20:37.043973",
+      "ip": "217.30.10.70",
+      "country": "PL"
+    },
+    "v7.heduian.link:30807:VMESS": {
+      "status": "dead",
+      "time": "2026-03-14T14:20:37.058032",
+      "ip": "172.234.244.223",
+      "country": "US"
+    },
+    "az05.beyondy.cfd:443:VMESS": {
+      "status": "alive",
+      "time": "2026-03-14T14:20:37.126058",
+      "ip": "103.224.182.210",
+      "country": "US"
+    },
+    "beyonddsz.cfd:443:VMESS": {
+      "status": "alive",
+      "time": "2026-03-14T14:20:37.126143",
+      "ip": "103.224.182.210",
+      "country": "US"
+    },
+    "denc36.xtooltech.cfd:443:VMESS": {
+      "status": "alive",
+      "time": "2026-03-14T14:20:37.126484",
+      "ip": "103.224.182.210",
+      "country": "US"
+    },
+    "21.earths.team:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-03-14T14:20:37.329197",
+      "ip": "76.223.54.146",
+      "country": "US"
+    },
+    "t.cnmjcn.cyou:16617:VMESS": {
+      "status": "alive",
+      "time": "2026-03-14T14:20:38.334172",
+      "ip": "162.19.192.89",
+      "country": "FR"
+    },
+    "ocph.vproxy.us:34567:TROJAN": {
+      "status": "dead",
+      "time": "2026-03-14T14:20:39.421443",
+      "ip": "103.224.182.217",
+      "country": "US"
+    },
+    "217.30.10.70:9020:SS": {
+      "status": "dead",
+      "time": "2026-03-14T14:20:39.421705",
+      "ip": "217.30.10.70",
+      "country": "PL"
+    },
+    "51.255.66.185:7001:SS": {
+      "status": "dead",
+      "time": "2026-03-14T14:20:39.472816",
+      "ip": "51.255.66.185",
+      "country": "FR"
+    },
+    "us05.jssssss.com:40601:VMESS": {
+      "status": "dead",
+      "time": "2026-03-14T14:20:39.529396",
+      "ip": "3.221.40.56",
+      "country": "US"
+    },
+    "ny1.bulkcash.top:41507:VMESS": {
+      "status": "dead",
+      "time": "2026-03-14T14:20:39.621151",
+      "ip": "107.175.96.74",
+      "country": "US"
     }
   }
 }
