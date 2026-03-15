@@ -15372,6 +15372,36 @@
       "time": "2026-03-15T09:26:03.957194",
       "ip": "94.141.123.146",
       "country": "DE"
+    },
+    "fivip.grizzlyvpn.work:443:VLESS": {
+      "status": "alive",
+      "time": "2026-03-15T10:21:04.292223",
+      "ip": "45.137.69.66",
+      "country": "DE"
+    },
+    "nla.grizzlyvpn.work:443:VLESS": {
+      "status": "alive",
+      "time": "2026-03-15T10:21:04.292271",
+      "ip": "185.132.53.177",
+      "country": "DE"
+    },
+    "swe.grizzlyvpn.work:443:VLESS": {
+      "status": "alive",
+      "time": "2026-03-15T10:21:04.348907",
+      "ip": "213.21.240.91",
+      "country": "SE"
+    },
+    "nl.grizzlyvpn.work:443:VLESS": {
+      "status": "alive",
+      "time": "2026-03-15T10:21:04.459896",
+      "ip": "46.21.83.11",
+      "country": "NL"
+    },
+    "fi.grizzlyvpn.work:443:VLESS": {
+      "status": "alive",
+      "time": "2026-03-15T10:21:04.549618",
+      "ip": "138.124.75.6",
+      "country": "FI"
     }
   }
 }
