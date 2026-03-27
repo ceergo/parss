@@ -1,1 +1,0 @@
-vless://14a5c48e-fa5f-4682-ab40-a32507f9277d@78.140.253.16:443?encryption=none&flow=xtls-rprx-vision&security=reality&type=tcp&fp=chrome&pbk=RFf_Ieq44N_yBFzqNUmnsJtHMzQ2UC7HYyr99HsksFk&sni=translate.yandex.ru#%F0%9F%87%A7%F0%9F%87%BE%20Belarus%2C%20Minsk%20%7C%20%5BBL%5D
