@@ -15108,6 +15108,12 @@
       "time": "2026-03-30T18:49:22.479911",
       "ip": "77.110.122.16",
       "country": "US"
+    },
+    "ficdn6.melodramaonline.net:443:VLESS": {
+      "status": "alive",
+      "time": "2026-03-30T19:50:03.822025",
+      "ip": "138.124.112.16",
+      "country": "FI"
     }
   }
 }
