@@ -14910,6 +14910,18 @@
       "time": "2026-04-01T01:49:03.613772",
       "ip": "81.19.139.217",
       "country": "FI"
+    },
+    "pat6.portal-guard.com:1080:VLESS": {
+      "status": "alive",
+      "time": "2026-04-01T06:22:23.115681",
+      "ip": "62.192.153.23",
+      "country": "DE"
+    },
+    "max3r.skystreamgame.com:8443:VLESS": {
+      "status": "alive",
+      "time": "2026-04-01T06:22:23.186928",
+      "ip": "144.31.179.36",
+      "country": "SE"
     }
   }
 }
