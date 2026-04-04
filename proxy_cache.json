@@ -14442,6 +14442,42 @@
       "time": "2026-04-04T15:23:11.216210",
       "ip": "45.15.128.128",
       "country": "NL"
+    },
+    "us.fantoff.online:443:VLESS": {
+      "status": "alive",
+      "time": "2026-04-04T17:23:02.068135",
+      "ip": "72.244.37.35",
+      "country": "US"
+    },
+    "146.75.121.57:80:VLESS": {
+      "status": "alive",
+      "time": "2026-04-04T17:23:02.146177",
+      "ip": "146.75.121.57",
+      "country": "DE"
+    },
+    "de.fantoff.online:8080:VLESS": {
+      "status": "alive",
+      "time": "2026-04-04T17:23:02.171385",
+      "ip": "159.195.21.83",
+      "country": "DE"
+    },
+    "kz.fantoff.online:443:VLESS": {
+      "status": "alive",
+      "time": "2026-04-04T17:23:02.236313",
+      "ip": "82.41.30.47",
+      "country": "KZ"
+    },
+    "144.31.214.19:443:VLESS": {
+      "status": "alive",
+      "time": "2026-04-04T17:23:02.308723",
+      "ip": "144.31.214.19",
+      "country": "US"
+    },
+    "ger.aprux.ru:443:VLESS": {
+      "status": "alive",
+      "time": "2026-04-04T17:23:02.647592",
+      "ip": "213.165.42.19",
+      "country": "DE"
     }
   }
 }
