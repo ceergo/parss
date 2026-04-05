@@ -14592,6 +14592,24 @@
       "time": "2026-04-05T08:34:25.027705",
       "ip": "91.227.41.241",
       "country": "DE"
+    },
+    "fr.silavpn.online:443:VLESS": {
+      "status": "alive",
+      "time": "2026-04-05T09:31:22.802452",
+      "ip": "194.99.23.85",
+      "country": "FR"
+    },
+    "sg-5.0rd.net:443:VMESS": {
+      "status": "dead",
+      "time": "2026-04-05T09:31:25.165600",
+      "ip": "52.44.244.98",
+      "country": "US"
+    },
+    "us-2.0rd.net:443:VMESS": {
+      "status": "dead",
+      "time": "2026-04-05T09:31:25.228985",
+      "ip": "52.44.244.98",
+      "country": "US"
     }
   }
 }
