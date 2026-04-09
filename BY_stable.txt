@@ -1,1 +1,0 @@
-vless://55fc1ef6-f7f0-4668-8cbe-3ddf51f10308@belarus.node.cis-game.com:443?type=tcp&security=reality&encryption=none&flow=xtls-rprx-vision&fp=chrome&pbk=-QHal5D7l2Or3iDJUA8FOPIN-S9gEVwvnAXdrpSrpS4&sid=87a39e4b363d85a8&sni=belarus.cdn.cis-game.com#%F0%9F%87%A9%F0%9F%87%AA%20Germany%2C%20Frankfurt%20am%20Main%20%7C%20%5BBL%5D
