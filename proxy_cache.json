@@ -15096,6 +15096,24 @@
       "time": "2026-04-09T06:16:17.835490",
       "ip": "45.138.51.206",
       "country": "DE"
+    },
+    "pg-usa-bot.gigatapbot.top:47822:VLESS": {
+      "status": "alive",
+      "time": "2026-04-09T08:14:10.250949",
+      "ip": "74.208.142.159",
+      "country": "US"
+    },
+    "pg-usa-giga.gigatapbot.top:47822:VLESS": {
+      "status": "alive",
+      "time": "2026-04-09T08:14:10.375066",
+      "ip": "74.208.142.159",
+      "country": "US"
+    },
+    "us.direct.fastcokeasdasd.com:5233:VLESS": {
+      "status": "alive",
+      "time": "2026-04-09T08:14:10.493947",
+      "ip": "65.75.222.209",
+      "country": "US"
     }
   }
 }
