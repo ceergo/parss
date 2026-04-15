@@ -15444,6 +15444,18 @@
       "time": "2026-04-15T04:39:50.538978",
       "ip": "140.82.22.122",
       "country": "US"
+    },
+    "newcloud.gushao.club:2053:VLESS": {
+      "status": "alive",
+      "time": "2026-04-15T06:28:31.837735",
+      "ip": "47.89.164.126",
+      "country": "US"
+    },
+    "ch2.fastlanehosting.ru:443:VLESS": {
+      "status": "alive",
+      "time": "2026-04-15T06:28:32.478885",
+      "ip": "45.12.111.151",
+      "country": "CH"
     }
   }
 }
