@@ -1034,3 +1034,4 @@ Status: Active (Mega Pulse)[2026-02-22 17:51:59] Found: 3563 | Skipped: 6013 | C
 [2026-04-15 22:35:13] Alive: 343 | Dead: 0 | Cache_Hit: 2440 | DNS_Fail: 10 | Wrong_Geo: 2540
 [2026-04-15 23:35:00] Alive: 343 | Dead: 0 | Cache_Hit: 2447 | DNS_Fail: 10 | Wrong_Geo: 2540
 [2026-04-16 01:52:40] Alive: 353 | Dead: 0 | Cache_Hit: 2457 | DNS_Fail: 10 | Wrong_Geo: 2540
+[2026-04-16 04:46:04] Alive: 381 | Dead: 18 | Cache_Hit: 2443 | DNS_Fail: 9 | Wrong_Geo: 2506
