@@ -15030,6 +15030,138 @@
       "time": "2026-04-23T04:45:08.590514",
       "ip": "185.218.194.70",
       "country": "FI"
+    },
+    "78.17.45.142:443:VLESS": {
+      "status": "alive",
+      "time": "2026-04-23T08:49:16.392216",
+      "ip": "78.17.45.142",
+      "country": "NL"
+    },
+    "api.extratechsolutions.com:443:VLESS": {
+      "status": "alive",
+      "time": "2026-04-23T08:49:16.411811",
+      "ip": "166.1.227.85",
+      "country": "US"
+    },
+    "198.105.127.201:49838:VLESS": {
+      "status": "alive",
+      "time": "2026-04-23T08:49:16.418009",
+      "ip": "198.105.127.201",
+      "country": "GB"
+    },
+    "vk.fintech-llc.com:443:VLESS": {
+      "status": "alive",
+      "time": "2026-04-23T08:49:16.447152",
+      "ip": "85.155.96.92",
+      "country": "NL"
+    },
+    "144.31.188.195:447:VLESS": {
+      "status": "alive",
+      "time": "2026-04-23T08:49:16.461532",
+      "ip": "144.31.188.195",
+      "country": "DE"
+    },
+    "synchronization.twilightparadox.com:443:VLESS": {
+      "status": "alive",
+      "time": "2026-04-23T08:49:16.468762",
+      "ip": "150.241.80.39",
+      "country": "NL"
+    },
+    "api.theonlycompany.com:443:VLESS": {
+      "status": "alive",
+      "time": "2026-04-23T08:49:16.477566",
+      "ip": "139.28.98.126",
+      "country": "NL"
+    },
+    "78.17.47.168:443:VLESS": {
+      "status": "alive",
+      "time": "2026-04-23T08:49:16.479470",
+      "ip": "78.17.47.168",
+      "country": "FI"
+    },
+    "vk.cachingtech.com:443:VLESS": {
+      "status": "alive",
+      "time": "2026-04-23T08:49:16.497754",
+      "ip": "89.125.78.219",
+      "country": "NL"
+    },
+    "win.powershelltech.com:443:VLESS": {
+      "status": "alive",
+      "time": "2026-04-23T08:49:16.500725",
+      "ip": "89.125.78.230",
+      "country": "NL"
+    },
+    "45.150.65.251:443:VLESS": {
+      "status": "alive",
+      "time": "2026-04-23T08:49:16.502785",
+      "ip": "45.150.65.251",
+      "country": "US"
+    },
+    "sync-provider.ignorelist.com:443:VLESS": {
+      "status": "alive",
+      "time": "2026-04-23T08:49:16.523887",
+      "ip": "144.31.102.186",
+      "country": "PL"
+    },
+    "news-api.mooo.com:443:VLESS": {
+      "status": "alive",
+      "time": "2026-04-23T08:49:16.546101",
+      "ip": "89.125.78.201",
+      "country": "NL"
+    },
+    "db.diamondbsd.com:443:VLESS": {
+      "status": "alive",
+      "time": "2026-04-23T08:49:16.606631",
+      "ip": "144.31.113.17",
+      "country": "PL"
+    },
+    "network.fintech-llc.com:443:VLESS": {
+      "status": "alive",
+      "time": "2026-04-23T08:49:16.612117",
+      "ip": "144.31.102.156",
+      "country": "PL"
+    },
+    "nork.kaguya.sbs:443:VLESS": {
+      "status": "alive",
+      "time": "2026-04-23T08:49:16.672383",
+      "ip": "144.31.217.141",
+      "country": "DE"
+    },
+    "amstedam3.proverka11.ru:4249:VLESS": {
+      "status": "alive",
+      "time": "2026-04-23T08:49:16.789253",
+      "ip": "109.248.162.230",
+      "country": "NL"
+    },
+    "britan1.proverka11.ru:443:VLESS": {
+      "status": "alive",
+      "time": "2026-04-23T08:49:16.792949",
+      "ip": "45.141.118.247",
+      "country": "GB"
+    },
+    "amsterdam1.youtubesaver.ru:443:VLESS": {
+      "status": "alive",
+      "time": "2026-04-23T08:49:16.863232",
+      "ip": "85.155.98.90",
+      "country": "NL"
+    },
+    "213.193.252.99:443:VLESS": {
+      "status": "dead",
+      "time": "2026-04-23T08:49:18.844483",
+      "ip": "213.193.252.99",
+      "country": "GB"
+    },
+    "net.coreytech.com:443:VLESS": {
+      "status": "dead",
+      "time": "2026-04-23T08:49:18.884336",
+      "ip": "139.28.98.187",
+      "country": "NL"
+    },
+    "api.artitech.com:443:VLESS": {
+      "status": "dead",
+      "time": "2026-04-23T08:49:18.929619",
+      "ip": "89.125.79.72",
+      "country": "NL"
     }
   }
 }
