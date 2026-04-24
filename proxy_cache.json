@@ -13992,6 +13992,18 @@
       "time": "2026-04-24T17:43:51.577442",
       "ip": "89.125.37.138",
       "country": "SE"
+    },
+    "xr-1.herokuapp.com:443:VMESS": {
+      "status": "alive",
+      "time": "2026-04-24T18:38:27.668144",
+      "ip": "23.22.52.7",
+      "country": "US"
+    },
+    "mycfwork.herokuapp.com:443:VMESS": {
+      "status": "alive",
+      "time": "2026-04-24T18:38:27.702924",
+      "ip": "23.22.144.165",
+      "country": "US"
     }
   }
 }
