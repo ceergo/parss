@@ -1,1 +1,0 @@
-vless://36dab382-1b38-4218-877e-877e914db4cb@belrus.ardor-cloud.ru:443/?type=tcp&encryption=none&flow=xtls-rprx-vision&sni=www.cloudflare.com&fp=chrome&security=reality&pbk=TjJJVnCpJfhiTnlp6MxWCOSIOai0wBG3vVQ9brtsBzk&sid=84ba21a223da8a15&packetEncoding=xudp#%F0%9F%87%A7%F0%9F%87%BE%20Belarus%2C%20Minsk%20%7C%20%5BBL%5D
