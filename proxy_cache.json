@@ -14676,6 +14676,18 @@
       "time": "2026-04-27T19:39:30.966778",
       "ip": "2.26.21.129",
       "country": "US"
+    },
+    "76c3.earthdraft.onezz.top:20010:VMESS": {
+      "status": "dead",
+      "time": "2026-04-27T21:47:42.433571",
+      "ip": "46.82.174.69",
+      "country": "DE"
+    },
+    "76c3.earthdraft.onezz.top:22013:VMESS": {
+      "status": "dead",
+      "time": "2026-04-27T21:47:42.435146",
+      "ip": "46.82.174.69",
+      "country": "DE"
     }
   }
 }
