@@ -1,1 +1,0 @@
-vless://f42c93f3-755b-4e12-a856-e7c6878b34ab@by.trustnet.sbs:443?type=tcp&headerType=none&security=tls&encryption=none&sni=by.trustnet.sbs&fp=firefox&alpn=http%2F1.1%2Ch2&flow=xtls-rprx-vision&insecure=0#%F0%9F%87%A7%F0%9F%87%BE%20Belarus%2C%20Minsk%20%7C%20%5BBL%5D
