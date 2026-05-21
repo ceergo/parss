@@ -14868,6 +14868,18 @@
       "time": "2026-05-21T22:13:24.958259",
       "ip": "167.88.61.14",
       "country": "US"
+    },
+    "ac2099.herokuapp.com:443:VMESS": {
+      "status": "alive",
+      "time": "2026-05-21T23:53:17.034764",
+      "ip": "3.229.186.102",
+      "country": "US"
+    },
+    "xr-1.herokuapp.com:443:VMESS": {
+      "status": "alive",
+      "time": "2026-05-21T23:53:17.035422",
+      "ip": "54.208.186.182",
+      "country": "US"
     }
   }
 }
