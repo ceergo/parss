@@ -17550,6 +17550,24 @@
       "time": "2026-05-26T06:39:34.082638",
       "ip": "45.145.74.91",
       "country": "US"
+    },
+    "fin.kalina.click:443:VLESS": {
+      "status": "alive",
+      "time": "2026-05-26T13:49:20.364478",
+      "ip": "89.125.199.160",
+      "country": "FI"
+    },
+    "finland-1.afihideos.ru:443:VLESS": {
+      "status": "alive",
+      "time": "2026-05-26T13:49:20.368931",
+      "ip": "138.124.7.70",
+      "country": "CH"
+    },
+    "ru1.bloodofwar.ru:443:VLESS": {
+      "status": "alive",
+      "time": "2026-05-26T13:49:20.490924",
+      "ip": "72.56.232.96",
+      "country": "US"
     }
   }
 }
