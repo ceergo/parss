@@ -17568,6 +17568,126 @@
       "time": "2026-05-26T13:49:20.490924",
       "ip": "72.56.232.96",
       "country": "US"
+    },
+    "nl2.gofizz.in:443:VLESS": {
+      "status": "alive",
+      "time": "2026-05-26T17:21:58.229783",
+      "ip": "150.129.10.122",
+      "country": "NL"
+    },
+    "us1.gofizz.in:443:VLESS": {
+      "status": "alive",
+      "time": "2026-05-26T17:21:58.263329",
+      "ip": "217.28.130.15",
+      "country": "US"
+    },
+    "de2.gofizzin.com:443:VLESS": {
+      "status": "alive",
+      "time": "2026-05-26T17:21:58.279405",
+      "ip": "152.53.125.101",
+      "country": "DE"
+    },
+    "us2.gofizzin.com:443:VLESS": {
+      "status": "alive",
+      "time": "2026-05-26T17:21:58.285176",
+      "ip": "140.235.143.47",
+      "country": "US"
+    },
+    "uk2.gofizz.in:443:VLESS": {
+      "status": "alive",
+      "time": "2026-05-26T17:21:58.306129",
+      "ip": "45.91.93.47",
+      "country": "GB"
+    },
+    "fi1.gofizzin.com:443:VLESS": {
+      "status": "alive",
+      "time": "2026-05-26T17:21:58.319604",
+      "ip": "5.61.88.110",
+      "country": "FI"
+    },
+    "us3.gofizz.in:443:VLESS": {
+      "status": "alive",
+      "time": "2026-05-26T17:21:58.360061",
+      "ip": "64.83.70.204",
+      "country": "US"
+    },
+    "2.26.112.78:55919:VLESS": {
+      "status": "alive",
+      "time": "2026-05-26T17:21:58.376897",
+      "ip": "2.26.112.78",
+      "country": "US"
+    },
+    "uk1.gofizz.in:443:VLESS": {
+      "status": "alive",
+      "time": "2026-05-26T17:21:58.379105",
+      "ip": "51.241.130.79",
+      "country": "GB"
+    },
+    "us6.gofizzin.com:443:VLESS": {
+      "status": "alive",
+      "time": "2026-05-26T17:21:58.381114",
+      "ip": "69.176.84.172",
+      "country": "US"
+    },
+    "2.26.0.122:443:VLESS": {
+      "status": "alive",
+      "time": "2026-05-26T17:21:58.386015",
+      "ip": "2.26.0.122",
+      "country": "FI"
+    },
+    "fr1.gofizzin.com:443:VLESS": {
+      "status": "alive",
+      "time": "2026-05-26T17:21:58.391558",
+      "ip": "88.214.24.247",
+      "country": "FR"
+    },
+    "se1.gofizzin.com:443:VLESS": {
+      "status": "alive",
+      "time": "2026-05-26T17:21:58.391707",
+      "ip": "185.153.55.22",
+      "country": "SE"
+    },
+    "se3.gofizzin.com:443:VLESS": {
+      "status": "alive",
+      "time": "2026-05-26T17:21:58.402360",
+      "ip": "185.231.101.90",
+      "country": "SE"
+    },
+    "nl3.gofizz.in:443:VLESS": {
+      "status": "alive",
+      "time": "2026-05-26T17:21:58.411562",
+      "ip": "5.253.86.3",
+      "country": "NL"
+    },
+    "ch1.gofizzin.com:443:VLESS": {
+      "status": "alive",
+      "time": "2026-05-26T17:21:58.419847",
+      "ip": "91.214.190.127",
+      "country": "CH"
+    },
+    "kz1.gofizzin.com:443:VLESS": {
+      "status": "alive",
+      "time": "2026-05-26T17:21:58.437165",
+      "ip": "91.217.10.65",
+      "country": "KZ"
+    },
+    "tr2.gofizzin.com:443:VLESS": {
+      "status": "alive",
+      "time": "2026-05-26T17:21:58.439577",
+      "ip": "31.210.51.17",
+      "country": "TR"
+    },
+    "gm2.gofizz.in:443:VLESS": {
+      "status": "alive",
+      "time": "2026-05-26T17:21:58.450209",
+      "ip": "94.237.18.99",
+      "country": "FI"
+    },
+    "se4.gofizz.in:443:VLESS": {
+      "status": "alive",
+      "time": "2026-05-26T17:22:00.274664",
+      "ip": "195.72.61.15",
+      "country": "SE"
     }
   }
 }
