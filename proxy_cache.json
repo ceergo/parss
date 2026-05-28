@@ -14838,6 +14838,204 @@
       "time": "2026-05-28T02:13:46.664688",
       "ip": "45.129.242.162",
       "country": "DE"
+    },
+    "151.101.194.219:80:VLESS": {
+      "status": "alive",
+      "time": "2026-05-28T06:44:37.610098",
+      "ip": "151.101.194.219",
+      "country": "US"
+    },
+    "15.204.56.75:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-05-28T06:44:37.712310",
+      "ip": "15.204.56.75",
+      "country": "US"
+    },
+    "45.131.6.203:443:VLESS": {
+      "status": "alive",
+      "time": "2026-05-28T06:44:37.719725",
+      "ip": "45.131.6.203",
+      "country": "NL"
+    },
+    "vuk2.0bad.com:443:VMESS": {
+      "status": "dead",
+      "time": "2026-05-28T06:44:37.747566",
+      "ip": "38.165.69.90",
+      "country": "US"
+    },
+    "vde2.0bad.com:443:VMESS": {
+      "status": "dead",
+      "time": "2026-05-28T06:44:37.759431",
+      "ip": "38.165.69.90",
+      "country": "US"
+    },
+    "vau1.0bad.com:443:VMESS": {
+      "status": "dead",
+      "time": "2026-05-28T06:44:37.749374",
+      "ip": "38.165.69.90",
+      "country": "US"
+    },
+    "14.102.228.76:443:VLESS": {
+      "status": "alive",
+      "time": "2026-05-28T06:44:37.750530",
+      "ip": "14.102.228.76",
+      "country": "US"
+    },
+    "vuk1.0bad.com:443:VMESS": {
+      "status": "dead",
+      "time": "2026-05-28T06:44:37.789314",
+      "ip": "38.165.69.90",
+      "country": "US"
+    },
+    "194.124.216.192:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-05-28T06:44:37.763094",
+      "ip": "194.124.216.192",
+      "country": "NL"
+    },
+    "nl-4.tr202507.com:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-05-28T06:44:37.771174",
+      "ip": "194.124.216.109",
+      "country": "NL"
+    },
+    "13.218.172.80:443:SS": {
+      "status": "alive",
+      "time": "2026-05-28T06:44:37.775059",
+      "ip": "13.218.172.80",
+      "country": "US"
+    },
+    "vjp1.0bad.com:443:VMESS": {
+      "status": "dead",
+      "time": "2026-05-28T06:44:37.786278",
+      "ip": "38.165.69.90",
+      "country": "US"
+    },
+    "vsg1.0bad.com:443:VMESS": {
+      "status": "dead",
+      "time": "2026-05-28T06:44:37.804087",
+      "ip": "38.165.69.90",
+      "country": "US"
+    },
+    "vus3.0bad.com:443:VMESS": {
+      "status": "dead",
+      "time": "2026-05-28T06:44:37.790303",
+      "ip": "38.165.69.90",
+      "country": "US"
+    },
+    "vde1.0bad.com:443:VMESS": {
+      "status": "dead",
+      "time": "2026-05-28T06:44:37.799259",
+      "ip": "38.165.69.90",
+      "country": "US"
+    },
+    "45.63.7.19:49632:VMESS": {
+      "status": "alive",
+      "time": "2026-05-28T06:44:37.800552",
+      "ip": "45.63.7.19",
+      "country": "US"
+    },
+    "vjp2.0bad.com:443:VMESS": {
+      "status": "dead",
+      "time": "2026-05-28T06:44:37.809551",
+      "ip": "38.165.69.90",
+      "country": "US"
+    },
+    "89.185.84.34:31348:SS": {
+      "status": "alive",
+      "time": "2026-05-28T06:44:37.819265",
+      "ip": "89.185.84.34",
+      "country": "GB"
+    },
+    "vjp3.0bad.com:443:VMESS": {
+      "status": "dead",
+      "time": "2026-05-28T06:44:37.828062",
+      "ip": "38.165.69.90",
+      "country": "US"
+    },
+    "vus4.0bad.com:443:VMESS": {
+      "status": "dead",
+      "time": "2026-05-28T06:44:37.842561",
+      "ip": "38.165.69.90",
+      "country": "US"
+    },
+    "l1-2.l-itx.info:2053:VLESS": {
+      "status": "alive",
+      "time": "2026-05-28T06:44:37.851716",
+      "ip": "195.133.84.251",
+      "country": "DE"
+    },
+    "nl-4.tr202512.com:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-05-28T06:44:37.856779",
+      "ip": "194.124.216.187",
+      "country": "NL"
+    },
+    "vin1.0bad.com:443:VMESS": {
+      "status": "dead",
+      "time": "2026-05-28T06:44:37.858299",
+      "ip": "38.165.69.90",
+      "country": "US"
+    },
+    "vus5.0bad.com:443:VMESS": {
+      "status": "dead",
+      "time": "2026-05-28T06:44:37.863703",
+      "ip": "38.165.69.90",
+      "country": "US"
+    },
+    "23.166.40.27:443:VLESS": {
+      "status": "alive",
+      "time": "2026-05-28T06:44:37.867857",
+      "ip": "23.166.40.27",
+      "country": "US"
+    },
+    "18.195.95.15:443:SS": {
+      "status": "alive",
+      "time": "2026-05-28T06:44:37.896939",
+      "ip": "18.195.95.15",
+      "country": "DE"
+    },
+    "vus2.0bad.com:443:VMESS": {
+      "status": "dead",
+      "time": "2026-05-28T06:44:37.910733",
+      "ip": "38.165.69.90",
+      "country": "US"
+    },
+    "108.181.126.122:8388:SS": {
+      "status": "alive",
+      "time": "2026-05-28T06:44:37.928031",
+      "ip": "108.181.126.122",
+      "country": "NL"
+    },
+    "fr-ip.alexanderoff.ru:443:VLESS": {
+      "status": "alive",
+      "time": "2026-05-28T06:44:37.969979",
+      "ip": "205.237.104.99",
+      "country": "FR"
+    },
+    "v6d1.moonfree.top:443:VMESS": {
+      "status": "alive",
+      "time": "2026-05-28T06:44:37.994075",
+      "ip": "172.236.100.134",
+      "country": "US"
+    },
+    "fr-tx.alexanderoff.ru:443:VLESS": {
+      "status": "alive",
+      "time": "2026-05-28T06:44:38.253945",
+      "ip": "205.237.105.111",
+      "country": "FR"
+    },
+    "3.76.99.252:443:SS": {
+      "status": "dead",
+      "time": "2026-05-28T06:44:40.306737",
+      "ip": "3.76.99.252",
+      "country": "DE"
+    },
+    "fr1t.moonfree.top:8443:VMESS": {
+      "status": "dead",
+      "time": "2026-05-28T06:44:40.464182",
+      "ip": "172.239.34.52",
+      "country": "US"
     }
   }
 }
