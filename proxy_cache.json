@@ -14970,6 +14970,54 @@
       "time": "2026-06-03T08:08:28.249080",
       "ip": "202.91.33.175",
       "country": "US"
+    },
+    "52.144.45.118:11003:VLESS": {
+      "status": "alive",
+      "time": "2026-06-03T13:08:06.466497",
+      "ip": "52.144.45.118",
+      "country": "US"
+    },
+    "47.77.214.201:10035:VLESS": {
+      "status": "alive",
+      "time": "2026-06-03T13:08:06.549901",
+      "ip": "47.77.214.201",
+      "country": "US"
+    },
+    "185.227.108.195:11001:VLESS": {
+      "status": "alive",
+      "time": "2026-06-03T13:08:06.687017",
+      "ip": "185.227.108.195",
+      "country": "DE"
+    },
+    "shop.workershop.ir:8080:VLESS": {
+      "status": "alive",
+      "time": "2026-06-03T13:08:06.687894",
+      "ip": "66.179.48.100",
+      "country": "US"
+    },
+    "90081bb25c.node.tro.cac.cab:48697:TROJAN": {
+      "status": "alive",
+      "time": "2026-06-03T13:08:06.814499",
+      "ip": "155.117.198.83",
+      "country": "US"
+    },
+    "90081bb25c.node.tro.cac.cab:41943:TROJAN": {
+      "status": "alive",
+      "time": "2026-06-03T13:08:06.816396",
+      "ip": "155.117.198.83",
+      "country": "US"
+    },
+    "nl.furkbalancer.net:8443:VLESS": {
+      "status": "dead",
+      "time": "2026-06-03T13:08:09.024598",
+      "ip": "92.119.164.4",
+      "country": "DE"
+    },
+    "uicdn.cf:80:VMESS": {
+      "status": "dead",
+      "time": "2026-06-03T13:08:09.200397",
+      "ip": "172.64.141.75",
+      "country": "US"
     }
   }
 }
