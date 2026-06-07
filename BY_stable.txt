@@ -1,2 +1,0 @@
-vless://e93998e0-dd6a-4234-be21-362bcc66f926@95.128.71.74:443?echfq=none&flow=xtls-rprx-vision&fp=random&headertype=none&pbk=rfed3aqchLeWtXyEl3AsbPGODbqXdx-3Mq41JVPQWVY&security=reality&sni=fastsync.xyz&type=tcp#%F0%9F%87%A7%F0%9F%87%BE%20Belarus%2C%20Minsk%20%28Kastry%C4%8Dnicki%20rajon%29%20%7C%20%5BBL%5D
-vless://9778a597-c81f-4459-9754-140b2ba8f784@rb01.bearvpn.win:443?type=grpc&headerType=none&security=reality&encryption=none&sni=5post-gate.x5.ru&pbk=R-G0TgsAJZEFB4gEJ0bzScm0xJiO9bGgfGmt-X2IhAo#%F0%9F%87%A7%F0%9F%87%BE%20Belarus%2C%20Minsk%20%7C%20%5BBL%5D
