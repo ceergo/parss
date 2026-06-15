@@ -13974,6 +13974,228 @@
       "time": "2026-06-15T17:58:31.486191",
       "ip": "172.64.141.75",
       "country": "US"
+    },
+    "kaizen-us-6.mielink-dns2.com:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-06-15T20:46:41.455523",
+      "ip": "172.239.57.117",
+      "country": "US"
+    },
+    "82.39.213.77:443:VLESS": {
+      "status": "alive",
+      "time": "2026-06-15T20:46:41.515760",
+      "ip": "82.39.213.77",
+      "country": "US"
+    },
+    "64.186.248.160:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-06-15T20:46:41.591954",
+      "ip": "64.186.248.160",
+      "country": "US"
+    },
+    "154.21.82.135:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-06-15T20:46:41.591998",
+      "ip": "154.21.82.135",
+      "country": "US"
+    },
+    "217.30.10.70:9094:SS": {
+      "status": "alive",
+      "time": "2026-06-15T20:46:41.592035",
+      "ip": "217.30.10.70",
+      "country": "PL"
+    },
+    "kaizen-tw-4.mielink-dns2.com:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-06-15T20:46:41.592658",
+      "ip": "172.239.57.117",
+      "country": "US"
+    },
+    "91.221.190.80:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-06-15T20:46:41.593670",
+      "ip": "91.221.190.80",
+      "country": "NL"
+    },
+    "152.53.200.89:8443:TROJAN": {
+      "status": "alive",
+      "time": "2026-06-15T20:46:41.593812",
+      "ip": "152.53.200.89",
+      "country": "NL"
+    },
+    "72.56.8.23:443:VLESS": {
+      "status": "alive",
+      "time": "2026-06-15T20:46:41.639446",
+      "ip": "72.56.8.23",
+      "country": "US"
+    },
+    "3.75.194.19:59403:VLESS": {
+      "status": "alive",
+      "time": "2026-06-15T20:46:41.599593",
+      "ip": "3.75.194.19",
+      "country": "DE"
+    },
+    "153.76.116.154:443:VLESS": {
+      "status": "alive",
+      "time": "2026-06-15T20:46:41.607454",
+      "ip": "153.76.116.154",
+      "country": "NL"
+    },
+    "5.249.162.134:443:VLESS": {
+      "status": "alive",
+      "time": "2026-06-15T20:46:41.620156",
+      "ip": "5.249.162.134",
+      "country": "DE"
+    },
+    "179.237.69.218:7443:VLESS": {
+      "status": "alive",
+      "time": "2026-06-15T20:46:41.626081",
+      "ip": "179.237.69.218",
+      "country": "CH"
+    },
+    "109.107.182.229:51544:SS": {
+      "status": "alive",
+      "time": "2026-06-15T20:46:41.644128",
+      "ip": "109.107.182.229",
+      "country": "FI"
+    },
+    "kaizen-tw-2.mielink-dns2.com:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-06-15T20:46:41.655429",
+      "ip": "172.239.57.117",
+      "country": "US"
+    },
+    "adak.sonofthewinds.com:34436:TROJAN": {
+      "status": "alive",
+      "time": "2026-06-15T20:46:41.683468",
+      "ip": "144.225.78.8",
+      "country": "US"
+    },
+    "kaizen-tw-3.mielink-dns2.com:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-06-15T20:46:41.702213",
+      "ip": "172.234.24.211",
+      "country": "US"
+    },
+    "kaizen-hk-8.mielink-dns2.com:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-06-15T20:46:41.707000",
+      "ip": "172.239.57.117",
+      "country": "US"
+    },
+    "kaizen-tw-1.mielink-dns2.com:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-06-15T20:46:41.724231",
+      "ip": "172.234.24.211",
+      "country": "US"
+    },
+    "adak.sonofthewinds.com:34470:TROJAN": {
+      "status": "alive",
+      "time": "2026-06-15T20:46:41.727848",
+      "ip": "144.225.78.8",
+      "country": "US"
+    },
+    "l10-1.l-itx.info:7443:VLESS": {
+      "status": "alive",
+      "time": "2026-06-15T20:46:41.820467",
+      "ip": "179.237.69.218",
+      "country": "CH"
+    },
+    "adak.sonofthewinds.com:34450:TROJAN": {
+      "status": "alive",
+      "time": "2026-06-15T20:46:41.739208",
+      "ip": "144.225.78.8",
+      "country": "US"
+    },
+    "kaizen-ru-2.mielink-dns2.com:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-06-15T20:46:41.743409",
+      "ip": "172.234.24.211",
+      "country": "US"
+    },
+    "hk6711.fans8.xyz:443:VMESS": {
+      "status": "alive",
+      "time": "2026-06-15T20:46:41.753183",
+      "ip": "13.248.169.48",
+      "country": "US"
+    },
+    "forallpanel.srtongston.ir:8880:VLESS": {
+      "status": "alive",
+      "time": "2026-06-15T20:46:41.758876",
+      "ip": "199.181.197.159",
+      "country": "US"
+    },
+    "kaizen-jp-11.mielink-dns2.com:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-06-15T20:46:41.779224",
+      "ip": "172.234.24.211",
+      "country": "US"
+    },
+    "151.101.7.243:80:VLESS": {
+      "status": "alive",
+      "time": "2026-06-15T20:46:41.823886",
+      "ip": "151.101.7.243",
+      "country": "DE"
+    },
+    "72.56.38.250:443:VLESS": {
+      "status": "alive",
+      "time": "2026-06-15T20:46:41.854425",
+      "ip": "72.56.38.250",
+      "country": "US"
+    },
+    "fin83.alexanderoff.ru:30516:VLESS": {
+      "status": "dead",
+      "time": "2026-06-15T20:46:41.933798",
+      "ip": "83.143.112.143",
+      "country": "FI"
+    },
+    "l10.l-itx.info:7443:VLESS": {
+      "status": "alive",
+      "time": "2026-06-15T20:46:41.945804",
+      "ip": "83.228.240.230",
+      "country": "CH"
+    },
+    "185.204.169.164:8443:TROJAN": {
+      "status": "dead",
+      "time": "2026-06-15T20:46:43.993515",
+      "ip": "185.204.169.164",
+      "country": "DE"
+    },
+    "185.204.169.164:443:TROJAN": {
+      "status": "dead",
+      "time": "2026-06-15T20:46:43.993691",
+      "ip": "185.204.169.164",
+      "country": "DE"
+    },
+    "185.160.24.217:804:SS": {
+      "status": "dead",
+      "time": "2026-06-15T20:46:43.999865",
+      "ip": "185.160.24.217",
+      "country": "GB"
+    },
+    "152.70.123.141:80:VMESS": {
+      "status": "dead",
+      "time": "2026-06-15T20:46:44.016646",
+      "ip": "152.70.123.141",
+      "country": "US"
+    },
+    "185.160.24.217:812:SS": {
+      "status": "dead",
+      "time": "2026-06-15T20:46:44.105694",
+      "ip": "185.160.24.217",
+      "country": "GB"
+    },
+    "185.160.24.217:803:SS": {
+      "status": "dead",
+      "time": "2026-06-15T20:46:44.207036",
+      "ip": "185.160.24.217",
+      "country": "GB"
+    },
+    "104.149.154.154:25966:VMESS": {
+      "status": "dead",
+      "time": "2026-06-15T20:46:44.216851",
+      "ip": "104.149.154.154",
+      "country": "US"
     }
   }
 }
