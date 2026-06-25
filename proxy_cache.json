@@ -16074,6 +16074,54 @@
       "time": "2026-06-25T07:35:14.599383",
       "ip": "158.180.48.19",
       "country": "DE"
+    },
+    "20.84.155.134:443:VLESS": {
+      "status": "alive",
+      "time": "2026-06-25T13:11:26.058961",
+      "ip": "20.84.155.134",
+      "country": "US"
+    },
+    "euro.cloud-play.ir:80:VLESS": {
+      "status": "alive",
+      "time": "2026-06-25T13:11:26.114495",
+      "ip": "151.101.160.204",
+      "country": "US"
+    },
+    "global.cloud-play.ir:80:VLESS": {
+      "status": "alive",
+      "time": "2026-06-25T13:11:26.134672",
+      "ip": "146.75.104.204",
+      "country": "US"
+    },
+    "mci.cloud-play.ir:80:VLESS": {
+      "status": "alive",
+      "time": "2026-06-25T13:11:26.220146",
+      "ip": "23.235.33.4",
+      "country": "US"
+    },
+    "local.cloud-play.ir:80:VLESS": {
+      "status": "alive",
+      "time": "2026-06-25T13:11:26.217686",
+      "ip": "151.101.2.5",
+      "country": "US"
+    },
+    "20.0.105.19:443:VLESS": {
+      "status": "alive",
+      "time": "2026-06-25T13:11:26.313715",
+      "ip": "20.0.105.19",
+      "country": "GB"
+    },
+    "germany1.banovano.space:443:VLESS": {
+      "status": "alive",
+      "time": "2026-06-25T13:11:26.363778",
+      "ip": "191.44.109.109",
+      "country": "GB"
+    },
+    "51.116.101.212:443:VLESS": {
+      "status": "dead",
+      "time": "2026-06-25T13:11:28.705928",
+      "ip": "51.116.101.212",
+      "country": "DE"
     }
   }
 }
