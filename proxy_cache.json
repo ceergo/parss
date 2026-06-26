@@ -16704,6 +16704,18 @@
       "time": "2026-06-26T06:44:28.417398",
       "ip": "154.26.187.6",
       "country": "US"
+    },
+    "mtn.bamarambash.monster:443:VMESS": {
+      "status": "alive",
+      "time": "2026-06-26T10:15:11.205781",
+      "ip": "54.215.31.113",
+      "country": "US"
+    },
+    "mci.bamarambash.monster:443:VMESS": {
+      "status": "alive",
+      "time": "2026-06-26T10:15:11.257606",
+      "ip": "54.215.31.113",
+      "country": "US"
     }
   }
 }
