@@ -16590,6 +16590,66 @@
       "time": "2026-07-09T10:18:30.797647",
       "ip": "178.83.121.100",
       "country": "GB"
+    },
+    "x4g-production-135d.up.railway.app:443:VLESS": {
+      "status": "alive",
+      "time": "2026-07-09T13:43:45.199368",
+      "ip": "69.46.46.13",
+      "country": "US"
+    },
+    "ansooyefilter-production-abf6.up.railway.app:443:VLESS": {
+      "status": "alive",
+      "time": "2026-07-09T13:43:45.231840",
+      "ip": "69.46.46.86",
+      "country": "US"
+    },
+    "x4g-production-8fa1.up.railway.app:443:VLESS": {
+      "status": "alive",
+      "time": "2026-07-09T13:43:45.269141",
+      "ip": "69.46.46.103",
+      "country": "US"
+    },
+    "x4g-production-a78e.up.railway.app:443:VLESS": {
+      "status": "alive",
+      "time": "2026-07-09T13:43:45.341466",
+      "ip": "69.46.46.64",
+      "country": "US"
+    },
+    "95.133.236.90:1020:VLESS": {
+      "status": "alive",
+      "time": "2026-07-09T13:43:45.356963",
+      "ip": "95.133.236.90",
+      "country": "DE"
+    },
+    "x4g-production-845b.up.railway.app:443:VLESS": {
+      "status": "alive",
+      "time": "2026-07-09T13:43:45.379120",
+      "ip": "69.46.46.106",
+      "country": "US"
+    },
+    "de-2-2-2.topupaxme.icu:7443:VLESS": {
+      "status": "alive",
+      "time": "2026-07-09T13:43:45.616563",
+      "ip": "45.82.120.86",
+      "country": "DE"
+    },
+    "gaming.speedfast99.ir:10443:VLESS": {
+      "status": "alive",
+      "time": "2026-07-09T13:43:45.710710",
+      "ip": "91.228.227.171",
+      "country": "TR"
+    },
+    "switzen.topupaxme.icu:9443:VLESS": {
+      "status": "dead",
+      "time": "2026-07-09T13:43:47.427488",
+      "ip": "92.119.165.49",
+      "country": "CH"
+    },
+    "82.158.88.65:443:VLESS": {
+      "status": "alive",
+      "time": "2026-07-09T13:43:47.532101",
+      "ip": "82.158.88.65",
+      "country": "US"
     }
   }
 }
