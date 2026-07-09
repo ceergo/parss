@@ -14934,6 +14934,12 @@
       "time": "2026-07-09T22:14:48.102814",
       "ip": "169.197.143.232",
       "country": "US"
+    },
+    "ipw.gfdv54cvghhgfhgj-njhgj64.info:443:VMESS": {
+      "status": "alive",
+      "time": "2026-07-09T23:58:10.839662",
+      "ip": "170.114.45.115",
+      "country": "US"
     }
   }
 }
