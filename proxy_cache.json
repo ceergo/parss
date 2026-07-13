@@ -16902,6 +16902,24 @@
       "time": "2026-07-13T20:50:40.783513",
       "ip": "92.38.48.85",
       "country": "KZ"
+    },
+    "m14r.speedtestmark.com:443:VLESS": {
+      "status": "dead",
+      "time": "2026-07-13T21:46:02.207916",
+      "ip": "95.85.252.59",
+      "country": "DE"
+    },
+    "m7r.speedtestmark.com:443:VLESS": {
+      "status": "dead",
+      "time": "2026-07-13T21:46:02.230397",
+      "ip": "95.85.252.84",
+      "country": "DE"
+    },
+    "m15r.speedtestmark.com:443:VLESS": {
+      "status": "dead",
+      "time": "2026-07-13T21:46:02.333272",
+      "ip": "95.85.252.55",
+      "country": "DE"
     }
   }
 }
