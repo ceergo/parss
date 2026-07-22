@@ -15138,6 +15138,18 @@
       "time": "2026-07-21T23:49:30.795548",
       "ip": "38.33.1.168",
       "country": "US"
+    },
+    "mycfwork.herokuapp.com:443:VMESS": {
+      "status": "alive",
+      "time": "2026-07-22T01:49:35.756444",
+      "ip": "18.211.231.38",
+      "country": "US"
+    },
+    "uicdn.cf:80:VMESS": {
+      "status": "dead",
+      "time": "2026-07-22T01:49:38.738230",
+      "ip": "172.64.141.75",
+      "country": "US"
     }
   }
 }
