@@ -16392,6 +16392,60 @@
       "time": "2026-07-29T11:14:22.454339",
       "ip": "31.133.0.159",
       "country": "PL"
+    },
+    "oplosgru-c.catcat321.com:20056:TROJAN": {
+      "status": "alive",
+      "time": "2026-07-29T15:44:15.526898",
+      "ip": "157.254.38.210",
+      "country": "US"
+    },
+    "54.226.105.188:443:SS": {
+      "status": "alive",
+      "time": "2026-07-29T15:44:15.588161",
+      "ip": "54.226.105.188",
+      "country": "US"
+    },
+    "13.53.198.63:443:SS": {
+      "status": "alive",
+      "time": "2026-07-29T15:44:15.744441",
+      "ip": "13.53.198.63",
+      "country": "SE"
+    },
+    "oplosgru-c.catcat321.com:20035:TROJAN": {
+      "status": "alive",
+      "time": "2026-07-29T15:44:15.748177",
+      "ip": "157.254.38.210",
+      "country": "US"
+    },
+    "hkdcrtc-e.catcat321.com:20129:TROJAN": {
+      "status": "alive",
+      "time": "2026-07-29T15:44:15.833692",
+      "ip": "157.254.38.210",
+      "country": "US"
+    },
+    "Hkdcrtc-e.catcat321.com:20066:TROJAN": {
+      "status": "alive",
+      "time": "2026-07-29T15:44:15.833942",
+      "ip": "157.254.38.210",
+      "country": "US"
+    },
+    "koviraaa.kovira2.ir:25026:SS": {
+      "status": "alive",
+      "time": "2026-07-29T15:44:15.891651",
+      "ip": "83.228.229.139",
+      "country": "CH"
+    },
+    "62.210.113.98:6679:SS": {
+      "status": "dead",
+      "time": "2026-07-29T15:44:18.047875",
+      "ip": "62.210.113.98",
+      "country": "FR"
+    },
+    "194.15.196.106:7306:SS": {
+      "status": "dead",
+      "time": "2026-07-29T15:44:18.245418",
+      "ip": "194.15.196.106",
+      "country": "PL"
     }
   }
 }
