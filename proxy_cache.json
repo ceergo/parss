@@ -16980,6 +16980,24 @@
       "time": "2026-08-08T09:28:01.610901",
       "ip": "94.183.186.85",
       "country": "FR"
+    },
+    "freetg.strettenvpn.com:9999:VLESS": {
+      "status": "alive",
+      "time": "2026-08-08T13:38:29.318847",
+      "ip": "217.60.99.49",
+      "country": "DE"
+    },
+    "sw2.fi1-cosmostechnology.ru:443:VLESS": {
+      "status": "alive",
+      "time": "2026-08-08T13:38:29.388338",
+      "ip": "132.243.231.115",
+      "country": "SE"
+    },
+    "sw4.fi1-cosmostechnology.ru:443:VLESS": {
+      "status": "alive",
+      "time": "2026-08-08T13:38:29.459522",
+      "ip": "132.243.231.6",
+      "country": "SE"
     }
   }
 }
