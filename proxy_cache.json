@@ -16386,6 +16386,18 @@
       "time": "2026-08-14T14:09:07.130304",
       "ip": "82.40.62.22",
       "country": "PL"
+    },
+    "ezaccess1-sulgx-ezaccess1-f214.up.railway.app:443:VLESS": {
+      "status": "alive",
+      "time": "2026-08-14T19:42:13.545684",
+      "ip": "69.46.46.60",
+      "country": "US"
+    },
+    "sb1.artinnet.shop:443:VLESS": {
+      "status": "dead",
+      "time": "2026-08-14T19:42:16.167638",
+      "ip": "78.135.77.96",
+      "country": "TR"
     }
   }
 }
