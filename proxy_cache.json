@@ -16512,6 +16512,48 @@
       "time": "2026-08-15T00:42:39.351072",
       "ip": "37.46.18.206",
       "country": "US"
+    },
+    "summary-lemming.rooster465.autos:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-08-15T03:31:42.514048",
+      "ip": "35.159.21.7",
+      "country": "DE"
+    },
+    "teaching-gnu.rooster465.autos:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-08-15T03:31:42.549243",
+      "ip": "18.198.1.232",
+      "country": "DE"
+    },
+    "magnetic-caiman.rooster465.autos:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-08-15T03:31:42.574458",
+      "ip": "202.78.163.233",
+      "country": "PL"
+    },
+    "130.250.137.171:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-08-15T03:31:42.575017",
+      "ip": "130.250.137.171",
+      "country": "US"
+    },
+    "primary-leech.rooster465.autos:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-08-15T03:31:42.575397",
+      "ip": "202.78.163.156",
+      "country": "PL"
+    },
+    "renewed-porpoise.rooster465.autos:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-08-15T03:31:42.619725",
+      "ip": "3.120.70.66",
+      "country": "DE"
+    },
+    "sharing-duck.rooster465.autos:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-08-15T03:31:42.623457",
+      "ip": "54.244.169.225",
+      "country": "US"
     }
   }
 }
