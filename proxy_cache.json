@@ -11940,6 +11940,96 @@
       "time": "2026-08-18T13:35:09.093649",
       "ip": "31.76.49.185",
       "country": "NL"
+    },
+    "test.lte.anti-zapret.com:443:VLESS": {
+      "status": "alive",
+      "time": "2026-08-18T15:21:40.541349",
+      "ip": "84.75.220.235",
+      "country": "US"
+    },
+    "185.175.111.225:443:VLESS": {
+      "status": "alive",
+      "time": "2026-08-18T15:21:40.633248",
+      "ip": "185.175.111.225",
+      "country": "FR"
+    },
+    "216.167.54.75:47212:VLESS": {
+      "status": "alive",
+      "time": "2026-08-18T15:21:40.571566",
+      "ip": "216.167.54.75",
+      "country": "US"
+    },
+    "205.237.104.83:8443:VLESS": {
+      "status": "alive",
+      "time": "2026-08-18T15:21:40.650867",
+      "ip": "205.237.104.83",
+      "country": "FR"
+    },
+    "hys40.wba-pn.ru:443:VLESS": {
+      "status": "alive",
+      "time": "2026-08-18T15:21:40.618611",
+      "ip": "201.51.23.91",
+      "country": "NL"
+    },
+    "fi.jugploer.icu:443:VLESS": {
+      "status": "alive",
+      "time": "2026-08-18T15:21:40.741221",
+      "ip": "85.192.49.236",
+      "country": "FI"
+    },
+    "test.api.anti-zapret.com:443:VLESS": {
+      "status": "alive",
+      "time": "2026-08-18T15:21:40.652056",
+      "ip": "194.93.61.38",
+      "country": "NL"
+    },
+    "94.183.221.165:443:VLESS": {
+      "status": "alive",
+      "time": "2026-08-18T15:21:40.724493",
+      "ip": "94.183.221.165",
+      "country": "NL"
+    },
+    "test.backup.anti-zapret.com:443:VLESS": {
+      "status": "alive",
+      "time": "2026-08-18T15:21:40.734471",
+      "ip": "94.183.157.71",
+      "country": "PL"
+    },
+    "test.bridge.anti-zapret.com:443:VLESS": {
+      "status": "alive",
+      "time": "2026-08-18T15:21:42.820498",
+      "ip": "103.112.71.86",
+      "country": "NL"
+    },
+    "94.237.93.20:33651:VLESS": {
+      "status": "alive",
+      "time": "2026-08-18T15:21:40.650333",
+      "ip": "94.237.93.20",
+      "country": "DE"
+    },
+    "150.251.114.43:443:VLESS": {
+      "status": "alive",
+      "time": "2026-08-18T15:21:40.654024",
+      "ip": "150.251.114.43",
+      "country": "PL"
+    },
+    "72.56.78.50:443:VLESS": {
+      "status": "alive",
+      "time": "2026-08-18T15:21:40.723390",
+      "ip": "72.56.78.50",
+      "country": "NL"
+    },
+    "18.239.134.69:80:VLESS": {
+      "status": "alive",
+      "time": "2026-08-18T15:21:40.941989",
+      "ip": "18.239.134.69",
+      "country": "US"
+    },
+    "refraction.chelyabinskdev.com:443:VLESS": {
+      "status": "alive",
+      "time": "2026-08-18T15:21:41.001344",
+      "ip": "195.242.29.117",
+      "country": "FI"
     }
   }
 }
