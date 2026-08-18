@@ -11892,6 +11892,18 @@
       "time": "2026-08-18T10:18:25.503963",
       "ip": "54.205.8.205",
       "country": "US"
+    },
+    "lp.cryptoofarm.com:8443:VLESS": {
+      "status": "alive",
+      "time": "2026-08-18T12:25:50.111097",
+      "ip": "2.27.200.0",
+      "country": "US"
+    },
+    "wEBCOReLInk4-hUbdAtAGAtE8-NoDEstREamab.clOudsyNC9.coM:443:VMESS": {
+      "status": "dead",
+      "time": "2026-08-18T12:25:52.428961",
+      "ip": "172.67.18.6",
+      "country": "US"
     }
   }
 }
