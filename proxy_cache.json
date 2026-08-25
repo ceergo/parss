@@ -13488,6 +13488,30 @@
       "time": "2026-08-25T06:30:11.322609",
       "ip": "185.114.48.177",
       "country": "NL"
+    },
+    "sh-cn-1.dnspro.icu:20025:VMESS": {
+      "status": "dead",
+      "time": "2026-08-25T07:36:11.720549",
+      "ip": "84.75.202.2",
+      "country": "GB"
+    },
+    "st-2.dnspro.icu:5100:VMESS": {
+      "status": "dead",
+      "time": "2026-08-25T07:36:11.814336",
+      "ip": "84.75.202.2",
+      "country": "GB"
+    },
+    "st-1.dnspro.icu:9111:VMESS": {
+      "status": "dead",
+      "time": "2026-08-25T07:36:11.835784",
+      "ip": "84.75.202.2",
+      "country": "GB"
+    },
+    "steam.dnspro.icu:5001:VMESS": {
+      "status": "dead",
+      "time": "2026-08-25T07:36:12.065635",
+      "ip": "84.75.202.2",
+      "country": "GB"
     }
   }
 }
