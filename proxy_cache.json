@@ -13332,6 +13332,12 @@
       "time": "2026-08-25T03:40:04.618632",
       "ip": "38.121.43.204",
       "country": "US"
+    },
+    "kukuprogram1.herokuapp.com:443:VMESS": {
+      "status": "alive",
+      "time": "2026-08-25T04:29:59.920367",
+      "ip": "3.229.186.102",
+      "country": "US"
     }
   }
 }
