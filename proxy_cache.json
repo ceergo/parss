@@ -13650,6 +13650,54 @@
       "time": "2026-09-02T05:16:33.192748",
       "ip": "38.249.23.97",
       "country": "US"
+    },
+    "144.172.68.131:1901:VLESS": {
+      "status": "alive",
+      "time": "2026-09-02T10:14:10.262419",
+      "ip": "144.172.68.131",
+      "country": "DE"
+    },
+    "portal.kaliteam.ir:47693:VLESS": {
+      "status": "alive",
+      "time": "2026-09-02T10:14:10.316941",
+      "ip": "81.22.134.40",
+      "country": "NL"
+    },
+    "germany3kvlcvkzcxvlqwe312adscrfsdcrc234cefopewfpo23o.soft421.ir:1152:VLESS": {
+      "status": "alive",
+      "time": "2026-09-02T10:14:10.381001",
+      "ip": "198.105.115.68",
+      "country": "DE"
+    },
+    "myhvhcheat.kaliteam.ir:12345:VLESS": {
+      "status": "alive",
+      "time": "2026-09-02T10:14:10.381122",
+      "ip": "81.22.134.40",
+      "country": "NL"
+    },
+    "noxix.kaliteam.ir:11352:VLESS": {
+      "status": "alive",
+      "time": "2026-09-02T10:14:10.388200",
+      "ip": "81.22.134.40",
+      "country": "NL"
+    },
+    "forloveyou.kaliteam.ir:50925:VLESS": {
+      "status": "alive",
+      "time": "2026-09-02T10:14:10.415165",
+      "ip": "81.22.134.40",
+      "country": "NL"
+    },
+    "mmd5964.kaliteam.ir:32865:VLESS": {
+      "status": "alive",
+      "time": "2026-09-02T10:14:10.425091",
+      "ip": "81.22.134.40",
+      "country": "NL"
+    },
+    "polisi.kaliteam.ir:19113:VLESS": {
+      "status": "alive",
+      "time": "2026-09-02T10:14:10.502935",
+      "ip": "81.22.134.40",
+      "country": "NL"
     }
   }
 }
