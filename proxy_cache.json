@@ -12582,6 +12582,162 @@
       "time": "2026-09-03T07:31:21.342368",
       "ip": "57.129.25.22",
       "country": "DE"
+    },
+    "vuk1.0bad.com:443:VMESS": {
+      "status": "dead",
+      "time": "2026-09-03T19:30:53.301603",
+      "ip": "38.174.138.227",
+      "country": "US"
+    },
+    "vde2.0bad.com:443:VMESS": {
+      "status": "dead",
+      "time": "2026-09-03T19:30:53.302806",
+      "ip": "38.174.138.227",
+      "country": "US"
+    },
+    "216.24.57.7:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-09-03T19:30:53.334050",
+      "ip": "216.24.57.7",
+      "country": "US"
+    },
+    "vuk2.0bad.com:443:VMESS": {
+      "status": "dead",
+      "time": "2026-09-03T19:30:53.336988",
+      "ip": "38.174.138.227",
+      "country": "US"
+    },
+    "216.24.57.1:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-09-03T19:30:53.351518",
+      "ip": "216.24.57.1",
+      "country": "US"
+    },
+    "vus2.0bad.com:443:VMESS": {
+      "status": "dead",
+      "time": "2026-09-03T19:30:53.368533",
+      "ip": "38.174.138.227",
+      "country": "US"
+    },
+    "vin1.0bad.com:443:VMESS": {
+      "status": "dead",
+      "time": "2026-09-03T19:30:53.379665",
+      "ip": "38.174.138.227",
+      "country": "US"
+    },
+    "185.223.57.10:33743:VLESS": {
+      "status": "alive",
+      "time": "2026-09-03T19:30:53.525974",
+      "ip": "185.223.57.10",
+      "country": "PL"
+    },
+    "vus3.0bad.com:443:VMESS": {
+      "status": "dead",
+      "time": "2026-09-03T19:30:53.460455",
+      "ip": "38.174.138.227",
+      "country": "US"
+    },
+    "vde1.0bad.com:443:VMESS": {
+      "status": "dead",
+      "time": "2026-09-03T19:30:53.462917",
+      "ip": "38.174.138.227",
+      "country": "US"
+    },
+    "vsg1.0bad.com:443:VMESS": {
+      "status": "dead",
+      "time": "2026-09-03T19:30:53.471437",
+      "ip": "38.174.138.227",
+      "country": "US"
+    },
+    "elegant-marten.rooster465.autos:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-09-03T19:30:53.472145",
+      "ip": "34.218.48.137",
+      "country": "US"
+    },
+    "vjp1.0bad.com:443:VMESS": {
+      "status": "dead",
+      "time": "2026-09-03T19:30:53.473093",
+      "ip": "38.174.138.227",
+      "country": "US"
+    },
+    "vus4.0bad.com:443:VMESS": {
+      "status": "dead",
+      "time": "2026-09-03T19:30:53.479607",
+      "ip": "38.174.138.227",
+      "country": "US"
+    },
+    "vau1.0bad.com:443:VMESS": {
+      "status": "dead",
+      "time": "2026-09-03T19:30:53.479647",
+      "ip": "38.174.138.227",
+      "country": "US"
+    },
+    "vjp2.0bad.com:443:VMESS": {
+      "status": "dead",
+      "time": "2026-09-03T19:30:53.480104",
+      "ip": "38.174.138.227",
+      "country": "US"
+    },
+    "vjp3.0bad.com:443:VMESS": {
+      "status": "dead",
+      "time": "2026-09-03T19:30:53.481008",
+      "ip": "38.174.138.227",
+      "country": "US"
+    },
+    "107.175.91.118:443:VMESS": {
+      "status": "alive",
+      "time": "2026-09-03T19:30:53.489971",
+      "ip": "107.175.91.118",
+      "country": "US"
+    },
+    "eternal-perch.rooster465.autos:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-09-03T19:30:53.500439",
+      "ip": "54.213.128.173",
+      "country": "US"
+    },
+    "sincere-crappie.rooster465.autos:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-09-03T19:30:53.529126",
+      "ip": "34.210.65.204",
+      "country": "US"
+    },
+    "45.85.88.194:2234:TROJAN": {
+      "status": "alive",
+      "time": "2026-09-03T19:30:53.559774",
+      "ip": "45.85.88.194",
+      "country": "GB"
+    },
+    "fair-werewolf.rooster465.autos:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-09-03T19:30:53.563988",
+      "ip": "3.75.76.74",
+      "country": "DE"
+    },
+    "81.90.21.73:114:SS": {
+      "status": "dead",
+      "time": "2026-09-03T19:30:53.582175",
+      "ip": "81.90.21.73",
+      "country": "SE"
+    },
+    "vus5.0bad.com:443:VMESS": {
+      "status": "dead",
+      "time": "2026-09-03T19:30:53.627988",
+      "ip": "38.174.138.227",
+      "country": "US"
+    },
+    "91.193.17.156:9458:VLESS": {
+      "status": "dead",
+      "time": "2026-09-03T19:30:55.978641",
+      "ip": "91.193.17.156",
+      "country": "GB"
+    },
+    "xn--1ugy405pdua.gayvibe.dpdns.org:2174:TROJAN": {
+      "status": "alive",
+      "time": "2026-09-03T19:30:53.786741",
+      "ip": "45.85.88.194",
+      "country": "GB"
     }
   }
 }
