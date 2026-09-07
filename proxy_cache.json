@@ -12996,6 +12996,150 @@
       "time": "2026-09-07T16:54:16.396318",
       "ip": "69.46.46.84",
       "country": "US"
+    },
+    "64.83.31.25:443:VLESS": {
+      "status": "alive",
+      "time": "2026-09-07T20:17:29.079007",
+      "ip": "64.83.31.25",
+      "country": "US"
+    },
+    "89.105.206.122:443:VLESS": {
+      "status": "alive",
+      "time": "2026-09-07T20:17:29.213210",
+      "ip": "89.105.206.122",
+      "country": "NL"
+    },
+    "45.59.184.12:6800:SS": {
+      "status": "dead",
+      "time": "2026-09-07T20:17:29.133101",
+      "ip": "45.59.184.12",
+      "country": "US"
+    },
+    "sincere-crappie.rooster465.autos:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-09-07T20:17:29.133364",
+      "ip": "34.210.65.204",
+      "country": "US"
+    },
+    "fond-chipmunk.rooster465.autos:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-09-07T20:17:29.143758",
+      "ip": "52.12.119.84",
+      "country": "US"
+    },
+    "welcome-monitor.rooster465.autos:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-09-07T20:17:29.156688",
+      "ip": "54.184.248.68",
+      "country": "US"
+    },
+    "eu-west-nl-1.hanvpn.biz:443:VLESS": {
+      "status": "alive",
+      "time": "2026-09-07T20:17:29.212896",
+      "ip": "188.137.182.98",
+      "country": "NL"
+    },
+    "unlimited.gruztrack.online:8080:VLESS": {
+      "status": "alive",
+      "time": "2026-09-07T20:17:29.264072",
+      "ip": "103.114.43.216",
+      "country": "NL"
+    },
+    "5.157.10.146:443:VLESS": {
+      "status": "alive",
+      "time": "2026-09-07T20:17:29.303418",
+      "ip": "5.157.10.146",
+      "country": "SE"
+    },
+    "tidy-gelding.rooster465.autos:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-09-07T20:17:29.185176",
+      "ip": "63.178.193.118",
+      "country": "DE"
+    },
+    "key-pony.rooster465.autos:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-09-07T20:17:29.201001",
+      "ip": "3.126.50.169",
+      "country": "DE"
+    },
+    "humorous-malamute.rooster465.autos:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-09-07T20:17:29.201879",
+      "ip": "16.148.149.249",
+      "country": "US"
+    },
+    "100.42.228.109:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-09-07T20:17:29.233985",
+      "ip": "100.42.228.109",
+      "country": "US"
+    },
+    "elegant-marten.rooster465.autos:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-09-07T20:17:29.244326",
+      "ip": "34.218.48.137",
+      "country": "US"
+    },
+    "discrete-basilisk.rooster465.autos:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-09-07T20:17:29.256234",
+      "ip": "202.78.163.148",
+      "country": "PL"
+    },
+    "certain-egret.rooster465.autos:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-09-07T20:17:29.261758",
+      "ip": "3.122.55.145",
+      "country": "DE"
+    },
+    "eternal-perch.rooster465.autos:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-09-07T20:17:29.277579",
+      "ip": "54.213.128.173",
+      "country": "US"
+    },
+    "relaxed-gull.rooster465.autos:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-09-07T20:17:29.280460",
+      "ip": "202.78.163.248",
+      "country": "PL"
+    },
+    "fair-werewolf.rooster465.autos:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-09-07T20:17:29.297116",
+      "ip": "3.75.76.74",
+      "country": "DE"
+    },
+    "m6.v2rayfree1.xyz:443:VMESS": {
+      "status": "alive",
+      "time": "2026-09-07T20:17:29.304378",
+      "ip": "103.224.182.217",
+      "country": "US"
+    },
+    "us.pardazno.ir:443:VLESS": {
+      "status": "alive",
+      "time": "2026-09-07T20:17:29.326153",
+      "ip": "152.44.32.138",
+      "country": "US"
+    },
+    "transfer01.kaochangonline.online:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-09-07T20:17:29.541601",
+      "ip": "37.1.220.158",
+      "country": "NL"
+    },
+    "ty1-3.crabyakiniku.com:443:TROJAN": {
+      "status": "dead",
+      "time": "2026-09-07T20:17:31.627376",
+      "ip": "45.149.4.199",
+      "country": "DE"
+    },
+    "92.38.184.228:2097:SS": {
+      "status": "dead",
+      "time": "2026-09-07T20:17:31.695160",
+      "ip": "92.38.184.228",
+      "country": "NL"
     }
   }
 }
