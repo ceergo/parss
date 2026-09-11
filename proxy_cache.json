@@ -12390,6 +12390,42 @@
       "time": "2026-09-11T20:44:15.928430",
       "ip": "82.118.19.153",
       "country": "DE"
+    },
+    "news.zoom.us:8443:VLESS": {
+      "status": "alive",
+      "time": "2026-09-11T22:53:59.430811",
+      "ip": "141.193.213.20",
+      "country": "US"
+    },
+    "84.32.177.5:443:VLESS": {
+      "status": "alive",
+      "time": "2026-09-11T22:53:59.574796",
+      "ip": "84.32.177.5",
+      "country": "NL"
+    },
+    "84.32.185.127:443:VLESS": {
+      "status": "alive",
+      "time": "2026-09-11T22:53:59.567048",
+      "ip": "84.32.185.127",
+      "country": "NL"
+    },
+    "mst1ndch.goonars.com:443:VLESS": {
+      "status": "alive",
+      "time": "2026-09-11T22:53:59.573837",
+      "ip": "84.32.185.127",
+      "country": "NL"
+    },
+    "xr-1.herokuapp.com:443:VMESS": {
+      "status": "alive",
+      "time": "2026-09-11T22:53:59.490384",
+      "ip": "23.22.144.165",
+      "country": "US"
+    },
+    "cdn15sw.goonars.com:443:VLESS": {
+      "status": "alive",
+      "time": "2026-09-11T22:53:59.574769",
+      "ip": "84.32.177.5",
+      "country": "NL"
     }
   }
 }
