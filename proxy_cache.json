@@ -14070,6 +14070,24 @@
       "time": "2026-09-14T08:20:19.260461",
       "ip": "31.76.120.249",
       "country": "FI"
+    },
+    "kz.cdn-update.rutube.info:8443:VLESS": {
+      "status": "alive",
+      "time": "2026-09-14T15:28:13.196517",
+      "ip": "89.106.88.6",
+      "country": "DE"
+    },
+    "ee.cdn-update.rutube.info:20443:VLESS": {
+      "status": "alive",
+      "time": "2026-09-14T15:28:13.241451",
+      "ip": "89.106.88.6",
+      "country": "DE"
+    },
+    "w7tjfftjdt.vk-maps.net:52006:VLESS": {
+      "status": "alive",
+      "time": "2026-09-14T15:28:13.211110",
+      "ip": "5.231.17.131",
+      "country": "DE"
     }
   }
 }
