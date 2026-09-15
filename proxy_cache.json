@@ -12324,6 +12324,462 @@
       "time": "2026-09-15T02:36:09.709821",
       "ip": "31.57.46.138",
       "country": "US"
+    },
+    "138.199.35.208:9002:HTTP": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.185670",
+      "ip": "138.199.35.208",
+      "country": "US"
+    },
+    "165.215.250.14:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.196602",
+      "ip": "165.215.250.14",
+      "country": "US"
+    },
+    "138.199.35.203:9002:HTTP": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.196925",
+      "ip": "138.199.35.203",
+      "country": "US"
+    },
+    "138.199.35.210:9002:HTTP": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.205942",
+      "ip": "138.199.35.210",
+      "country": "US"
+    },
+    "national-dingo.rooster465.autos:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.238395",
+      "ip": "50.112.83.226",
+      "country": "US"
+    },
+    "140.235.168.4:443:VLESS": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.248546",
+      "ip": "140.235.168.4",
+      "country": "US"
+    },
+    "138.199.35.205:9002:HTTP": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.256877",
+      "ip": "138.199.35.205",
+      "country": "US"
+    },
+    "198.46.215.223:8443:VLESS": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.263594",
+      "ip": "198.46.215.223",
+      "country": "US"
+    },
+    "138.199.35.207:9002:HTTP": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.294627",
+      "ip": "138.199.35.207",
+      "country": "US"
+    },
+    "shining-piranha.rooster465.autos:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.312095",
+      "ip": "44.250.170.23",
+      "country": "US"
+    },
+    "helped-jennet.rooster465.autos:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.326878",
+      "ip": "34.216.104.24",
+      "country": "US"
+    },
+    "138.199.35.217:9002:HTTP": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.328159",
+      "ip": "138.199.35.217",
+      "country": "US"
+    },
+    "square-gnat.rooster465.autos:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.331316",
+      "ip": "54.245.10.59",
+      "country": "US"
+    },
+    "gentle-turtle.rooster465.autos:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.332311",
+      "ip": "54.70.161.72",
+      "country": "US"
+    },
+    "138.199.35.202:9002:HTTP": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.334475",
+      "ip": "138.199.35.202",
+      "country": "US"
+    },
+    "130.250.137.171:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.336681",
+      "ip": "130.250.137.171",
+      "country": "US"
+    },
+    "138.199.35.220:9002:HTTP": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.340522",
+      "ip": "138.199.35.220",
+      "country": "US"
+    },
+    "162.35.96.15:8081:VLESS": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.343738",
+      "ip": "162.35.96.15",
+      "country": "US"
+    },
+    "goedkoopgeluid.icu:443:HTTP": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.346897",
+      "ip": "74.82.60.21",
+      "country": "US"
+    },
+    "149.102.245.65:443:HTTP": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.352725",
+      "ip": "149.102.245.65",
+      "country": "FR"
+    },
+    "31.7.62.50:443:HTTP": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.356021",
+      "ip": "31.7.62.50",
+      "country": "CH"
+    },
+    "130.49.77.4:8443:VLESS": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.487406",
+      "ip": "130.49.77.4",
+      "country": "FR"
+    },
+    "sincere-crappie.rooster465.autos:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.363407",
+      "ip": "34.210.65.204",
+      "country": "US"
+    },
+    "95.85.227.42:8766:VLESS": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.365522",
+      "ip": "95.85.227.42",
+      "country": "PL"
+    },
+    "141.94.16.4:443:HTTP": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.367592",
+      "ip": "141.94.16.4",
+      "country": "FR"
+    },
+    "103.237.102.191:11111:HTTP": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.368407",
+      "ip": "103.237.102.191",
+      "country": "DE"
+    },
+    "149.36.50.129:443:HTTP": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.370380",
+      "ip": "149.36.50.129",
+      "country": "DE"
+    },
+    "emerging-weevil.rooster465.autos:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.372068",
+      "ip": "193.169.239.14",
+      "country": "NL"
+    },
+    "149.36.51.129:443:HTTP": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.373811",
+      "ip": "149.36.51.129",
+      "country": "NL"
+    },
+    "138.199.35.219:9002:HTTP": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.374413",
+      "ip": "138.199.35.219",
+      "country": "US"
+    },
+    "64.130.58.223:443:VLESS": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.375487",
+      "ip": "64.130.58.223",
+      "country": "US"
+    },
+    "138.199.35.200:9002:HTTP": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.379631",
+      "ip": "138.199.35.200",
+      "country": "US"
+    },
+    "freee-production.up.railway.app:443:VLESS": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.379909",
+      "ip": "69.46.46.77",
+      "country": "US"
+    },
+    "138.201.56.241:443:HTTP": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.380928",
+      "ip": "138.201.56.241",
+      "country": "DE"
+    },
+    "31.76.94.87:8766:VLESS": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.381064",
+      "ip": "31.76.94.87",
+      "country": "PL"
+    },
+    "live-drake.rooster465.autos:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.381193",
+      "ip": "35.89.158.227",
+      "country": "US"
+    },
+    "nl-1.tr202607.com:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.385034",
+      "ip": "78.142.194.96",
+      "country": "NL"
+    },
+    "18.191.124.183:443:SS": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.388319",
+      "ip": "18.191.124.183",
+      "country": "US"
+    },
+    "149.36.50.1:443:HTTP": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.390205",
+      "ip": "149.36.50.1",
+      "country": "DE"
+    },
+    "ultimate-jaguar.rooster465.autos:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.391661",
+      "ip": "54.213.238.59",
+      "country": "US"
+    },
+    "104.219.236.83:8443:HTTP": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.397473",
+      "ip": "104.219.236.83",
+      "country": "US"
+    },
+    "carolinafreigh.fun:443:HTTP": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.407003",
+      "ip": "72.52.87.59",
+      "country": "US"
+    },
+    "certain-egret.rooster465.autos:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.407230",
+      "ip": "3.122.55.145",
+      "country": "DE"
+    },
+    "top-goshawk.rooster465.autos:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.407805",
+      "ip": "202.78.163.173",
+      "country": "PL"
+    },
+    "31.76.5.123:443:VLESS": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.416207",
+      "ip": "31.76.5.123",
+      "country": "US"
+    },
+    "94.228.219.152:443:VLESS": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.417630",
+      "ip": "94.228.219.152",
+      "country": "NL"
+    },
+    "149.50.216.65:443:HTTP": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.418211",
+      "ip": "149.50.216.65",
+      "country": "SE"
+    },
+    "185.235.0.34:443:HTTP": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.419852",
+      "ip": "185.235.0.34",
+      "country": "GB"
+    },
+    "64.130.40.58:443:VLESS": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.428570",
+      "ip": "64.130.40.58",
+      "country": "NL"
+    },
+    "128.254.186.111:443:VLESS": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.431870",
+      "ip": "128.254.186.111",
+      "country": "US"
+    },
+    "eager-louse.rooster465.autos:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.453011",
+      "ip": "89.39.70.180",
+      "country": "NL"
+    },
+    "norway.failspace.top:443:VLESS": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.456868",
+      "ip": "31.76.5.123",
+      "country": "US"
+    },
+    "88.198.82.150:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.463225",
+      "ip": "88.198.82.150",
+      "country": "DE"
+    },
+    "157.22.183.72:443:HTTP": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.475928",
+      "ip": "157.22.183.72",
+      "country": "NL"
+    },
+    "185.246.153.28:443:HTTP": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.475986",
+      "ip": "185.246.153.28",
+      "country": "NL"
+    },
+    "api2.maxonelove.com:443:VLESS": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.485378",
+      "ip": "144.31.5.46",
+      "country": "PL"
+    },
+    "kimberlymilano.icu:443:HTTP": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.485552",
+      "ip": "65.49.68.59",
+      "country": "US"
+    },
+    "31.76.5.124:443:VLESS": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.486077",
+      "ip": "31.76.5.124",
+      "country": "US"
+    },
+    "game-firefly.rooster465.autos:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.490567",
+      "ip": "202.78.163.19",
+      "country": "PL"
+    },
+    "pro-crane.rooster465.autos:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.495687",
+      "ip": "89.39.70.120",
+      "country": "NL"
+    },
+    "composed-sheep.rooster465.autos:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.495747",
+      "ip": "3.67.79.54",
+      "country": "DE"
+    },
+    "31.76.5.156:443:VLESS": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.506292",
+      "ip": "31.76.5.156",
+      "country": "US"
+    },
+    "141.17.83.73:443:HTTP": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.506377",
+      "ip": "141.17.83.73",
+      "country": "DE"
+    },
+    "nl-4.tr202507.com:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.514274",
+      "ip": "194.124.216.109",
+      "country": "NL"
+    },
+    "direct-hawk.rooster465.autos:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.516182",
+      "ip": "18.192.67.47",
+      "country": "DE"
+    },
+    "norway-2.failspace.top:443:VLESS": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.599559",
+      "ip": "31.76.5.124",
+      "country": "US"
+    },
+    "1bc35.veloradigital.xyz:443:VLESS": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.925213",
+      "ip": "64.130.40.58",
+      "country": "NL"
+    },
+    "bbbnnmj.131.pp.ua:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:20.968838",
+      "ip": "135.181.41.169",
+      "country": "FI"
+    },
+    "bbbnhj.131.pp.ua:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:21.022204",
+      "ip": "135.181.41.169",
+      "country": "FI"
+    },
+    "207.174.30.36:56326:VLESS": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:21.036383",
+      "ip": "207.174.30.36",
+      "country": "NL"
+    },
+    "vvbgh.131.pp.ua:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:21.068064",
+      "ip": "135.181.41.169",
+      "country": "FI"
+    },
+    "38.121.43.71:5001:SS": {
+      "status": "dead",
+      "time": "2026-09-15T08:12:22.675430",
+      "ip": "38.121.43.71",
+      "country": "US"
+    },
+    "nnnmjju.131.pp.ua:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-09-15T08:12:22.680682",
+      "ip": "135.181.41.169",
+      "country": "FI"
+    },
+    "38.91.102.72:8882:SS": {
+      "status": "dead",
+      "time": "2026-09-15T08:12:22.747234",
+      "ip": "38.91.102.72",
+      "country": "US"
+    },
+    "193.70.33.128:17772:VMESS": {
+      "status": "dead",
+      "time": "2026-09-15T08:12:22.760721",
+      "ip": "193.70.33.128",
+      "country": "FR"
+    },
+    "201.34.151.230:23254:SS": {
+      "status": "dead",
+      "time": "2026-09-15T08:12:22.835245",
+      "ip": "201.34.151.230",
+      "country": "US"
     }
   }
 }
