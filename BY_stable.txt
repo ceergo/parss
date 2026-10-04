@@ -1,2 +1,2 @@
-vless://0c4e0fa4-d16e-47a2-8325-39a1a8fb04d8@gfgfdgdfg.apruxdomain.online:443?type=httpupgrade&security=tls&fp=chrome&sni=gfgfdgdfg.apruxdomain.online#%F0%9F%87%A7%F0%9F%87%BE%20Belarus%2C%20Minsk%20%7C%20%F0%9F%8C%90%20%7C%20%5BBL%5D
+vless://0c4e0fa4-d16e-47a2-8325-39a1a8fb04d8@gfgfdgdfg.apruxdomain.online:443?type=httpupgrade&security=tls&sni=gfgfdgdfg.apruxdomain.online&fp=safari#%F0%9F%87%A7%F0%9F%87%BE%20Belarus%2C%20Minsk%20%7C%20%F0%9F%8C%90%20%7C%20%5BBL%5D
 vless://0c4e0fa4-d16e-47a2-8325-39a1a8fb04d8@178.172.235.73:443?encryption=none&fp=firefox&security=tls&sni=gfgfdgdfg.apruxdomain.online&type=httpupgrade#%F0%9F%87%A7%F0%9F%87%BE%20Belarus%2C%20Minsk%20%7C%20%F0%9F%8C%90%20%7C%20%5BBL%5D
