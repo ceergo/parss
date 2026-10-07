@@ -14802,6 +14802,24 @@
       "time": "2026-10-07T07:57:22.111755",
       "ip": "198.41.212.20",
       "country": "US"
+    },
+    "psf-3.weedly.top:80:VLESS": {
+      "status": "alive",
+      "time": "2026-10-07T14:59:18.826949",
+      "ip": "199.232.131.119",
+      "country": "US"
+    },
+    "carolinafreigh.fun:443:HTTP": {
+      "status": "alive",
+      "time": "2026-10-07T14:59:18.923499",
+      "ip": "64.62.219.26",
+      "country": "US"
+    },
+    "ijug.jffq.electrocitymarket.ru:443:VLESS": {
+      "status": "alive",
+      "time": "2026-10-07T14:59:19.100473",
+      "ip": "144.31.150.195",
+      "country": "FI"
     }
   }
 }
