@@ -12846,6 +12846,54 @@
       "time": "2026-10-16T07:42:28.821309",
       "ip": "162.159.135.234",
       "country": "US"
+    },
+    "193.168.200.67:443:VLESS": {
+      "status": "dead",
+      "time": "2026-10-16T12:52:30.783542",
+      "ip": "193.168.200.67",
+      "country": "DE"
+    },
+    "revers.bachidze.com:443:VLESS": {
+      "status": "alive",
+      "time": "2026-10-16T12:52:28.503946",
+      "ip": "191.217.244.30",
+      "country": "US"
+    },
+    "steam.dnspro.icu:5001:VMESS": {
+      "status": "dead",
+      "time": "2026-10-16T12:52:28.634638",
+      "ip": "169.40.33.0",
+      "country": "DE"
+    },
+    "sh-cn-1.dnspro.icu:20025:VMESS": {
+      "status": "alive",
+      "time": "2026-10-16T12:52:28.640862",
+      "ip": "169.40.33.0",
+      "country": "DE"
+    },
+    "st-1.dnspro.icu:9111:VMESS": {
+      "status": "alive",
+      "time": "2026-10-16T12:52:28.679585",
+      "ip": "169.40.33.0",
+      "country": "DE"
+    },
+    "ophelia.mom:443:VMESS": {
+      "status": "alive",
+      "time": "2026-10-16T12:52:28.714985",
+      "ip": "103.224.182.210",
+      "country": "US"
+    },
+    "st-2.dnspro.icu:5100:VMESS": {
+      "status": "alive",
+      "time": "2026-10-16T12:52:28.720324",
+      "ip": "169.40.33.0",
+      "country": "DE"
+    },
+    "147.45.222.137:443:VLESS": {
+      "status": "dead",
+      "time": "2026-10-16T12:52:30.765825",
+      "ip": "147.45.222.137",
+      "country": "DE"
     }
   }
 }
