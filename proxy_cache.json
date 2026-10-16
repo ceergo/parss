@@ -12894,6 +12894,204 @@
       "time": "2026-10-16T12:52:30.765825",
       "ip": "147.45.222.137",
       "country": "DE"
+    },
+    "141.193.213.21:8443:VLESS": {
+      "status": "alive",
+      "time": "2026-10-16T20:17:18.619067",
+      "ip": "141.193.213.21",
+      "country": "US"
+    },
+    "news.zoom.us:8443:VLESS": {
+      "status": "alive",
+      "time": "2026-10-16T20:17:18.626029",
+      "ip": "141.193.213.20",
+      "country": "US"
+    },
+    "148.135.10.80:443:HTTP": {
+      "status": "alive",
+      "time": "2026-10-16T20:17:18.619038",
+      "ip": "148.135.10.80",
+      "country": "US"
+    },
+    "12.202.180.118:443:HTTP": {
+      "status": "alive",
+      "time": "2026-10-16T20:17:18.627162",
+      "ip": "12.202.180.118",
+      "country": "US"
+    },
+    "144.31.205.106:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-10-16T20:17:18.633154",
+      "ip": "144.31.205.106",
+      "country": "DE"
+    },
+    "88.198.91.100:30561:VMESS": {
+      "status": "alive",
+      "time": "2026-10-16T20:17:18.633480",
+      "ip": "88.198.91.100",
+      "country": "DE"
+    },
+    "167.17.68.89:443:VMESS": {
+      "status": "alive",
+      "time": "2026-10-16T20:17:18.665722",
+      "ip": "167.17.68.89",
+      "country": "US"
+    },
+    "57.128.164.21:80:VMESS": {
+      "status": "alive",
+      "time": "2026-10-16T20:17:18.667063",
+      "ip": "57.128.164.21",
+      "country": "FR"
+    },
+    "138.199.47.247:9443:HTTP": {
+      "status": "alive",
+      "time": "2026-10-16T20:17:18.674683",
+      "ip": "138.199.47.247",
+      "country": "FR"
+    },
+    "87.249.132.97:443:HTTP": {
+      "status": "alive",
+      "time": "2026-10-16T20:17:18.696964",
+      "ip": "87.249.132.97",
+      "country": "DE"
+    },
+    "37.120.233.18:443:HTTP": {
+      "status": "alive",
+      "time": "2026-10-16T20:17:18.706912",
+      "ip": "37.120.233.18",
+      "country": "GB"
+    },
+    "186.190.211.67:443:VMESS": {
+      "status": "alive",
+      "time": "2026-10-16T20:17:18.714657",
+      "ip": "186.190.211.67",
+      "country": "GB"
+    },
+    "141.193.213.20:8443:VLESS": {
+      "status": "alive",
+      "time": "2026-10-16T20:17:18.718057",
+      "ip": "141.193.213.20",
+      "country": "US"
+    },
+    "sevo.soroushsevo.cyou:443:VLESS": {
+      "status": "alive",
+      "time": "2026-10-16T20:17:18.756885",
+      "ip": "69.46.46.101",
+      "country": "US"
+    },
+    "146.70.242.130:443:HTTP": {
+      "status": "alive",
+      "time": "2026-10-16T20:17:18.773105",
+      "ip": "146.70.242.130",
+      "country": "SE"
+    },
+    "212.102.63.61:443:HTTP": {
+      "status": "alive",
+      "time": "2026-10-16T20:17:18.787837",
+      "ip": "212.102.63.61",
+      "country": "GB"
+    },
+    "178.128.45.156:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-10-16T20:17:18.818841",
+      "ip": "178.128.45.156",
+      "country": "GB"
+    },
+    "ruot.ayucloudservices.nl:35037:SS": {
+      "status": "alive",
+      "time": "2026-10-16T20:17:18.880604",
+      "ip": "172.96.160.250",
+      "country": "US"
+    },
+    "ruot.ayucloudservices.nl:35200:SS": {
+      "status": "alive",
+      "time": "2026-10-16T20:17:18.883150",
+      "ip": "172.96.160.250",
+      "country": "US"
+    },
+    "ruot.ayucloudservices.nl:40020:SS": {
+      "status": "alive",
+      "time": "2026-10-16T20:17:18.883197",
+      "ip": "172.96.160.250",
+      "country": "US"
+    },
+    "ruot.ayucloudservices.nl:22043:SS": {
+      "status": "alive",
+      "time": "2026-10-16T20:17:18.883251",
+      "ip": "172.96.160.250",
+      "country": "US"
+    },
+    "ruot.ayucloudservices.nl:40005:SS": {
+      "status": "alive",
+      "time": "2026-10-16T20:17:18.883758",
+      "ip": "172.96.160.250",
+      "country": "US"
+    },
+    "ruot.ayucloudservices.nl:40018:SS": {
+      "status": "alive",
+      "time": "2026-10-16T20:17:18.883911",
+      "ip": "172.96.160.250",
+      "country": "US"
+    },
+    "ruot.ayucloudservices.nl:22051:SS": {
+      "status": "alive",
+      "time": "2026-10-16T20:17:18.886202",
+      "ip": "172.96.160.250",
+      "country": "US"
+    },
+    "ruot.ayucloudservices.nl:35196:SS": {
+      "status": "alive",
+      "time": "2026-10-16T20:17:18.886298",
+      "ip": "172.96.160.250",
+      "country": "US"
+    },
+    "ruot.ayucloudservices.nl:35193:SS": {
+      "status": "alive",
+      "time": "2026-10-16T20:17:18.886393",
+      "ip": "172.96.160.250",
+      "country": "US"
+    },
+    "ruot.ayucloudservices.nl:22019:SS": {
+      "status": "alive",
+      "time": "2026-10-16T20:17:18.891393",
+      "ip": "172.96.160.250",
+      "country": "US"
+    },
+    "ruot.ayucloudservices.nl:40006:SS": {
+      "status": "alive",
+      "time": "2026-10-16T20:17:18.891640",
+      "ip": "172.96.160.250",
+      "country": "US"
+    },
+    "b2a2.velqixa.ir:39221:SS": {
+      "status": "alive",
+      "time": "2026-10-16T20:17:18.981542",
+      "ip": "37.27.253.60",
+      "country": "FI"
+    },
+    "se3.h1cloud.net:25119:VLESS": {
+      "status": "dead",
+      "time": "2026-10-16T20:17:21.239943",
+      "ip": "136.148.222.236",
+      "country": "SE"
+    },
+    "51.83.192.80:8388:SS": {
+      "status": "dead",
+      "time": "2026-10-16T20:17:21.077964",
+      "ip": "51.83.192.80",
+      "country": "FR"
+    },
+    "104.20.77.131:443:VMESS": {
+      "status": "dead",
+      "time": "2026-10-16T20:17:21.134908",
+      "ip": "104.20.77.131",
+      "country": "US"
+    },
+    "201.10.90.81:443:TROJAN": {
+      "status": "dead",
+      "time": "2026-10-16T20:17:21.219731",
+      "ip": "201.10.90.81",
+      "country": "PL"
     }
   }
 }
