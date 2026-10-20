@@ -13494,6 +13494,144 @@
       "time": "2026-10-20T06:53:22.001731",
       "ip": "95.130.84.36",
       "country": "BY"
+    },
+    "138.199.35.209:9002:HTTP": {
+      "status": "alive",
+      "time": "2026-10-20T17:38:18.668867",
+      "ip": "138.199.35.209",
+      "country": "US"
+    },
+    "ghosts-spasm.quick-cdn.net:443:VLESS": {
+      "status": "alive",
+      "time": "2026-10-20T17:38:18.687409",
+      "ip": "151.101.161.242",
+      "country": "US"
+    },
+    "209.38.225.64:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-10-20T17:38:18.727275",
+      "ip": "209.38.225.64",
+      "country": "DE"
+    },
+    "octavi.cfd:443:VMESS": {
+      "status": "alive",
+      "time": "2026-10-20T17:38:18.757766",
+      "ip": "103.224.182.210",
+      "country": "US"
+    },
+    "95.85.32.57:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-10-20T17:38:18.781228",
+      "ip": "95.85.32.57",
+      "country": "NL"
+    },
+    "pl140.vpnbook.com:443:SS": {
+      "status": "alive",
+      "time": "2026-10-20T17:38:18.784175",
+      "ip": "54.36.174.140",
+      "country": "FR"
+    },
+    "de2.dedushka.top:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-10-20T17:38:18.796222",
+      "ip": "188.241.241.122",
+      "country": "DE"
+    },
+    "pl134.vpnbook.com:443:SS": {
+      "status": "alive",
+      "time": "2026-10-20T17:38:18.799309",
+      "ip": "54.36.174.134",
+      "country": "FR"
+    },
+    "167.172.172.190:443:HTTP": {
+      "status": "alive",
+      "time": "2026-10-20T17:38:18.802457",
+      "ip": "167.172.172.190",
+      "country": "DE"
+    },
+    "de6.dedushka.top:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-10-20T17:38:18.807215",
+      "ip": "188.241.241.49",
+      "country": "DE"
+    },
+    "pl2.dedushka.top:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-10-20T17:38:18.807255",
+      "ip": "31.133.0.186",
+      "country": "PL"
+    },
+    "top-goshawk.rooster465.autos:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-10-20T17:38:18.810009",
+      "ip": "202.78.163.173",
+      "country": "PL"
+    },
+    "nl-1.tr202607.com:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-10-20T17:38:18.816675",
+      "ip": "78.142.194.96",
+      "country": "NL"
+    },
+    "nl-4.tr202507.com:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-10-20T17:38:18.818018",
+      "ip": "194.124.216.109",
+      "country": "NL"
+    },
+    "de4.dedushka.top:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-10-20T17:38:18.829337",
+      "ip": "188.241.241.102",
+      "country": "DE"
+    },
+    "188.241.241.236:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-10-20T17:38:18.857452",
+      "ip": "188.241.241.236",
+      "country": "DE"
+    },
+    "de8.dedushka.top:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-10-20T17:38:18.882786",
+      "ip": "188.241.241.117",
+      "country": "DE"
+    },
+    "bbbnhj.131.pp.ua:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-10-20T17:38:19.140825",
+      "ip": "135.181.41.169",
+      "country": "FI"
+    },
+    "nnnmjju.131.pp.ua:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-10-20T17:38:19.245795",
+      "ip": "135.181.41.169",
+      "country": "FI"
+    },
+    "vvbgh.131.pp.ua:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-10-20T17:38:19.246468",
+      "ip": "135.181.41.169",
+      "country": "FI"
+    },
+    "47.87.149.164:443:VMESS": {
+      "status": "dead",
+      "time": "2026-10-20T17:38:21.179649",
+      "ip": "47.87.149.164",
+      "country": "DE"
+    },
+    "bbbnnmj.131.pp.ua:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-10-20T17:38:21.341638",
+      "ip": "135.181.41.169",
+      "country": "FI"
+    },
+    "data-hk-v2.shwjfkw.cn:50205:VMESS": {
+      "status": "dead",
+      "time": "2026-10-20T17:38:21.364969",
+      "ip": "46.82.174.69",
+      "country": "DE"
     }
   }
 }
