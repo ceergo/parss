@@ -12900,6 +12900,30 @@
       "time": "2026-10-22T17:45:04.110747",
       "ip": "135.181.41.169",
       "country": "FI"
+    },
+    "minimize-evenness.cdn-content.com:443:VLESS": {
+      "status": "alive",
+      "time": "2026-10-22T23:53:47.929765",
+      "ip": "140.248.145.242",
+      "country": "US"
+    },
+    "uk.2ul.top:443:VLESS": {
+      "status": "alive",
+      "time": "2026-10-22T23:53:48.051664",
+      "ip": "217.154.58.196",
+      "country": "GB"
+    },
+    "45.85.117.174:443:VLESS": {
+      "status": "alive",
+      "time": "2026-10-22T23:53:48.146262",
+      "ip": "45.85.117.174",
+      "country": "NL"
+    },
+    "piracy-android.video-streams.org:443:VLESS": {
+      "status": "alive",
+      "time": "2026-10-22T23:53:48.076059",
+      "ip": "140.248.145.242",
+      "country": "US"
     }
   }
 }
