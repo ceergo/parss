@@ -13098,6 +13098,210 @@
       "time": "2026-10-23T02:40:02.804439",
       "ip": "47.245.131.215",
       "country": "DE"
+    },
+    "216.24.57.225:2087:TROJAN": {
+      "status": "alive",
+      "time": "2026-10-23T08:06:38.136495",
+      "ip": "216.24.57.225",
+      "country": "US"
+    },
+    "216.128.153.186:443:SS": {
+      "status": "alive",
+      "time": "2026-10-23T08:06:38.202330",
+      "ip": "216.128.153.186",
+      "country": "US"
+    },
+    "64.42.181.102:12996:SS": {
+      "status": "alive",
+      "time": "2026-10-23T08:06:38.214328",
+      "ip": "64.42.181.102",
+      "country": "US"
+    },
+    "198.44.138.27:9443:HTTP": {
+      "status": "alive",
+      "time": "2026-10-23T08:06:38.243532",
+      "ip": "198.44.138.27",
+      "country": "US"
+    },
+    "212.102.63.1:443:HTTP": {
+      "status": "alive",
+      "time": "2026-10-23T08:06:38.244123",
+      "ip": "212.102.63.1",
+      "country": "GB"
+    },
+    "94.249.179.249:443:VLESS": {
+      "status": "alive",
+      "time": "2026-10-23T08:06:38.353354",
+      "ip": "94.249.179.249",
+      "country": "DE"
+    },
+    "146.70.242.146:9443:HTTP": {
+      "status": "alive",
+      "time": "2026-10-23T08:06:38.266398",
+      "ip": "146.70.242.146",
+      "country": "SE"
+    },
+    "91.245.225.79:2053:TROJAN": {
+      "status": "alive",
+      "time": "2026-10-23T08:06:38.273396",
+      "ip": "91.245.225.79",
+      "country": "CH"
+    },
+    "31.7.62.50:443:HTTP": {
+      "status": "alive",
+      "time": "2026-10-23T08:06:38.278209",
+      "ip": "31.7.62.50",
+      "country": "CH"
+    },
+    "de5.dedushka.top:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-10-23T08:06:38.280776",
+      "ip": "188.241.241.116",
+      "country": "DE"
+    },
+    "193.151.160.9:19999:SS": {
+      "status": "alive",
+      "time": "2026-10-23T08:06:38.308055",
+      "ip": "193.151.160.9",
+      "country": "US"
+    },
+    "213.177.229.161:9443:HTTP": {
+      "status": "alive",
+      "time": "2026-10-23T08:06:38.311957",
+      "ip": "213.177.229.161",
+      "country": "DE"
+    },
+    "23.149.28.8.sslip.io:8443:TROJAN": {
+      "status": "alive",
+      "time": "2026-10-23T08:06:38.313666",
+      "ip": "23.149.28.8",
+      "country": "US"
+    },
+    "37.120.156.34:443:HTTP": {
+      "status": "alive",
+      "time": "2026-10-23T08:06:38.330572",
+      "ip": "37.120.156.34",
+      "country": "PL"
+    },
+    "trend.eidoslab.link:443:VLESS": {
+      "status": "alive",
+      "time": "2026-10-23T08:06:38.410355",
+      "ip": "45.74.159.238",
+      "country": "TR"
+    },
+    "de12.dedushka.top:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-10-23T08:06:38.349525",
+      "ip": "188.241.241.133",
+      "country": "DE"
+    },
+    "84.17.47.124:9002:HTTP": {
+      "status": "alive",
+      "time": "2026-10-23T08:06:38.353400",
+      "ip": "84.17.47.124",
+      "country": "NL"
+    },
+    "eager-louse.rooster465.autos:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-10-23T08:06:38.362032",
+      "ip": "89.39.70.180",
+      "country": "NL"
+    },
+    "158.173.154.5:9002:HTTP": {
+      "status": "alive",
+      "time": "2026-10-23T08:06:38.376803",
+      "ip": "158.173.154.5",
+      "country": "DE"
+    },
+    "enough-basilisk.rooster465.autos:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-10-23T08:06:38.390908",
+      "ip": "202.78.163.100",
+      "country": "PL"
+    },
+    "84.17.50.214:9443:HTTP": {
+      "status": "alive",
+      "time": "2026-10-23T08:06:38.391068",
+      "ip": "84.17.50.214",
+      "country": "GB"
+    },
+    "nl-4.tr202507.com:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-10-23T08:06:38.391478",
+      "ip": "194.124.216.109",
+      "country": "NL"
+    },
+    "149.34.248.65:443:HTTP": {
+      "status": "alive",
+      "time": "2026-10-23T08:06:38.394630",
+      "ip": "149.34.248.65",
+      "country": "US"
+    },
+    "84.17.47.123:9002:HTTP": {
+      "status": "alive",
+      "time": "2026-10-23T08:06:38.395405",
+      "ip": "84.17.47.123",
+      "country": "NL"
+    },
+    "de3.dedushka.top:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-10-23T08:06:38.410261",
+      "ip": "188.241.241.173",
+      "country": "DE"
+    },
+    "83.206.1.225:8090:HTTP": {
+      "status": "alive",
+      "time": "2026-10-23T08:06:38.410315",
+      "ip": "83.206.1.225",
+      "country": "FR"
+    },
+    "37.120.156.18:443:HTTP": {
+      "status": "alive",
+      "time": "2026-10-23T08:06:38.417110",
+      "ip": "37.120.156.18",
+      "country": "PL"
+    },
+    "emerging-weevil.rooster465.autos:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-10-23T08:06:38.426065",
+      "ip": "193.169.239.14",
+      "country": "NL"
+    },
+    "nl-1.tr202607.com:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-10-23T08:06:38.445815",
+      "ip": "78.142.194.96",
+      "country": "NL"
+    },
+    "game-firefly.rooster465.autos:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-10-23T08:06:38.450387",
+      "ip": "202.78.163.19",
+      "country": "PL"
+    },
+    "pro-crane.rooster465.autos:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-10-23T08:06:38.463391",
+      "ip": "89.39.70.120",
+      "country": "NL"
+    },
+    "top-goshawk.rooster465.autos:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-10-23T08:06:38.488750",
+      "ip": "202.78.163.173",
+      "country": "PL"
+    },
+    "free-v7-09.elbrusway.online:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-10-23T08:06:38.619418",
+      "ip": "64.188.66.196",
+      "country": "DE"
+    },
+    "78.17.171.137:443:TROJAN": {
+      "status": "dead",
+      "time": "2026-10-23T08:06:40.730758",
+      "ip": "78.17.171.137",
+      "country": "PL"
     }
   }
 }
