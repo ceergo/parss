@@ -13470,6 +13470,18 @@
       "time": "2026-10-26T11:55:24.514662",
       "ip": "45.142.106.122",
       "country": "DE"
+    },
+    "helixgaming.ir:80:VLESS": {
+      "status": "alive",
+      "time": "2026-10-26T17:58:25.404724",
+      "ip": "206.1.99.204",
+      "country": "TR"
+    },
+    "data-hk-v2.shwjfkw.cn:50205:VMESS": {
+      "status": "dead",
+      "time": "2026-10-26T17:58:27.800369",
+      "ip": "8.7.198.46",
+      "country": "US"
     }
   }
 }
