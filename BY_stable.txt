@@ -1,1 +1,0 @@
-trojan://humanity@93.85.236.9:443?security=tls&sni=www.cordweave.com&type=ws&path=/assignment&Host=www.cordweave.com#%F0%9F%87%A7%F0%9F%87%BEBY-93.85.236.9-0692
