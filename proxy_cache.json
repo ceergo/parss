@@ -14604,6 +14604,36 @@
       "time": "2026-11-05T15:57:04.070137",
       "ip": "158.173.51.113",
       "country": "DE"
+    },
+    "Sclass-C1.catcat321.com:20086:TROJAN": {
+      "status": "alive",
+      "time": "2026-11-05T21:43:39.428044",
+      "ip": "157.254.38.210",
+      "country": "US"
+    },
+    "sclass-c1.catcat321.com:20086:TROJAN": {
+      "status": "alive",
+      "time": "2026-11-05T21:43:39.494292",
+      "ip": "157.254.38.210",
+      "country": "US"
+    },
+    "Sclass-00.catcat321.com:20123:TROJAN": {
+      "status": "alive",
+      "time": "2026-11-05T21:43:39.526244",
+      "ip": "157.254.38.210",
+      "country": "US"
+    },
+    "sclass-00.catcat321.com:20123:TROJAN": {
+      "status": "alive",
+      "time": "2026-11-05T21:43:39.541016",
+      "ip": "157.254.38.210",
+      "country": "US"
+    },
+    "dns27.m3hrzd.ir:1354:SS": {
+      "status": "alive",
+      "time": "2026-11-05T21:43:39.824318",
+      "ip": "185.4.115.146",
+      "country": "NL"
     }
   }
 }
