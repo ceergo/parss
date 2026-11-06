@@ -13776,6 +13776,48 @@
       "time": "2026-11-06T08:46:54.859688",
       "ip": "172.96.192.100",
       "country": "US"
+    },
+    "141.193.213.21:8443:VLESS": {
+      "status": "alive",
+      "time": "2026-11-06T16:30:00.712486",
+      "ip": "141.193.213.21",
+      "country": "US"
+    },
+    "news.zoom.us:2087:VLESS": {
+      "status": "alive",
+      "time": "2026-11-06T16:30:00.735352",
+      "ip": "141.193.213.20",
+      "country": "US"
+    },
+    "news.zoom.us:8443:VLESS": {
+      "status": "alive",
+      "time": "2026-11-06T16:30:00.736166",
+      "ip": "141.193.213.20",
+      "country": "US"
+    },
+    "141.193.213.20:8443:VLESS": {
+      "status": "alive",
+      "time": "2026-11-06T16:30:00.749711",
+      "ip": "141.193.213.20",
+      "country": "US"
+    },
+    "fr.golangwikito.cfd:443:VLESS": {
+      "status": "alive",
+      "time": "2026-11-06T16:30:01.009273",
+      "ip": "31.56.186.24",
+      "country": "NL"
+    },
+    "de-bots4.h1cloud.net:25267:TROJAN": {
+      "status": "alive",
+      "time": "2026-11-06T16:30:01.098837",
+      "ip": "201.8.71.110",
+      "country": "DE"
+    },
+    "data-hk-v2.shwjfkw.cn:50205:VMESS": {
+      "status": "dead",
+      "time": "2026-11-06T16:30:03.462181",
+      "ip": "8.7.198.46",
+      "country": "US"
     }
   }
 }
