@@ -13374,6 +13374,246 @@
       "time": "2026-11-26T17:26:44.181240",
       "ip": "51.195.140.208",
       "country": "FR"
+    },
+    "3.219.184.102:443:VLESS": {
+      "status": "alive",
+      "time": "2026-11-27T01:18:46.270886",
+      "ip": "3.219.184.102",
+      "country": "US"
+    },
+    "66.163.114.166:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-11-27T01:18:46.335649",
+      "ip": "66.163.114.166",
+      "country": "US"
+    },
+    "147.45.61.144:443:VLESS": {
+      "status": "alive",
+      "time": "2026-11-27T01:18:46.428988",
+      "ip": "147.45.61.144",
+      "country": "NL"
+    },
+    "50.7.28.214:443:VLESS": {
+      "status": "alive",
+      "time": "2026-11-27T01:18:46.369776",
+      "ip": "50.7.28.214",
+      "country": "US"
+    },
+    "66.163.122.25:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-11-27T01:18:46.373681",
+      "ip": "66.163.122.25",
+      "country": "US"
+    },
+    "94.130.237.57:27154:VMESS": {
+      "status": "alive",
+      "time": "2026-11-27T01:18:46.390425",
+      "ip": "94.130.237.57",
+      "country": "DE"
+    },
+    "yg2.needss.top:12007:VMESS": {
+      "status": "alive",
+      "time": "2026-11-27T01:18:46.400832",
+      "ip": "82.39.250.214",
+      "country": "GB"
+    },
+    "193.29.139.198:8080:SS": {
+      "status": "alive",
+      "time": "2026-11-27T01:18:46.401766",
+      "ip": "193.29.139.198",
+      "country": "NL"
+    },
+    "186.241.106.5:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-11-27T01:18:46.422179",
+      "ip": "186.241.106.5",
+      "country": "US"
+    },
+    "213.202.208.199:7001:SS": {
+      "status": "alive",
+      "time": "2026-11-27T01:18:46.437127",
+      "ip": "213.202.208.199",
+      "country": "DE"
+    },
+    "66.163.112.13:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-11-27T01:18:46.445120",
+      "ip": "66.163.112.13",
+      "country": "US"
+    },
+    "193.108.119.78:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-11-27T01:18:46.469640",
+      "ip": "193.108.119.78",
+      "country": "DE"
+    },
+    "13.51.184.77:443:VLESS": {
+      "status": "alive",
+      "time": "2026-11-27T01:18:46.482680",
+      "ip": "13.51.184.77",
+      "country": "SE"
+    },
+    "038b7750485a79a0.lebufflonfermegroup.us:35031:SS": {
+      "status": "alive",
+      "time": "2026-11-27T01:18:46.480432",
+      "ip": "172.96.160.250",
+      "country": "US"
+    },
+    "038b7750485a79a0.lebufflonfermegroup.us:22061:SS": {
+      "status": "alive",
+      "time": "2026-11-27T01:18:46.480657",
+      "ip": "172.96.160.250",
+      "country": "US"
+    },
+    "038b7750485a79a0.lebufflonfermegroup.us:40030:SS": {
+      "status": "alive",
+      "time": "2026-11-27T01:18:46.482478",
+      "ip": "172.96.160.250",
+      "country": "US"
+    },
+    "038b7750485a79a0.lebufflonfermegroup.us:40000:SS": {
+      "status": "alive",
+      "time": "2026-11-27T01:18:46.483072",
+      "ip": "172.96.160.250",
+      "country": "US"
+    },
+    "038b7750485a79a0.lebufflonfermegroup.us:35190:SS": {
+      "status": "alive",
+      "time": "2026-11-27T01:18:46.483801",
+      "ip": "172.96.160.250",
+      "country": "US"
+    },
+    "038b7750485a79a0.lebufflonfermegroup.us:40031:SS": {
+      "status": "alive",
+      "time": "2026-11-27T01:18:46.484463",
+      "ip": "172.96.160.250",
+      "country": "US"
+    },
+    "038b7750485a79a0.lebufflonfermegroup.us:35194:SS": {
+      "status": "alive",
+      "time": "2026-11-27T01:18:46.486462",
+      "ip": "172.96.160.250",
+      "country": "US"
+    },
+    "038b7750485a79a0.lebufflonfermegroup.us:40032:SS": {
+      "status": "alive",
+      "time": "2026-11-27T01:18:46.486496",
+      "ip": "172.96.160.250",
+      "country": "US"
+    },
+    "038b7750485a79a0.lebufflonfermegroup.us:40012:SS": {
+      "status": "alive",
+      "time": "2026-11-27T01:18:46.486604",
+      "ip": "172.96.160.250",
+      "country": "US"
+    },
+    "038b7750485a79a0.lebufflonfermegroup.us:22084:SS": {
+      "status": "alive",
+      "time": "2026-11-27T01:18:46.486742",
+      "ip": "172.96.160.250",
+      "country": "US"
+    },
+    "038b7750485a79a0.lebufflonfermegroup.us:21195:SS": {
+      "status": "alive",
+      "time": "2026-11-27T01:18:46.491653",
+      "ip": "172.96.160.250",
+      "country": "US"
+    },
+    "038b7750485a79a0.lebufflonfermegroup.us:21193:SS": {
+      "status": "alive",
+      "time": "2026-11-27T01:18:46.492438",
+      "ip": "172.96.160.250",
+      "country": "US"
+    },
+    "038b7750485a79a0.lebufflonfermegroup.us:40040:SS": {
+      "status": "alive",
+      "time": "2026-11-27T01:18:46.494309",
+      "ip": "172.96.160.250",
+      "country": "US"
+    },
+    "038b7750485a79a0.lebufflonfermegroup.us:22069:SS": {
+      "status": "alive",
+      "time": "2026-11-27T01:18:46.494410",
+      "ip": "172.96.160.250",
+      "country": "US"
+    },
+    "66.163.114.106:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-11-27T01:18:46.499012",
+      "ip": "66.163.114.106",
+      "country": "US"
+    },
+    "038b7750485a79a0.lebufflonfermegroup.us:21191:SS": {
+      "status": "alive",
+      "time": "2026-11-27T01:18:46.501626",
+      "ip": "172.96.160.250",
+      "country": "US"
+    },
+    "038b7750485a79a0.lebufflonfermegroup.us:40022:SS": {
+      "status": "alive",
+      "time": "2026-11-27T01:18:46.505082",
+      "ip": "172.96.160.250",
+      "country": "US"
+    },
+    "sclass-01.catcat321.com:20058:TROJAN": {
+      "status": "alive",
+      "time": "2026-11-27T01:18:46.528556",
+      "ip": "157.254.38.210",
+      "country": "US"
+    },
+    "66.163.114.114:443:TROJAN": {
+      "status": "alive",
+      "time": "2026-11-27T01:18:46.543898",
+      "ip": "66.163.114.114",
+      "country": "US"
+    },
+    "45.86.158.201:443:VLESS": {
+      "status": "alive",
+      "time": "2026-11-27T01:18:46.577441",
+      "ip": "45.86.158.201",
+      "country": "DE"
+    },
+    "waic.pro.main.sys-metric-report.com:28014:SS": {
+      "status": "alive",
+      "time": "2026-11-27T01:18:46.651668",
+      "ip": "143.20.71.68",
+      "country": "US"
+    },
+    "de.vmagnum.win:443:VLESS": {
+      "status": "alive",
+      "time": "2026-11-27T01:18:46.704658",
+      "ip": "50.7.28.214",
+      "country": "US"
+    },
+    "38917fx.es9.h1clayd.click:443:VLESS": {
+      "status": "alive",
+      "time": "2026-11-27T01:18:46.738372",
+      "ip": "159.200.230.42",
+      "country": "DE"
+    },
+    "b3cd32g.es9.h1clayd.click:443:VLESS": {
+      "status": "alive",
+      "time": "2026-11-27T01:18:46.793993",
+      "ip": "159.200.230.42",
+      "country": "DE"
+    },
+    "fl-b2.golangwikito.cfd:61374:VLESS": {
+      "status": "dead",
+      "time": "2026-11-27T01:18:48.934669",
+      "ip": "164.5.225.26",
+      "country": "FI"
+    },
+    "ee.prosetupvideo.shop:443:VLESS": {
+      "status": "dead",
+      "time": "2026-11-27T01:18:49.030302",
+      "ip": "164.5.225.27",
+      "country": "FI"
+    },
+    "data-hk-v2.shwjfkw.cn:50205:VMESS": {
+      "status": "dead",
+      "time": "2026-11-27T01:18:49.138118",
+      "ip": "8.7.198.46",
+      "country": "US"
     }
   }
 }
